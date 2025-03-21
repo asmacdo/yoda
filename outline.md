@@ -10,7 +10,7 @@ What is Version Control  (Super brief, one sentence maybe 2 if critical)
 How can VCS Datasets be useful?
 - increased rigor: through transparency and reproducibility
 
-Why it isnt done
+Why it isnt done 
  - additional layer of complexity
  - difficulty prevents use
  - ad hoc solutions are expensive to create difficult to re-use
