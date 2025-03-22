@@ -20,8 +20,13 @@
 
 \section{Introduction}
 
-% Yarik: start with description of the field and problem statement,  general notion of all sciences becoming increasingly empirical. Data is integral part. But people manage code, containers and data all separate without necessarily having consolidated represenation allowing to re-gather/establish all involved components . Versioning of data is usually disregarded...
-% Then briefly introduce version control for data, state that versioning usually present for containers and even more often code 
+Managing data presents unprecedented challenges in modern science due to rapidly expanding dataset scale, complexity, and interdependency.
+Currently it remains common practice to maintain data, code, provenance, and computational environments separately-- often lacking sufficient reproducibility, transparency, and therefore rigor.
+
+Version control of research objects is increasingly adopted, particularly for code and containers, yet data versioning remains frequently disregarded [cite DataLad paper?].
+We assert that a composed representation of explicitly versioned data, code, software environments, and provenance within a single reproducible structure has significants benefits.
+YODA attempts to provide a simple set of idioms that lead to the development of such a dataset structure.
+
 % Composition remains "an issue"
 % Often relates to "provenance"
 % **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV ** 
