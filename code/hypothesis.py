@@ -91,7 +91,7 @@ def insert_annotations(source_text, annotations):
             continue
         start_idx, end_idx = pos
         comment = ann.get("text", "")
-        marker = f"[[ANNOTATION: {comment}]]"
+        marker = f"[[ANNOTATION-{ann.get('user')}: {comment}]]"
         # Record the operation at the end index only.
         inserts.append((end_idx, marker))
 
