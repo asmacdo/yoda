@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+from pathlib import Path
 import requests
 import urllib.parse
 from collections import defaultdict
@@ -14,6 +15,7 @@ if not API_TOKEN:
     raise ValueError("Please set the HYPOTHESIS_API_TOKEN environment variable.")
 API_BASE_URL = "https://api.hypothes.is/api/search"
 HEADERS = {"Authorization": f"Bearer {API_TOKEN}"}
+OUTPUTS_PATH = "outputs/"
 
 def fetch_annotations(tag):
     """Fetch annotations for a given tag."""
@@ -77,7 +79,7 @@ def find_annotation_positions(source_text, annotation):
 def insert_annotations(source_text, annotations):
     """
     Insert annotation markers into the source text.
-    For each annotation, insert a start marker before and an end marker after the annotated snippet.
+    For each annotation, insert a marker _after_ the annotated snippet.
     Handles multiple annotations by collecting all insertion operations and applying them in descending order.
     """
     # List of (position, marker) tuples.
@@ -89,13 +91,11 @@ def insert_annotations(source_text, annotations):
             continue
         start_idx, end_idx = pos
         comment = ann.get("text", "")
-        marker_start = f"[[ANNOTATION: {comment}]]"
-        marker_end = "[[/ANNOTATION]]"
-        # Record the operations; they are computed relative to the original text.
-        inserts.append((start_idx, marker_start))
-        inserts.append((end_idx, marker_end))
+        marker = f"[[ANNOTATION: {comment}]]"
+        # Record the operation at the end index only.
+        inserts.append((end_idx, marker))
 
-    # Sort operations by position descending so that later insertions don't affect earlier offsets.
+    # Sort operations by position descending so that earlier insertions don't affect later offsets.
     inserts.sort(key=lambda x: x[0], reverse=True)
     modified_text = source_text
     for pos, marker in inserts:
@@ -139,7 +139,8 @@ def main():
             continue
         modified_text = insert_annotations(source_text, anns)
         filename = sanitize_filename(uri)
-        with open(filename, "w", encoding="utf-8") as f:
+        file_path = Path(OUTPUTS_PATH, filename)
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(modified_text)
         print(f"Saved annotated source to {filename}")
 
