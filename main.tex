@@ -20,12 +20,19 @@
 
 \section{Introduction}
 
-Managing data presents unprecedented challenges in modern science due to rapidly expanding dataset scale, complexity, and interdependency.
-Currently it remains common practice to maintain data, code, provenance, and computational environments separately-- often lacking sufficient reproducibility, transparency, and therefore rigor.
+Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
+A workflow is the formal specification of data flow and execution control between components, which include executable code, configuration files, data (inputs and outputs), and provenance records.
+Executing a workflow with specific inputs and parameters generates a workflow run—a complete record of the execution process documenting the method, intermediate steps, and outputs.
+Currently, however, workflow components—data, code, provenance, and computational environments—are frequently managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
+While version control is standard practice for code and containers, data versioning and integrated provenance tracking remain frequently overlooked.
 
-Version control of research objects is increasingly adopted, particularly for code and containers, yet data versioning remains frequently disregarded [cite DataLad paper?].
-We assert that a composed representation of explicitly versioned data, code, software environments, and provenance within a single reproducible structure has significants benefits.
-YODA attempts to provide a simple set of idioms that lead to the development of such a dataset structure.
+The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS guidelines for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
+Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
+
+Building on this foundation, YODA offers a set of best practices for structuring the full research objects in a reproducible and FAIR-aligned manner.
+By promoting idiomatic version control and modular project organization, YODA helps researchers treat analysis specifications and outputs as composable, structured digital objects.
+This approach complements formal workflow standards (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
 % Composition remains "an issue"
 % Often relates to "provenance"
