@@ -1,0 +1,7 @@
+# dev
+httpie
+ipdb 
+
+# fr
+requests
+beautifulsoup4
