@@ -12,7 +12,6 @@
 \section{Immediate TODOs}
 
 - do research on related compositional patterns across standards and fields
-- 
 
 \section{Abstract}
 
@@ -36,23 +35,40 @@ This approach complements formal workflow standards (e.g., FAIR4RS, RO-Crate) an
 
 % Composition remains "an issue"
 % Often relates to "provenance"
-% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV ** 
+% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
 % Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
 
 % Special accent should be pointed to "pragmatism" -- there could be "migrations" between pragmatic and "standardized" (e.g. DataLad run records -> PROV)
 
 \section{Results}
 
-% ... pillars ...
+\subsection{Version Control Everything}
 
+Outline:
+  - problems with non-versioncontrolled data
+  - how version control addresses the problems
+    ie, version control tools associate a unique identifier and basic provenance with each revision, and thus enable the identification of precise version states of digital files or collections of files.
+  - how traditional version control (git) can be extended to large datasets
+  - other benefits
+    - collaboration
+    - reversion of changes
+    - time travel
 
-Yarik feels that we have
+Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
+Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
+This ambiguity undermines trust, complicates collaboration, and impairs reproducibility, particularly when datasets undergo frequent updates or transformations.
 
-- Composition
- - self containment
- - compute environments 
-- Version control
-- Actionability (PROV)
+Version control systems (VCS), such as git, directly address these issues by associating each revision with a unique identifier and recording basic provenance information, including who made the changes, when, and why.
+By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
+Although traditional version control systems have limitations when managing large datasets due to storage inefficiencies, modern tools such as git-annex, DataLad, or DVC effectively extend git-like functionality to handle large, binary, and distributed datasets.
+These tools enable researchers to manage extensive datasets without losing the benefits of traditional version control, including improved collaboration through explicit tracking of changes, efficient reversion of undesired modifications, and the ability to reconstruct past research states—effectively enabling "time travel."
+
+Critically, approaching full reproducibility requires that version control encompasses all components essential for replicating computational workflows.
+These components typically include raw and derived datasets, preprocessing and analysis scripts, parameter and configuration files, computational environment definitions (such as Docker or Singularity containers), and accompanying documentation describing workflow execution details.
+Omitting even one component can severely compromise reproducibility, making comprehensive version control across these assets a fundamental necessity.
+
+P1.1 All assets essential to replicate computational execution MUST be included
+P1.2 All assets essential to replicate computational execution SHOULD be version controlled using the same version control system
 
 \section{Discussion}
 \section{Methods}
