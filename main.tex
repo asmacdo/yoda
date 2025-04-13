@@ -103,6 +103,27 @@ Thus, a dataset version can be precisely described as the pairing of generated r
   \item Components \textbf{SHOULD} accommodate domain-specific standards where applicable.
 \end{itemize}
 
+\section{Incorporating Provenance into VCS History}
+
+Provenance—the detailed record of actions taken to produce research outputs—is essential for reproducibility, transparency, and trust in scientific workflows.
+Typically, provenance collection occurs separately from version control, leading to fragmentation of essential metadata and difficulties reconstructing workflows accurately or automatically.
+
+YODA advocates embedding provenance directly into version control histories by encoding precise descriptions of computational actions into commit records.
+Provenance of all modifications to assets need to be explicitly annotated within these version control histories.
+Provenance-rich commit histories enable exact repetition of computational steps or targeted remixing of workflows by selectively modifying certain components.
+For modifications driven by code, provenance should be annotated programmatically, and this automated capture requires explicit version information for all components used.
+
+This methodology provides immediate practical utility even before comprehensive workflow automation is achievable, facilitating reproducible research and iterative experimentation.
+Furthermore, integrating automated provenance capture into the commit process ensures transparency and reduces human error or oversight, creating inherently detailed, auditable records of the research process.
+Collectively, implementing a structured, idiomatic version control strategy using YODA enhances the self-containment and completeness of research workflows, ensures clear, repeatable provenance, and facilitates collaborative, modular, and portable science.
+
+\textbf{Formal Principles:}
+
+\begin{itemize}
+\item Provenance of all modifications to the assets \textbf{MUST} be annotated.
+\item Provenance of code-driven modifications to assets \textbf{SHOULD} be annotated programmatically, and \textbf{MUST} include the versions of all components used.
+\end{itemize}
+
 \section{Discussion}
 \section{Methods}
 \section{Data Availability}
