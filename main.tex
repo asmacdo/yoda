@@ -70,6 +70,39 @@ Omitting even one component can severely compromise reproducibility, making comp
 P1.1 All assets essential to replicate computational execution MUST be included
 P1.2 All assets essential to replicate computational execution SHOULD be version controlled using the same version control system
 
+\section{Modularity}
+
+Monolithic structures present significant barriers to effective development, maintenance, and reuse.
+Managing datasets as single, large units complicates incremental updates, obscures dependencies, inhibits flexible reuse or remixing of individual components, and can be notably time-consuming.
+The lack of granularity often results in inefficient storage and processing, as small changes may necessitate duplicating or regenerating large portions of data.
+
+Adopting a modular organization, as advocated by YODA, directly addresses these challenges through explicit separation of concerns.
+Rather than managing the dataset as one indivisible whole, YODA promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
+
+The layout of these components plays a crucial role in enabling effective modularity.
+An idiomatic YODA dataset clearly delineates elements into structured directories, such as:
+
+\begin{itemize}
+  \item \textbf{code/}: containing analysis scripts and tests
+  \item \textbf{inputs/}: encapsulating raw or intermediate datasets
+  \item \textbf{envs/}: defining computational environments (e.g., Singularity containers)
+  \item \textbf{docs/}: for project documentation
+  \item \textbf{results/}: explicitly identified outputs (e.g., figures, tables, derived datasets)
+\end{itemize}
+
+This intentional organization clarifies how components interact and supports domain-specific standards (e.g., BIDS).
+It enables researchers to compose and recombine modules flexibly to produce varied outcomes.
+Thus, a dataset version can be precisely described as the pairing of generated results with composition of specific module versions, each independently managed.
+
+\textbf{Formal Principles:}
+
+\begin{itemize}
+  \item Assets \textbf{SHOULD} be organized in a modular structure.
+  \item All assets essential to replicate computational execution \textbf{MAY} be included directly in the dataset or linked as subdatasets.
+  \item Components \textbf{SHOULD} accommodate domain-specific standards where applicable.
+\end{itemize}
+
 \section{Discussion}
 \section{Methods}
 \section{Data Availability}
