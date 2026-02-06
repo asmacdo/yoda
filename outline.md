@@ -3,9 +3,10 @@
 > Must follow requirements in [NMETH-ARTICLE-REQUIREMENTS.md](NMETH-ARTICLE-REQUIREMENTS.md)
 
 ## Abstract
-- TODO: compose after other sections filled out
+- TODO: compose after other sections filled out (≤150 words, unreferenced)
 
 ## Introduction
+- TODO: VIOLATION — must not have heading or subheadings. Remove "Introduction" heading and flatten "Related Work" subsection into introductory prose.
 - Challenge: dataset scale, complexity, interdependency
 - Workflows as formal specifications (code, config, data, provenance)
 - Components managed separately undermines reproducibility
@@ -66,6 +67,7 @@
 - Optional (MAY): P2.2, P2.3
 
 ## Discussion
+- TODO: VIOLATION — must not contain subheadings. Flatten all subsections into continuous prose.
 
 ### Comparison to Related Approaches
 - DVC: shared philosophy, different architecture
@@ -87,6 +89,7 @@
 - Existing adoption (BIDS, fMRIPrep, OpenNeuroDerivatives, BABS, CRCNS)
 
 ## Methods
+- TODO: VIOLATION — must be titled "Online Methods" with subheadings
 - TODO: how principles were derived, validation approach, community input
 
 ## Data Availability
