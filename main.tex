@@ -43,6 +43,44 @@ This approach complements formal computational workflow guidelines (e.g., FAIR4R
 
 % Special accent should be pointed to "pragmatism" -- there could be "migrations" between pragmatic and "standardized" (e.g. DataLad run records -> PROV)
 
+\subsection{Related Work: Organizational Principles Across Domains}
+
+The challenges YODA addresses are not unique to neuroscience or even scientific computing broadly.
+Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
+
+Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
+
+\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
+
+\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
+
+\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
+
+\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
+
+\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), BEP028 (BIDS Provenance) address packaging and provenance standardization.
+
+Despite independent origins, these frameworks converged on core patterns:
+\begin{itemize}
+    \item \textbf{Separation of concerns}: Data, code, environment, and results managed distinctly
+    \item \textbf{Immutability}: Raw data never modified in-place
+    \item \textbf{Hierarchical organization}: Nested, modular structures
+    \item \textbf{Version control}: Applying Git concepts beyond just code
+    \item \textbf{Provenance tracking}: Recording how outputs were generated
+\end{itemize}
+
+YODA's unique contributions within this landscape:
+\begin{itemize}
+    \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
+    \item \textbf{Interface agnosticism}: Works with any container/pipeline system
+    \item \textbf{Local-first design}: Works offline, no cloud platform dependency
+    \item \textbf{git-annex flexibility}: Many remote types vs single-server models
+    \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
+\end{itemize}
+
+This convergent evolution validates that YODA principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
+
 \section{Results}
 
 \subsection{Version Control Everything}
@@ -62,9 +100,11 @@ Non-version-controlled data creates ambiguity, as precise identification of data
 This ambiguity undermines trust, complicates collaboration, and impairs reproducibility, particularly when datasets undergo frequent updates or transformations.
 
 Version control systems (VCS), such as git, directly address these issues by associating each revision with a unique identifier and recording basic provenance information, including who made the changes, when, and why.
-Although commonly called VCS, the primary importance of such systems is not in keeping track of "version" identifiers of the components (as "version 1" vs subsequent "version 2"), but rather providing an unambiguous identification and access to the overall state of the content.
-For that reason, git describes itself as "the stupid content tracker" (from `man git`) and has content checksum as its underlying content identification mechanism.
-Explicit versioning of the states via tags is just a convenience to provide additional semantic on top of different versions of the content.
+Although commonly called ``version control systems,'' the primary value is not version numbering (``v1'' vs ``v2'') but \emph{content-addressed identification}.
+Git describes itself as ``the stupid content tracker'' (from \texttt{man git}), using cryptographic checksums as content identifiers.
+Explicit version tags (v1.0, v2.3) are convenience labels atop this content-tracking foundation.
+This distinction matters: reproducibility requires precise content identification, not just semantic versioning.
+Two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
 Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{sciops-paper} would describe such requirement as data consistency.
 
 By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
@@ -141,6 +181,44 @@ Thus, a dataset version can be precisely described as the pairing of generated r
   % \item \textbf{P2.?} Module boundaries \textbf{SHOULD} be decided on the basis of their \emph{pragmatic idependent usefulness} unless driven by other factors demanding even further modularization.
 \end{itemize}
 
+\subsection{Portable Computational Environments}
+
+Research reproducibility fundamentally depends not only on preserving code and data,
+but also on capturing the complete computational environment—the operating system,
+libraries, dependencies, and tool versions—that produced the results.
+
+Environmental drift, where software dependencies evolve or disappear over time,
+is a primary cause of computational irreproducibility. Even with identical code and
+data, differences in library versions, compiler settings, or system configurations
+can produce divergent results or outright failures.
+
+YODA addresses this through explicit environment specification and versioning.
+Computational environments should be:
+\begin{itemize}
+  \item Explicitly defined (not implicitly assumed)
+  \item Machine-reproducible (via containers, Nix/Guix, or language-specific managers)
+  \item Version controlled alongside code and data
+  \item Self-contained within the project boundary
+\end{itemize}
+
+Two primary approaches exist for environment portability:
+\begin{enumerate}
+  \item \textbf{Container-based}: Docker, Singularity/Apptainer provide OS-level isolation
+  \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management
+\end{enumerate}
+
+YODA principles are environment-mechanism-agnostic; what matters is that
+environments are explicitly specified, versioned, and available within the project.
+
+\textbf{Formal Principles:}
+
+\begin{itemize}
+    \item \textbf{P4.1} Computational environments \textbf{MUST} be explicitly specified
+    \item \textbf{P4.2} Environment specifications \textbf{SHOULD} be machine-reproducible
+    \item \textbf{P4.3} Environment definitions \textbf{MUST} be version controlled
+    \item \textbf{P4.4} Environments \textbf{SHOULD} be self-contained within the dataset
+\end{itemize}
+
 \subsection{Incorporating Provenance into VCS History}
 
 % TODO : cite Tek Raj paper, and paper I found on various provenance formats/approaches.
@@ -163,7 +241,147 @@ Collectively, implementing a structured, idiomatic version control strategy usin
     \item \textbf{P3.2} Provenance of code-driven modifications to assets \textbf{SHOULD} be annotated programmatically, and \textbf{MUST} include the versions of all components used.
 \end{itemize}
 
+\subsubsection{Provenance Format Targets}
+
+While YODA advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
+
+\textbf{W3C PROV}: Foundation for many domain-specific formats, provides the Activity/Entity/Agent model.
+
+\textbf{BEP028 (BIDS Provenance)}: BIDS Extension Proposal using W3C PROV for neuroimaging workflows. Captures Activities (what ran), Entities (inputs/outputs), and Agents (tools) in JSON-LD format.
+
+\textbf{RO-Crate}: Lightweight packaging with Schema.org and JSON-LD metadata. A practical implementation of the FAIR Digital Object Framework, used across bioinformatics, digital humanities, and regulatory sciences.
+
+\textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
+
+Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
+
+\subsection{Principle Priorities}
+
+\textbf{Essential (MUST for basic reproducibility)}:
+\begin{itemize}
+    \item P1.1: All assets included
+    \item P3.1: Provenance annotated
+    \item P4.1: Environments specified
+\end{itemize}
+These are minimum requirements; omitting any fundamentally compromises reproducibility.
+
+\textbf{Strong recommendations (SHOULD for reusability)}:
+\begin{itemize}
+    \item P1.2: Same VCS for all assets
+    \item P2.1: Modular structure
+    \item P4.2: Machine-reproducible environments
+\end{itemize}
+Deviation is possible but reduces portability and reuse potential.
+
+\textbf{Optional (MAY for convenience)}:
+\begin{itemize}
+    \item P2.2: Subdatasets vs direct inclusion (both valid)
+    \item P2.3: Domain-specific standards (nice-to-have, not always applicable)
+\end{itemize}
+
 \section{Discussion}
+
+\subsection{Comparison to Related Approaches}
+
+\subsubsection{DVC (Data Version Control)}
+Shares ``Git for data'' philosophy but differs in architecture:
+DVC uses external .dvc files with remote storage configuration, while YODA with git-annex integrates directly into the git repository structure.
+DVC focuses on Python and ML workflows within a single project, whereas YODA is language-agnostic and supports federated multi-project composition.
+Both are valid; choice depends on team familiarity (DVC easier for ML engineers), infrastructure (DVC integrates easily with cloud ML platforms), and scale requirements (git-annex more flexible for federated datasets).
+
+\subsubsection{Pachyderm}
+Enterprise ``Git for data'' with Kubernetes-native architecture.
+Pachyderm requires a centralized cluster and cloud infrastructure, while YODA is local-first, works offline, and supports federation.
+Pachyderm provides automatic pipeline triggering, whereas YODA uses explicit execution (e.g., \texttt{datalad run}).
+Pachyderm excels for production ML pipelines, team collaboration with shared compute resources, and automatic scaling.
+YODA excels for research workflows, offline work, and heterogeneous datasets across institutions.
+
+\subsubsection{Kedro}
+Python data engineering framework with modular pipelines.
+Kedro provides within-project modularity through Python pipeline components, while YODA provides across-project modularity through subdatasets as git submodules.
+Kedro includes built-in visualization (Kedro-Viz), whereas YODA is CLI-focused with integration to external tools.
+These approaches are complementary: a Kedro pipeline inside a YODA dataset combines both strengths.
+
+\subsubsection{Cloud Platforms (Code Ocean, brainlife.io, Flywheel)}
+Turnkey reproducibility services with proprietary interfaces.
+Platforms offer zero local setup and institutional partnerships; YODA offers local control with no vendor lock-in.
+Platforms provide web GUIs with point-and-click interaction; YODA provides CLI/API with scriptable automation.
+Platforms are centralized (single capsule or project); YODA is federated (compose across repositories).
+YODA principles could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
+
+\subsection{Trade-offs and Limitations}
+
+\subsubsection{git-annex Complexity vs Git LFS Simplicity}
+YODA uses git-annex for maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
+This comes at a cost: a steeper learning curve.
+Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
+The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
+``YODA-lite'' implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+
+\subsubsection{When YODA Is vs Is Not Appropriate}
+
+\textbf{YODA excels when}:
+\begin{itemize}
+    \item Multi-institutional collaboration requires federated datasets
+    \item Long-term reproducibility spans decades or requires offline archives
+    \item Heterogeneous workflows are not tied to a specific platform
+    \item Data sovereignty requirements preclude mandatory cloud upload
+    \item Complex dependency graphs involve subdatasets from diverse sources
+\end{itemize}
+
+\textbf{YODA may be more than needed for}:
+\begin{itemize}
+    \item Single-script analyses where version control alone suffices
+    \item Ephemeral exploratory work such as Jupyter notebooks
+    \item Cloud-native ML production where Pachyderm or a platform may be a better fit
+    \item Small teams with simple workflows where DVC or Git LFS may suffice
+\end{itemize}
+
+\subsection{Integration Opportunities}
+
+YODA principles are complementary, not competitive, with existing standards:
+\begin{itemize}
+    \item \textbf{YODA + BIDS}: Domain standard within YODA structure
+    \item \textbf{YODA + RO-Crate}: Organization during research, packaging for publication
+    \item \textbf{YODA + FAIR}: Structure projects, then share via FAIR
+    \item \textbf{YODA + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
+    \item \textbf{YODA + platforms}: Download, version, and compose locally
+\end{itemize}
+
+\subsection{Future Directions}
+
+\subsubsection{Provenance Standards Convergence}
+Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve YODA interoperability with domain-specific tools.
+
+\subsubsection{Tool Certification}
+Formal YODA principles enable ``YODA-compliant'' tool certification, similar to BIDS validation.
+
+\subsubsection{Teaching Materials}
+Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
+
+\subsubsection{Existing YODA Adoption}
+Several research projects have already adopted and documented YODA principles, demonstrating practical utility across domains.
+
+\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
+Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
+Following YODA principles, the BIDS community reversed this relationship: derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
+
+This architectural shift influenced major neuroimaging tools:
+\begin{itemize}
+    \item \textbf{fMRIPrep}: Switched default output layout to follow YODA structure
+    % TODO: add GitHub issue reference for "yoda" layout proposal
+    \item \textbf{OpenNeuroDerivatives}: Entire derivative dataset collection now follows YODA organization, separating processed outputs from raw data dependencies
+    \item \textbf{BIDS specification}: Updated to accommodate and recommend YODA-compliant layouts for derivative datasets
+\end{itemize}
+
+\textbf{Workflow Platforms}: Infrastructure projects implementing YODA at scale:
+\begin{itemize}
+    \item \textbf{BABS}: Platform implementing the ``FAIRly big workflow'' approach, demonstrating YODA principles for large-scale neuroimaging analyses with containerized pipelines and modular dataset composition
+    \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
+\end{itemize}
+
+These adoptions demonstrate that YODA principles solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
+
 \section{Methods}
 \section{Data Availability}
 \section{Code Availability}
