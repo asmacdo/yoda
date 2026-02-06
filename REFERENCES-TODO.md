@@ -1,24 +1,4 @@
-# Feedback and Guidance on YODA Formalization Manuscript
-
-**Date**: 2026-02-06
-**Authors**: Yaroslav Halchenko, Claude (assistant)
-**Status**: Co-author guidance for manuscript development
-
----
-
-## Overall Assessment
-
-**Excellent work!** This formalization effort is critical for moving YODA from "best practices" to "operational specification." The RFC-style approach (MUST/SHOULD/MAY) is exactly right for:
-- Standards body adoption
-- Tool implementation specifications
-- Compliance checking
-- Clear teaching/documentation
-
-The manuscript does important work positioning YODA within broader reproducibility landscape (FAIR, FAIR4RS, WCI-FW) while maintaining pragmatic focus.
-
----
-
-## References to Add
+# References to Add
 
 **Foundational**:
 - Noble, W. S. (2009). PLOS Computational Biology - Quick guide
@@ -60,17 +40,3 @@ The manuscript does important work positioning YODA within broader reproducibili
 - OpenNeuroDerivatives: https://github.com/OpenNeuroDerivatives
 - BABS (BIDS App Bootstrap): https://github.com/PennLINC/babs
 - Hanke et al. "FAIRly big workflow": https://doi.org/10.1016/j.patter.2021.100322 (Patterns, 2021)
-
----
-
-## Final Note
-
-This manuscript fills a critical gap: moving YODA from "tribal knowledge" to "operational specification." The RFC-style formalization enables:
-- Tool builders to create YODA-compliant implementations
-- Standards bodies to adopt/reference principles
-- Educators to teach systematically
-- Researchers to self-assess compliance
-
-The convergent evolution we documented (19 frameworks, 2003-2025) **validates** that YODA principles solve real, universal problems. This manuscript can position YODA as a synthesis of best practices emerging across domains.
-
-Strong foundation—with additions outlined above, this will be a significant contribution to reproducible research methodology!
