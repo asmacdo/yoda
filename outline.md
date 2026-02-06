@@ -1,5 +1,7 @@
 # YODA: The Four Pillars of Idiomatic Dataset Version Control
 
+> Must follow requirements in [NMETH-ARTICLE-REQUIREMENTS.md](NMETH-ARTICLE-REQUIREMENTS.md)
+
 ## Abstract
 - TODO: compose after other sections filled out
 
