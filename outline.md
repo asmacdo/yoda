@@ -51,7 +51,7 @@
 - **P4.3** Definitions MUST be version controlled
 - **P4.4** Environments SHOULD be self-contained within the dataset
 
-### Incorporating Provenance into VCS History
+### Incorporating Actionable Provenance into VCS History
 - Provenance embedded in commit records, not separate systems
 - Programmatic annotation for code-driven changes
 - **P3.1** Provenance MUST be annotated
