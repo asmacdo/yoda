@@ -43,6 +43,44 @@ This approach complements formal computational workflow guidelines (e.g., FAIR4R
 
 % Special accent should be pointed to "pragmatism" -- there could be "migrations" between pragmatic and "standardized" (e.g. DataLad run records -> PROV)
 
+\subsection{Related Work: Organizational Principles Across Domains}
+
+The challenges YODA addresses are not unique to neuroscience or even scientific computing broadly.
+Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
+
+Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
+
+\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
+
+\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
+
+\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
+
+\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
+
+\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), BEP028 (BIDS Provenance) address packaging and provenance standardization.
+
+Despite independent origins, these frameworks converged on core patterns:
+\begin{itemize}
+    \item \textbf{Separation of concerns}: Data, code, environment, and results managed distinctly
+    \item \textbf{Immutability}: Raw data never modified in-place
+    \item \textbf{Hierarchical organization}: Nested, modular structures
+    \item \textbf{Version control}: Applying Git concepts beyond just code
+    \item \textbf{Provenance tracking}: Recording how outputs were generated
+\end{itemize}
+
+YODA's unique contributions within this landscape:
+\begin{itemize}
+    \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
+    \item \textbf{Interface agnosticism}: Works with any container/pipeline system
+    \item \textbf{Local-first design}: Works offline, no cloud platform dependency
+    \item \textbf{git-annex flexibility}: Many remote types vs single-server models
+    \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
+\end{itemize}
+
+This convergent evolution validates that YODA principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
+
 \section{Results}
 
 \subsection{Version Control Everything}
