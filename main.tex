@@ -100,9 +100,11 @@ Non-version-controlled data creates ambiguity, as precise identification of data
 This ambiguity undermines trust, complicates collaboration, and impairs reproducibility, particularly when datasets undergo frequent updates or transformations.
 
 Version control systems (VCS), such as git, directly address these issues by associating each revision with a unique identifier and recording basic provenance information, including who made the changes, when, and why.
-Although commonly called VCS, the primary importance of such systems is not in keeping track of "version" identifiers of the components (as "version 1" vs subsequent "version 2"), but rather providing an unambiguous identification and access to the overall state of the content.
-For that reason, git describes itself as "the stupid content tracker" (from `man git`) and has content checksum as its underlying content identification mechanism.
-Explicit versioning of the states via tags is just a convenience to provide additional semantic on top of different versions of the content.
+Although commonly called ``version control systems,'' the primary value is not version numbering (``v1'' vs ``v2'') but \emph{content-addressed identification}.
+Git describes itself as ``the stupid content tracker'' (from \texttt{man git}), using cryptographic checksums as content identifiers.
+Explicit version tags (v1.0, v2.3) are convenience labels atop this content-tracking foundation.
+This distinction matters: reproducibility requires precise content identification, not just semantic versioning.
+Two datasets labeled ``version 1.0'' by different labs are ambiguous; two datasets with identical content hashes are provably identical.
 Throughout the manuscript we will refer to such content tracking systems as VCS to use terminology familiar to the reader, although some initiatives such as \cite{sciops-paper} would describe such requirement as data consistency.
 
 By applying VCS systematically to data and analysis outputs, researchers can pinpoint exact states of digital files, reliably reverting or exploring previous versions as needed.
@@ -252,6 +254,30 @@ While YODA advocates embedding provenance in version control histories, interope
 \textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
 
 Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
+
+\subsection{Principle Priorities}
+
+\textbf{Essential (MUST for basic reproducibility)}:
+\begin{itemize}
+    \item P1.1: All assets included
+    \item P3.1: Provenance annotated
+    \item P4.1: Environments specified
+\end{itemize}
+These are minimum requirements; omitting any fundamentally compromises reproducibility.
+
+\textbf{Strong recommendations (SHOULD for reusability)}:
+\begin{itemize}
+    \item P1.2: Same VCS for all assets
+    \item P2.1: Modular structure
+    \item P4.2: Machine-reproducible environments
+\end{itemize}
+Deviation is possible but reduces portability and reuse potential.
+
+\textbf{Optional (MAY for convenience)}:
+\begin{itemize}
+    \item P2.2: Subdatasets vs direct inclusion (both valid)
+    \item P2.3: Domain-specific standards (nice-to-have, not always applicable)
+\end{itemize}
 
 \section{Discussion}
 
