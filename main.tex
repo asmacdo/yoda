@@ -239,6 +239,20 @@ Collectively, implementing a structured, idiomatic version control strategy usin
     \item \textbf{P3.2} Provenance of code-driven modifications to assets \textbf{SHOULD} be annotated programmatically, and \textbf{MUST} include the versions of all components used.
 \end{itemize}
 
+\subsubsection{Provenance Format Targets}
+
+While YODA advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
+
+\textbf{W3C PROV}: Foundation for many domain-specific formats, provides the Activity/Entity/Agent model.
+
+\textbf{BEP028 (BIDS Provenance)}: BIDS Extension Proposal using W3C PROV for neuroimaging workflows. Captures Activities (what ran), Entities (inputs/outputs), and Agents (tools) in JSON-LD format.
+
+\textbf{RO-Crate}: Lightweight packaging with Schema.org and JSON-LD metadata. A practical implementation of the FAIR Digital Object Framework, used across bioinformatics, digital humanities, and regulatory sciences.
+
+\textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
+
+Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
+
 \section{Discussion}
 
 \subsection{Comparison to Related Approaches}
