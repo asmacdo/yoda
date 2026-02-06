@@ -13,15 +13,15 @@
 - FAIR / FAIR4RS / WCI-FW foundation
 - YODA as pragmatic best practices for FAIR-aligned research objects
 
-### Related Work: Organizational Principles Across Domains
-- 19 frameworks (2003–2025) showing convergent evolution
-- Foundational principles (Noble 2009, FAIR, Good Enough Practices)
-- Version control extensions (git-annex, Git LFS, DVC, Pachyderm, Quilt)
-- Cloud platforms (Code Ocean, brainlife, Flywheel, Galaxy)
-- Framework tooling (Kedro, nipoppy, Cookiecutter Data Science)
-- Metadata standards (RO-Crate, BioComputeObject, BEP028)
-- Convergent patterns: separation of concerns, immutability, hierarchy, VCS, provenance
-- YODA's unique position: federated, interface-agnostic, local-first, git-annex flexibility
+- Related Work: Organizational Principles Across Domains
+  - 19 frameworks (2003–2025) showing convergent evolution
+  - Foundational principles (Noble 2009, FAIR, Good Enough Practices)
+  - Version control extensions (git-annex, Git LFS, DVC, Pachyderm, Quilt)
+  - Cloud platforms (Code Ocean, brainlife, Flywheel, Galaxy)
+  - Framework tooling (Kedro, nipoppy, Cookiecutter Data Science)
+  - Metadata standards (RO-Crate, BioComputeObject, BEP028)
+  - Convergent patterns: separation of concerns, immutability, hierarchy, VCS, provenance
+  - YODA's unique position: federated, interface-agnostic, local-first, git-annex flexibility
 
 ## Results
 
@@ -57,9 +57,9 @@
 - **P3.1** Provenance MUST be annotated
 - **P3.2** Code-driven provenance SHOULD be programmatic, MUST include versions
 
-#### Provenance Format Targets
-- W3C PROV, BEP028, RO-Crate, BioComputeObject
-- Migration path: DataLad run records exportable to standard formats
+- Provenance Format Targets
+  - W3C PROV, BEP028, RO-Crate, BioComputeObject
+  - Migration path: DataLad run records exportable to standard formats
 
 ### Principle Priorities
 - Essential (MUST): P1.1, P3.1, P4.1
@@ -69,24 +69,21 @@
 ## Discussion
 - TODO: VIOLATION — must not contain subheadings. Flatten all subsections into continuous prose.
 
-### Comparison to Related Approaches
-- DVC: shared philosophy, different architecture
-- Pachyderm: centralized/cloud vs local-first/federated
-- Kedro: within-project vs across-project modularity (complementary)
-- Cloud Platforms: turnkey vs local control, YODA can wrap platform outputs
-
-### Trade-offs and Limitations
-- git-annex complexity vs Git LFS simplicity
-- When YODA excels vs when it may be more than needed
-
-### Integration Opportunities
-- YODA + BIDS, RO-Crate, FAIR, workflow systems, platforms
-
-### Future Directions
-- Provenance standards convergence
-- Tool certification
-- Teaching materials
-- Existing adoption (BIDS, fMRIPrep, OpenNeuroDerivatives, BABS, CRCNS)
+- Comparison to Related Approaches
+  - DVC: shared philosophy, different architecture
+  - Pachyderm: centralized/cloud vs local-first/federated
+  - Kedro: within-project vs across-project modularity (complementary)
+  - Cloud Platforms: turnkey vs local control, YODA can wrap platform outputs
+- Trade-offs and Limitations
+  - git-annex complexity vs Git LFS simplicity
+  - When YODA excels vs when it may be more than needed
+- Integration Opportunities
+  - YODA + BIDS, RO-Crate, FAIR, workflow systems, platforms
+- Future Directions
+  - Provenance standards convergence
+  - Tool certification
+  - Teaching materials
+  - Existing adoption (BIDS, fMRIPrep, OpenNeuroDerivatives, BABS, CRCNS)
 
 ## Methods
 - TODO: VIOLATION — must be titled "Online Methods" with subheadings
