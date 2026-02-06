@@ -141,6 +141,44 @@ Thus, a dataset version can be precisely described as the pairing of generated r
   % \item \textbf{P2.?} Module boundaries \textbf{SHOULD} be decided on the basis of their \emph{pragmatic idependent usefulness} unless driven by other factors demanding even further modularization.
 \end{itemize}
 
+\subsection{Portable Computational Environments}
+
+Research reproducibility fundamentally depends not only on preserving code and data,
+but also on capturing the complete computational environment—the operating system,
+libraries, dependencies, and tool versions—that produced the results.
+
+Environmental drift, where software dependencies evolve or disappear over time,
+is a primary cause of computational irreproducibility. Even with identical code and
+data, differences in library versions, compiler settings, or system configurations
+can produce divergent results or outright failures.
+
+YODA addresses this through explicit environment specification and versioning.
+Computational environments should be:
+\begin{itemize}
+  \item Explicitly defined (not implicitly assumed)
+  \item Machine-reproducible (via containers, Nix/Guix, or language-specific managers)
+  \item Version controlled alongside code and data
+  \item Self-contained within the project boundary
+\end{itemize}
+
+Two primary approaches exist for environment portability:
+\begin{enumerate}
+  \item \textbf{Container-based}: Docker, Singularity/Apptainer provide OS-level isolation
+  \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management
+\end{enumerate}
+
+YODA principles are environment-mechanism-agnostic; what matters is that
+environments are explicitly specified, versioned, and available within the project.
+
+\textbf{Formal Principles:}
+
+\begin{itemize}
+    \item \textbf{P4.1} Computational environments \textbf{MUST} be explicitly specified
+    \item \textbf{P4.2} Environment specifications \textbf{SHOULD} be machine-reproducible
+    \item \textbf{P4.3} Environment definitions \textbf{MUST} be version controlled
+    \item \textbf{P4.4} Environments \textbf{SHOULD} be self-contained within the dataset
+\end{itemize}
+
 \subsection{Incorporating Provenance into VCS History}
 
 % TODO : cite Tek Raj paper, and paper I found on various provenance formats/approaches.
