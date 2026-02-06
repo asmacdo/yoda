@@ -1,77 +1,101 @@
-# SPAM: The Four Pillars of Idiomatic Dataset Version Control
+# YODA: The Four Pillars of Idiomatic Dataset Version Control
 
 ## Abstract
-
+- TODO: compose after other sections filled out
 
 ## Introduction
+- Challenge: dataset scale, complexity, interdependency
+- Workflows as formal specifications (code, config, data, provenance)
+- Components managed separately undermines reproducibility
+- FAIR / FAIR4RS / WCI-FW foundation
+- YODA as pragmatic best practices for FAIR-aligned research objects
 
-What is Version Control  (Super brief, one sentence maybe 2 if critical)
-
-How can VCS Datasets be useful?
-- increased rigor: through transparency and reproducibility
-
-Why it isnt done 
- - additional layer of complexity
- - difficulty prevents use
- - ad hoc solutions are expensive to create difficult to re-use
-
-The importance of developing idioms
-- increased readability
-- increased reuse through interoperability
-- common patterns simplify collaboration (between partners, reviewers, future work)
-- common implementation enables automation
-
-Pedagogy
-- idioms should be easy to teach
-- idioms should be easy to discuss
-- developing idioms requires adoption
-- scale from  "No VCS" -> "perfect", the goal is to progress (
+### Related Work: Organizational Principles Across Domains
+- 19 frameworks (2003–2025) showing convergent evolution
+- Foundational principles (Noble 2009, FAIR, Good Enough Practices)
+- Version control extensions (git-annex, Git LFS, DVC, Pachyderm, Quilt)
+- Cloud platforms (Code Ocean, brainlife, Flywheel, Galaxy)
+- Framework tooling (Kedro, nipoppy, Cookiecutter Data Science)
+- Metadata standards (RO-Crate, BioComputeObject, BEP028)
+- Convergent patterns: separation of concerns, immutability, hierarchy, VCS, provenance
+- YODA's unique position: federated, interface-agnostic, local-first, git-annex flexibility
 
 ## Results
 
+### Version Control Everything
+- Problems with non-version-controlled data
+- VCS as content-addressed identification (not just version numbering)
+- Extending git to large datasets (git-annex, DataLad, DVC)
+- All workflow components must be under VCS
+- **P1.1** All assets MUST be included
+- **P1.2** All assets SHOULD use the same VCS
 
-### S → Self-contained: All Required Artifacts Are Versioned and Sourced
+### Modularity
+- Monolithic structures impede reuse and maintenance
+- Compositional approach: independently versioned components
+- Idiomatic layout: code/, inputs/, envs/, docs/, results/
+- **P2.1** Assets SHOULD be organized modularly
+- **P2.2** Assets MAY be included directly or as subdatasets
+- **P2.3** Components SHOULD accommodate domain-specific standards
 
-- Every dataset component MUST be versioned
-- Every required artifact MUST be bundled or explicitly linked.
+### Portable Computational Environments
+- Environmental drift as cause of irreproducibility
+- Explicit specification and versioning of environments
+- Container-based (Docker, Singularity) vs package-based (Nix, Guix)
+- Mechanism-agnostic
+- **P4.1** Environments MUST be explicitly specified
+- **P4.2** Specifications SHOULD be machine-reproducible
+- **P4.3** Definitions MUST be version controlled
+- **P4.4** Environments SHOULD be self-contained within the dataset
 
-### P → Preserve: Software Environments Are Versioned and Managed
+### Incorporating Provenance into VCS History
+- Provenance embedded in commit records, not separate systems
+- Programmatic annotation for code-driven changes
+- **P3.1** Provenance MUST be annotated
+- **P3.2** Code-driven provenance SHOULD be programmatic, MUST include versions
 
-- Software environments SHOULD also be put under version control, just like datasets.
+#### Provenance Format Targets
+- W3C PROV, BEP028, RO-Crate, BioComputeObject
+- Migration path: DataLad run records exportable to standard formats
 
-Benefits:
-- promotes for portability
-- helpful in limiting "dependency entropy"
-- its all "there" for inspection
-
-### A → Action Provenance is Recorded as Metadata
-
-- All changes MUST be explicitly recorded.
-- Data changes made by software should SHOULD complete execution instructions
-
-Benefits:
-- Results can be verified via re-execution
-- Helpful for development
-- Helpful for branching workflows (future related work)
-
-### M → Modular: Compose discrete complentents
-
-- Components that can be used individually SHOULD be versioned independently
-
-Benefits: 
-- keeps components decoupled.
-- Encourages reuse, flexibility, and reparability
-- each component should be tracked to earliest provenance, ie specific source.
-
+### Principle Priorities
+- Essential (MUST): P1.1, P3.1, P4.1
+- Strong (SHOULD): P1.2, P2.1, P4.2
+- Optional (MAY): P2.2, P2.3
 
 ## Discussion
 
-Connection to FAIR
-Other tools
+### Comparison to Related Approaches
+- DVC: shared philosophy, different architecture
+- Pachyderm: centralized/cloud vs local-first/federated
+- Kedro: within-project vs across-project modularity (complementary)
+- Cloud Platforms: turnkey vs local control, YODA can wrap platform outputs
+
+### Trade-offs and Limitations
+- git-annex complexity vs Git LFS simplicity
+- When YODA excels vs when it may be more than needed
+
+### Integration Opportunities
+- YODA + BIDS, RO-Crate, FAIR, workflow systems, platforms
+
+### Future Directions
+- Provenance standards convergence
+- Tool certification
+- Teaching materials
+- Existing adoption (BIDS, fMRIPrep, OpenNeuroDerivatives, BABS, CRCNS)
 
 ## Methods
+- TODO: how principles were derived, validation approach, community input
 
-- Use cases
-- Example implementation with git
-- Example implementation with git-annex
-- Example implementation in datalad
+## Data Availability
+- TODO: version-controlled manuscript repo (github.com/myyoda/paper or similar)
+
+## Code Availability
+
+## References
+
+## Author Contributions
+
+## Competing Interests
+
+## Acknowledgments
