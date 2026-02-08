@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 
-\title{YODA et al (YODA, VAMP): Four pillars of idiomatic version control}
+\title{VAMP: Four pillars of idiomatic version control}
 \author{Austin Macdonald}
 \date{March 2025}
 
@@ -29,11 +29,12 @@ The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS 
 The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
 Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
 
-Building on this foundation, YODA offers a set of best practices for structuring the full research objects in a FAIR-aligned manner which would reduce cognitive load in identifying all relevant for a research object components and facilitate reproducibility.
+Building on this foundation, VAMP offers a set of best practices for structuring the full research objects in a FAIR-aligned manner which would reduce cognitive load in identifying all relevant for a research object components and facilitate reproducibility.
+These principles were originally introduced as YODA (YODAs Organigram on Data Analysis) and documented in the DataLad handbook; here we formalize and generalize them as VAMP (Versioned, Actionable, Modular, Portable).
 
 % In this manuscript we will not aim to achieve the ultimate reproducibility of the results, **but** rather provide methodology following which reproducibility could be drastically improved or in many cases indeed lead to full reproducibility even on relatively complex usage scenarios.
 
-By promoting idiomatic version control and modular project organization, YODA Principles helps researchers treat analysis specifications and outputs as composable, structured digital objects.
+By promoting idiomatic version control and modular project organization, VAMP Principles helps researchers treat analysis specifications and outputs as composable, structured digital objects.
 This approach complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
 % Composition remains "an issue"
@@ -45,7 +46,7 @@ This approach complements formal computational workflow guidelines (e.g., FAIR4R
 
 \subsection{Related Work: Organizational Principles Across Domains}
 
-The challenges YODA addresses are not unique to neuroscience or even scientific computing broadly.
+The challenges VAMP addresses are not unique to neuroscience or even scientific computing broadly.
 Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
 
 Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
@@ -71,7 +72,7 @@ Despite independent origins, these frameworks converged on core patterns:
     \item \textbf{Provenance tracking}: Recording how outputs were generated
 \end{itemize}
 
-YODA's unique contributions within this landscape:
+VAMP's unique contributions within this landscape:
 \begin{itemize}
     \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
     \item \textbf{Interface agnosticism}: Works with any container/pipeline system
@@ -80,7 +81,7 @@ YODA's unique contributions within this landscape:
     \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
 \end{itemize}
 
-This convergent evolution validates that YODA principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+This convergent evolution validates that VAMP principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
 The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \section{Results}
@@ -145,12 +146,12 @@ The lack of granularity often results in inefficient storage and processing, as 
 % And humans, researchers included, **already** modularize their stuff - They use folders!
 % But they often lack guidance on such folders organization and logistics to facilitate efficient project management and collaboration!
 
-Adopting a modular organization, as advocated by YODA, directly addresses these challenges through explicit separation of concerns.
-Rather than managing the dataset as one indivisible whole, YODA promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Adopting a modular organization, as advocated by VAMP, directly addresses these challenges through explicit separation of concerns.
+Rather than managing the dataset as one indivisible whole, VAMP promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
 Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
 
 The layout of these components plays a crucial role in enabling effective modularity.
-An idiomatic YODA dataset clearly delineates elements into structured directories, such as:
+An idiomatic VAMP dataset clearly delineates elements into structured directories, such as:
 
 \begin{itemize}
   \item \textbf{code/}: containing analysis scripts and tests
@@ -164,7 +165,7 @@ An idiomatic YODA dataset clearly delineates elements into structured directorie
 This intentional organization clarifies how components interact and supports domain-specific standards (e.g., BIDS).
 It enables researchers to compose and recombine modules flexibly to produce varied outcomes.
 
-% It is crucial to note that in such idiomatic YODA dataset, all necessary components (such as inputs/ and envs/) necessary to produce results MUST be available within this dataset.
+% It is crucial to note that in such idiomatic VAMP dataset, all necessary components (such as inputs/ and envs/) necessary to produce results MUST be available within this dataset.
 % Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness. 
 % DO NOT LOOK UP YODA!
 
@@ -194,7 +195,7 @@ is a primary cause of computational irreproducibility. Even with identical code 
 data, differences in library versions, compiler settings, or system configurations
 can produce divergent results or outright failures.
 
-YODA addresses this through explicit environment specification and versioning.
+VAMP addresses this through explicit environment specification and versioning.
 Computational environments should be:
 \begin{itemize}
   \item Explicitly defined (not implicitly assumed)
@@ -209,7 +210,7 @@ Two primary approaches exist for environment portability:
   \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management
 \end{enumerate}
 
-YODA principles are environment-mechanism-agnostic; what matters is that
+VAMP principles are environment-mechanism-agnostic; what matters is that
 environments are explicitly specified, versioned, and available within the project.
 
 \textbf{Formal Principles:}
@@ -227,14 +228,14 @@ environments are explicitly specified, versioned, and available within the proje
 Provenance—the detailed record of actions taken to produce research outputs—is essential for reproducibility, transparency, and trust in scientific workflows.
 Typically, provenance collection occurs separately from version control, leading to fragmentation of essential metadata and difficulties reconstructing workflows accurately or automatically.
 
-YODA advocates embedding provenance directly into version control histories by encoding precise descriptions of computational actions into commit records.
+VAMP advocates embedding provenance directly into version control histories by encoding precise descriptions of computational actions into commit records.
 Provenance of all modifications to assets need to be explicitly annotated within these version control histories.
 Provenance-rich commit histories enable exact repetition of computational steps or targeted remixing of workflows by selectively modifying certain components.
 For modifications driven by code, provenance should be annotated programmatically, and this automated capture requires explicit version information for all components used.
 
 This methodology provides immediate practical utility even before comprehensive workflow automation is achievable, facilitating reproducible research and iterative experimentation.
 Furthermore, integrating automated provenance capture into the commit process ensures transparency and reduces human error or oversight, creating inherently detailed, auditable records of the research process.
-Collectively, implementing a structured, idiomatic version control strategy using YODA enhances the self-containment and completeness of research workflows, ensures clear, repeatable provenance, and facilitates collaborative, modular, and portable science.
+Collectively, implementing a structured, idiomatic version control strategy using VAMP enhances the self-containment and completeness of research workflows, ensures clear, repeatable provenance, and facilitates collaborative, modular, and portable science.
 
 \textbf{Formal Principles:}
 
@@ -245,7 +246,7 @@ Collectively, implementing a structured, idiomatic version control strategy usin
 
 \subsubsection{Provenance Format Targets}
 
-While YODA advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
+While VAMP advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
 
 \textbf{W3C PROV}: Foundation for many domain-specific formats, provides the Activity/Entity/Agent model.
 
@@ -255,7 +256,7 @@ While YODA advocates embedding provenance in version control histories, interope
 
 \textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
 
-Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
+Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling VAMP-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
 
 \subsection{Principle Priorities}
 
@@ -287,42 +288,42 @@ Deviation is possible but reduces portability and reuse potential.
 
 \subsubsection{DVC (Data Version Control)}
 Shares ``Git for data'' philosophy but differs in architecture:
-DVC uses external .dvc files with remote storage configuration, while YODA with git-annex integrates directly into the git repository structure.
-DVC focuses on Python and ML workflows within a single project, whereas YODA is language-agnostic and supports federated multi-project composition.
+DVC uses external .dvc files with remote storage configuration, while VAMP with git-annex integrates directly into the git repository structure.
+DVC focuses on Python and ML workflows within a single project, whereas VAMP is language-agnostic and supports federated multi-project composition.
 Both are valid; choice depends on team familiarity (DVC easier for ML engineers), infrastructure (DVC integrates easily with cloud ML platforms), and scale requirements (git-annex more flexible for federated datasets).
 
 \subsubsection{Pachyderm}
 Enterprise ``Git for data'' with Kubernetes-native architecture.
-Pachyderm requires a centralized cluster and cloud infrastructure, while YODA is local-first, works offline, and supports federation.
-Pachyderm provides automatic pipeline triggering, whereas YODA uses explicit execution (e.g., \texttt{datalad run}).
+Pachyderm requires a centralized cluster and cloud infrastructure, while VAMP is local-first, works offline, and supports federation.
+Pachyderm provides automatic pipeline triggering, whereas VAMP uses explicit execution (e.g., \texttt{datalad run}).
 Pachyderm excels for production ML pipelines, team collaboration with shared compute resources, and automatic scaling.
-YODA excels for research workflows, offline work, and heterogeneous datasets across institutions.
+VAMP excels for research workflows, offline work, and heterogeneous datasets across institutions.
 
 \subsubsection{Kedro}
 Python data engineering framework with modular pipelines.
-Kedro provides within-project modularity through Python pipeline components, while YODA provides across-project modularity through subdatasets as git submodules.
-Kedro includes built-in visualization (Kedro-Viz), whereas YODA is CLI-focused with integration to external tools.
-These approaches are complementary: a Kedro pipeline inside a YODA dataset combines both strengths.
+Kedro provides within-project modularity through Python pipeline components, while VAMP provides across-project modularity through subdatasets as git submodules.
+Kedro includes built-in visualization (Kedro-Viz), whereas VAMP is CLI-focused with integration to external tools.
+These approaches are complementary: a Kedro pipeline inside a VAMP dataset combines both strengths.
 
 \subsubsection{Cloud Platforms (Code Ocean, brainlife.io, Flywheel)}
 Turnkey reproducibility services with proprietary interfaces.
-Platforms offer zero local setup and institutional partnerships; YODA offers local control with no vendor lock-in.
-Platforms provide web GUIs with point-and-click interaction; YODA provides CLI/API with scriptable automation.
-Platforms are centralized (single capsule or project); YODA is federated (compose across repositories).
-YODA principles could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
+Platforms offer zero local setup and institutional partnerships; VAMP offers local control with no vendor lock-in.
+Platforms provide web GUIs with point-and-click interaction; VAMP provides CLI/API with scriptable automation.
+Platforms are centralized (single capsule or project); VAMP is federated (compose across repositories).
+VAMP principles could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
 
 \subsection{Trade-offs and Limitations}
 
 \subsubsection{git-annex Complexity vs Git LFS Simplicity}
-YODA uses git-annex for maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
+VAMP uses git-annex for maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
 This comes at a cost: a steeper learning curve.
 Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
 The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
-``YODA-lite'' implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+``VAMP-lite'' implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
 
-\subsubsection{When YODA Is vs Is Not Appropriate}
+\subsubsection{When VAMP Is vs Is Not Appropriate}
 
-\textbf{YODA excels when}:
+\textbf{VAMP excels when}:
 \begin{itemize}
     \item Multi-institutional collaboration requires federated datasets
     \item Long-term reproducibility spans decades or requires offline archives
@@ -331,7 +332,7 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
     \item Complex dependency graphs involve subdatasets from diverse sources
 \end{itemize}
 
-\textbf{YODA may be more than needed for}:
+\textbf{VAMP may be more than needed for}:
 \begin{itemize}
     \item Single-script analyses where version control alone suffices
     \item Ephemeral exploratory work such as Jupyter notebooks
@@ -341,22 +342,22 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
 
 \subsection{Integration Opportunities}
 
-YODA principles are complementary, not competitive, with existing standards:
+VAMP principles are complementary, not competitive, with existing standards:
 \begin{itemize}
-    \item \textbf{YODA + BIDS}: Domain standard within YODA structure
-    \item \textbf{YODA + RO-Crate}: Organization during research, packaging for publication
-    \item \textbf{YODA + FAIR}: Structure projects, then share via FAIR
-    \item \textbf{YODA + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
-    \item \textbf{YODA + platforms}: Download, version, and compose locally
+    \item \textbf{VAMP + BIDS}: Domain standard within VAMP structure
+    \item \textbf{VAMP + RO-Crate}: Organization during research, packaging for publication
+    \item \textbf{VAMP + FAIR}: Structure projects, then share via FAIR
+    \item \textbf{VAMP + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
+    \item \textbf{VAMP + platforms}: Download, version, and compose locally
 \end{itemize}
 
 \subsection{Future Directions}
 
 \subsubsection{Provenance Standards Convergence}
-Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve YODA interoperability with domain-specific tools.
+Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve VAMP interoperability with domain-specific tools.
 
 \subsubsection{Tool Certification}
-Formal YODA principles enable ``YODA-compliant'' tool certification, similar to BIDS validation.
+Formal VAMP principles enable ``VAMP-compliant'' tool certification, similar to BIDS validation.
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
@@ -392,7 +393,7 @@ These adoptions demonstrate that YODA principles solve practical organizational 
 Might be worth relating to some of the principles among "Ten simple rules for principled simulation modelling"
 https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917 e.g.
 "Rule 5: Be kind to your future self (and your readers), and minimise opportunities for errors" since sticking to
-YODA would assist in accessing all necessary components and history/reasoning for changes for the "future self".
+VAMP would assist in accessing all necessary components and history/reasoning for changes for the "future self".
 
 \section{Author Contributions}
 \section{Competing Interests}
