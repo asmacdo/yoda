@@ -50,6 +50,7 @@ Multiple communities independently developed organizational frameworks exhibitin
 
 Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
 
+% TODO: add references to all!
 \textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
 
 \textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
@@ -58,7 +59,8 @@ Between 2003 and 2025, at least 19 distinct initiatives emerged addressing resea
 
 \textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
 
-\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), BEP028 (BIDS Provenance) address packaging and provenance standardization.
+% Should remove BEP028- too niche etc, but might be worth refer to the PROV itself! and potentially BIDS itself since provides poor man versioning (CHANGES) + structure + linking to SourceDatasets
+\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), PROV (TODO), BIDS (2016) address packaging and provenance standardization.
 
 Despite independent origins, these frameworks converged on core patterns:
 \begin{itemize}
