@@ -11,7 +11,7 @@
 - Workflows as formal specifications (code, config, data, provenance)
   - Table 1: Term definitions
 - Components managed separately undermines reproducibility
-- FAIR / FAIR4RS / WCI-FW foundation
+- FAIR / FAIR4RS / WCI-FW foundation, inspiration, and differences
 - YODA as pragmatic best practices for FAIR-aligned research objects
 
 - Related Work: Organizational Principles Across Domains (restrict to brief intro, especially to set us up with established concepts and definitions, more details later)
