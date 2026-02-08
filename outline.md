@@ -9,11 +9,12 @@
 - TODO: VIOLATION — must not have heading or subheadings. Remove "Introduction" heading and flatten "Related Work" subsection into introductory prose.
 - Challenge: dataset scale, complexity, interdependency
 - Workflows as formal specifications (code, config, data, provenance)
+  - Table 1: Term definitions
 - Components managed separately undermines reproducibility
 - FAIR / FAIR4RS / WCI-FW foundation
 - YODA as pragmatic best practices for FAIR-aligned research objects
 
-- Related Work: Organizational Principles Across Domains
+- Related Work: Organizational Principles Across Domains (restrict to brief intro, especially to set us up with established concepts and definitions, more details later)
   - 19 frameworks (2003–2025) showing convergent evolution
   - Foundational principles (Noble 2009, FAIR, Good Enough Practices)
   - Version control extensions (git-annex, Git LFS, DVC, Pachyderm, Quilt)
@@ -24,6 +25,8 @@
   - YODA's unique position: federated, interface-agnostic, local-first, git-annex flexibility
 
 ## Results
+
+- Table 2 (all VAMP principles)
 
 ### Version Control Everything
 - Problems with non-version-controlled data
@@ -90,7 +93,10 @@
 - TODO: how principles were derived, validation approach, community input
 
 ## Data Availability
-- TODO: version-controlled manuscript repo (github.com/myyoda/paper or similar)
+- Version-controlled manuscript repo: https://github.com/myyoda/principles-paper/
+- TODO: Zenodo DOI https://github.com/myyoda/principles-paper/issues/19
+- TODO: Examples repo https://github.com/myyoda/principles-paper/issues/20
+
 
 ## Code Availability
 
