@@ -1,4 +1,4 @@
-# YODA: The Four Pillars of Idiomatic Dataset Version Control
+# VAMP: The Four Pillars of Idiomatic Dataset Version Control
 
 > Must follow requirements in [NMETH-ARTICLE-REQUIREMENTS.md](NMETH-ARTICLE-REQUIREMENTS.md)
 
@@ -12,7 +12,7 @@
   - Table 1: Term definitions
 - Components managed separately undermines reproducibility
 - FAIR / FAIR4RS / WCI-FW foundation, inspiration, and differences
-- YODA as pragmatic best practices for FAIR-aligned research objects
+- VAMP as pragmatic best practices for FAIR-aligned research objects
 
 - Related Work: Organizational Principles Across Domains (restrict to brief intro, especially to set us up with established concepts and definitions, more details later)
   - 19 frameworks (2003–2025) showing convergent evolution
@@ -22,7 +22,7 @@
   - Framework tooling (Kedro, nipoppy, Cookiecutter Data Science)
   - Metadata standards (RO-Crate, BioComputeObject, BEP028)
   - Convergent patterns: separation of concerns, immutability, hierarchy, VCS, provenance
-  - YODA's unique position: federated, interface-agnostic, local-first, git-annex flexibility
+  - VAMP's unique position: federated, interface-agnostic, local-first, git-annex flexibility
 
 ## Results
 
@@ -76,12 +76,12 @@
   - DVC: shared philosophy, different architecture
   - Pachyderm: centralized/cloud vs local-first/federated
   - Kedro: within-project vs across-project modularity (complementary)
-  - Cloud Platforms: turnkey vs local control, YODA can wrap platform outputs
+  - Cloud Platforms: turnkey vs local control, VAMP can wrap platform outputs
 - Trade-offs and Limitations
   - git-annex complexity vs Git LFS simplicity
-  - When YODA excels vs when it may be more than needed
+  - When VAMP excels vs when it may be more than needed
 - Integration Opportunities
-  - YODA + BIDS, RO-Crate, FAIR, workflow systems, platforms
+  - VAMP + BIDS, RO-Crate, FAIR, workflow systems, platforms
 - Future Directions
   - Provenance standards convergence
   - Tool certification
