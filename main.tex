@@ -85,6 +85,29 @@ The formalization presented here provides a foundation for interoperability and 
 
 \section{Results}
 
+\begin{table}[ht]
+\centering
+\caption{VAMP Principles}
+\begin{tabular}{l l l p{8cm}}
+\hline
+\textbf{ID} & \textbf{Pillar} & \textbf{Level} & \textbf{Principle} \\
+\hline
+P0   & Self-containment   & MUST       & All assets essential to replicate computational execution must be contained within a single top-level research object \\
+P1.1 & Version Control    & MUST       & All assets must be version controlled \\
+P1.2 & Version Control    & SHOULD     & All assets should be version controlled using the same VCS \\
+P2.1 & Modularity         & SHOULD     & Assets should be organized in a modular structure \\
+P2.2 & Modularity         & MAY        & Assets may be included directly or linked as subdatasets \\
+P2.3 & Modularity         & SHOULD     & Components should accommodate domain-specific standards \\
+P3.1 & Provenance         & MUST       & Provenance of all modifications must be annotated \\
+P3.2 & Provenance         & SHOULD/MUST & Code-driven provenance should be annotated programmatically, must include versions \\
+P4.1 & Environments       & MUST       & Computational environments must be explicitly specified \\
+P4.2 & Environments       & SHOULD     & Environment specifications should be machine-reproducible \\
+P4.3 & Environments       & MUST       & Environment definitions must be version controlled \\
+P4.4 & Environments       & SHOULD     & Environments should be self-contained within the dataset \\
+\hline
+\end{tabular}
+\end{table}
+
 \subsection{Version Control Everything}
 
 Outline:
