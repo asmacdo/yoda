@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 
-\title{YODA et al (YODA, VAMP): Four pillars of idiomatic version control}
-\author{Austin Macdonald}
+\title{STAMPED: Properties of a Reproducible Research Object}
+\author{Austin Macdonald, Cody C. Baker, Yaroslav Halchenko}
 \date{March 2025}
 
 \begin{document}
@@ -29,19 +29,14 @@ The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS 
 The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
 Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
 
-Building on this foundation, YODA offers a set of best practices for structuring the full research objects in a FAIR-aligned manner which would reduce cognitive load in identifying all relevant for a research object components and facilitate reproducibility.
+Building on this foundation, we present the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Provenance-recorded, Ephemeral, and Deployable) which characterize a well-formed reproducible research object.
+Originating from the YODA Principles, STAMPED has been formalized as a framework for evaluating and improving the reproducibility of research objects.
+Full reproducibility is an asymptotic goal.
+STAMPED takes a pragmatic approach: each property can be satisfied at varying levels of rigor, allowing researchers to begin with practical, tool-native approaches and progressively strengthen them.
+Research objects that adhere to these properties possess the necessary structural and operational foundations for reproducibility, substantially improving it in practice, even for complex usage scenarios.
 
-% In this manuscript we will not aim to achieve the ultimate reproducibility of the results, **but** rather provide methodology following which reproducibility could be drastically improved or in many cases indeed lead to full reproducibility even on relatively complex usage scenarios.
+STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
-By promoting idiomatic version control and modular project organization, YODA Principles helps researchers treat analysis specifications and outputs as composable, structured digital objects.
-This approach complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
-
-% Composition remains "an issue"
-% Often relates to "provenance"
-% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
-% Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
-
-% Special accent should be pointed to "pragmatism" -- there could be "migrations" between pragmatic and "standardized" (e.g. DataLad run records -> PROV)
 
 \subsection{Related Work: Organizational Principles Across Domains}
 
@@ -161,6 +156,12 @@ Omitting even one component can severely compromise reproducibility, making comp
 % Another factor is that reused components, better exist in single reusable copy to ease fixing/maintenance/reduce size, so in software we e.g. have dynamic libraries.
 % So, the boundaries between "modules" are pragmatically driven by establishing "sensibly useful independently module", often, most frequently - derived products adding their unique aspects on top of their "sources".
 % Moreover, dealing with such different levels of data processing and modularization facilitates "handoffs" between team members (SciOps).
+
+% Composition remains "an issue"
+% Often relates to "provenance"
+% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
+% Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
+
 Monolithic structures present significant barriers to effective development, maintenance, and reuse.
 Managing datasets as single, large units complicates incremental updates, obscures dependencies, inhibits flexible reuse or remixing of individual components, and can be notably time-consuming.
 The lack of granularity often results in inefficient storage and processing, as small changes may necessitate duplicating or regenerating large portions of data.
