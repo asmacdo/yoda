@@ -21,7 +21,7 @@ A scientific workflow is fully **STAMPED** if it additionally meets the followin
 - **E** — **E**phemeral: is able to perform all computation within a throwaway environment
 - **D** — **D**istributable: all components shareable in a persistent state
 
-These principles are ordered according to their importance; Self-Containment is the foundation, Actionability is the cross-cutting quality, and Ephemerality and Deployability are aspirational ideals.
+These principles are ordered according to their importance; Self-Containment is the foundation, Actionability is the cross-cutting quality, and Ephemerality and Distributability are aspirational ideals.
 
 
 
