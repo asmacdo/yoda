@@ -29,7 +29,7 @@ The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS 
 The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
 Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
 
-Building on this foundation, we present the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Provenance-recorded, Ephemeral, and Deployable) which characterize a well-formed reproducible research object.
+Building on this foundation, we present the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Provenance-recorded, Ephemeral, and Distributable) which characterize a well-formed reproducible research object.
 Originating from the YODA Principles, STAMPED has been formalized as a framework for evaluating and improving the reproducibility of research objects.
 Full reproducibility is an asymptotic goal.
 STAMPED takes a pragmatic approach: each property can be satisfied at varying levels of rigor, allowing researchers to begin with practical, tool-native approaches and progressively strengthen them.
@@ -82,23 +82,24 @@ The formalization presented here provides a foundation for interoperability and 
 
 \begin{table}[ht]
 \centering
-\caption{VAMP Principles}
-\begin{tabular}{l l l p{8cm}}
+\caption{STAMPED Properties}
+\begin{tabular}{l l p{10cm}}
 \hline
-\textbf{ID} & \textbf{Pillar} & \textbf{Level} & \textbf{Principle} \\
+\textbf{ID} & \textbf{Property} & \textbf{Principle} \\
 \hline
-P0   & Self-containment   & MUST       & All assets essential to replicate computational execution must be contained within a single top-level research object \\
-P1.1 & Version Control    & MUST       & All assets must be version controlled \\
-P1.2 & Version Control    & SHOULD     & All assets should be version controlled using the same VCS \\
-P2.1 & Modularity         & SHOULD     & Assets should be organized in a modular structure \\
-P2.2 & Modularity         & MAY        & Assets may be included directly or linked as subdatasets \\
-P2.3 & Modularity         & SHOULD     & Components should accommodate domain-specific standards \\
-P3.1 & Provenance         & MUST       & Provenance of all modifications must be annotated \\
-P3.2 & Provenance         & SHOULD/MUST & Code-driven provenance should be annotated programmatically, must include versions \\
-P4.1 & Environments       & MUST       & Computational environments must be explicitly specified \\
-P4.2 & Environments       & SHOULD     & Environment specifications should be machine-reproducible \\
-P4.3 & Environments       & MUST       & Environment definitions must be version controlled \\
-P4.4 & Environments       & SHOULD     & Environments should be self-contained within the dataset \\
+S.1  & Self-contained & All assets essential to replicate computational execution MUST be contained within a single top-level research object \\
+T.1  & Tracked        & Version information MUST be tracked for all assets \\
+T.2  & Tracked        & All assets SHOULD be tracked using the same content-addressed version control system \\
+A.1  & Actionable     & Research object MUST contain sufficient instructions to reproduce all computational results \\
+M.1  & Modular        & Assets SHOULD be organized in a modular structure \\
+M.2  & Modular        & Assets MAY be included directly or linked as subdatasets \\
+P.1  & Provenance     & Provenance of all modifications MUST be annotated \\
+P.2  & Provenance     & Code-driven provenance SHOULD be annotated programmatically, MUST include versions \\
+E.1  & Ephemeral      & Computational results SHOULD be computed in ephemeral environments \\
+D.1  & Distributable     & Computational environments MUST be explicitly specified \\
+D.2  & Distributable     & Environment specifications SHOULD support reproducible builds \\
+D.3  & Distributable     & Environment definitions MUST be version controlled \\
+D.4  & Distributable     & Environment assets SHOULD be self-contained within the dataset \\
 \hline
 \end{tabular}
 \end{table}
