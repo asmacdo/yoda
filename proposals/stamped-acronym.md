@@ -3,7 +3,7 @@
 ## Terms
 
 **Research object**: a collection of data, code, and metadata that together represent a complete unit of research output.
-**Component**: an individual part of a research object, including both assets and other collections of components.
+**Component**: a separable part of a research object, including both assets and other collections of components.
 - Examples: datasets, software packages, container images, analysis pipeline, submodule dependence...
 
 **Asset**: data-containing contents of a research object:
@@ -19,7 +19,7 @@ Provenance can have many specific types:
   - Examples: version control histories (`git log`), file metadata such as modification records (`stat`, EXIF, video/image headers).
 - details about the computational environment, including software versions, dependencies, and configuration settings.
   - Examples: Container tags and digests, frozen environment records (`pip freeze`, `conda list`, `package-lock.json`), system information (OS version, hardware details).
-- a record of the commands or scripts executed, along with their inputs and outputs.
+- a record of the commands or scripts executed, along with their inputs, outputs, and logs.
   - Examples: W3C PROV records, `datalad rerun` logs.
 - a trace of the workflow execution, showing how data and code were transformed over time.
   - Examples: CWLProv, Nextflow/Snakemake reports.
@@ -115,7 +115,9 @@ The terms "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOUL
   - M.1: Assets SHOULD be organized in a modular structure.
   - M.2: Assets MAY be included directly or linked as subdatasets.
 - **Portability**
-  - P.1: ¿ ?
+  - P.1: Procedures MUST NOT depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations)
+  - P.2: Computational environments MUST be explicitly specified
+  - P.3: Environment definitions MUST be version controlled.
 - **Ephemerality**
   - E.1: Computational results SHOULD be computed in ephemeral environments.
 - **Distributability**
