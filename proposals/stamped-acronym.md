@@ -2,9 +2,27 @@
 
 ## Terms
 
+**Provenance**: the detailed history of how a research object was created, modified, and executed over time.
+It captures the lineage and transformations of data and code, providing a transparent record of the workflow's evolution.
+
+Provenance can have many specific types:
+- a history of modifications, which may include details of who made the change, when, and what was changed.
+  - Examples: version control histories, file metadata such as modification records (stat, EXIF, headers).
+- details about the computational environment, including software versions, dependencies, and configuration settings.
+  - Examples: Container tags and digests, frozen environment records (`pip freeze`, `conda list`, `package-lock.json`), system information (OS version, hardware details).
+- a record of the commands or scripts executed, along with their inputs and outputs.
+  - 
+- a trace of the workflow execution, showing how data and code were transformed over time.
+
 **Research object**: a collection of data, code, and metadata that together represent a complete unit of research output.
 **Component**: any individual part of a research object, including both assets (data, code) and metadata (provenance records, README files).
+
+> an independently versioned unit within a research object (e.g., an input dataset, a container repository, an analysis pipeline). A component contains assets, but not every asset is its own component. (Could also be called a "module")
+
 **Asset**: data-containing contents of a research object (e.g., raw data files, processed data, code scripts) as opposed to metadata (e.g., README, provenance records).
+
+> any file or artifact within a research object (data files, code scripts, config, container definitions, documentation)  
+
 
 ## Proposed Acronym: STAMP(ED)
 
