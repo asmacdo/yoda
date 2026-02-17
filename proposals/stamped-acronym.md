@@ -3,13 +3,13 @@
 ## Terms
 
 **Research object**: a collection of data, code, and metadata that together represent a complete unit of research output.
-**Component**: any individual part of a research object, including both assets (data, code) and metadata (provenance records, README files).
+**Component**: an individual part of a research object, including both assets and other collections of components.
+- Examples: datasets, software packages, container images, analysis pipeline, submodule dependence...
 
-> an independently versioned unit within a research object (e.g., an input dataset, a container repository, an analysis pipeline). A component contains assets, but not every asset is its own component. (Could also be called a "module")
+**Asset**: data-containing contents of a research object:
+- Examples: raw data, processed data, code scripts, container definition files, documentation, logs, records...
 
-**Asset**: data-containing contents of a research object (e.g., raw data files, processed data, code scripts) as opposed to metadata (e.g., README, provenance records).
-
-> any file or artifact within a research object (data files, code scripts, config, container definitions, documentation)  
+Note that a component contains assets, but not every asset is its own component.
 
 **Provenance**: the detailed history of how a research object was created, modified, and executed over time.
 It captures the lineage and transformations of data and code, providing a transparent record of the workflow's evolution.
