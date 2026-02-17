@@ -30,9 +30,9 @@ A scientific workflow follows **STAMP** guidelines when it adheres to the follow
 
 - **S** — **S**elf-contained: a research object is a complete retrieval unit
 - **T** — **T**racked: all component states and modifications are recorded
-- **A** — **A**ctionable: every dimension must be operationally useful
+- **A** — **A**ctionable: Procedures within a research object can be carried out by following or executing its contents. This ranges from well-documented manual steps to fully automated workflows. 
 - **M** — **M**odular: all components are independent and composable
-- **P** — **P**ortable: all components are operational across differing system architectures
+- **P** — **P**ortable: Procedures can be executed on different host environments, given documented system requirements.
 
 A scientific workflow is fully **STAMPED** if it additionally meets the following ideal criteria:
 
