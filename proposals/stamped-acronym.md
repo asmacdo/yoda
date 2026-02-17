@@ -2,7 +2,7 @@
 
 ## Terms
 
-**Research object**: a collection of data, code, and metadata that together represent a complete unit of research output.
+**Research Object**: a collection of data, code, and metadata that together represent a complete unit of research output.
 **Component**: a separable part of a research object, including both assets and other collections of components.
 - Examples: datasets, software packages, container images, analysis pipeline, submodule dependence...
 
@@ -10,6 +10,9 @@
 - Examples: raw data, Zar store, code scripts, container definition files, documentation, logs, records...
 
 Note that a component contains assets, but not every asset is its own component.
+
+**Workflow**: a sequence of computational steps that transform the data of the research object using code components to produce resultant output data.
+- Examples: a Jupyter notebook that processes raw data to produce figures, a Nextflow pipeline that orchestrates multiple scripts to analyze data, a containerized application that acts as a block box for input and output.
 
 **Provenance**: the detailed history of how a research object was created, modified, and executed over time.
 It captures the lineage and transformations of data and code, providing a transparent record of the workflow's evolution.
@@ -28,7 +31,7 @@ Provenance can have many specific types:
 
 ## STAMP(ED): Acronym Definition
 
-A scientific workflow follows **STAMP** guidelines when it adheres to the following principles:
+A scientific Research Object follows **STAMP** guidelines when it adheres to the following principles:
 
 - **S** — **S**elf-containment: a research object is a complete retrieval unit — it can be obtained and understood in its entirety without needing to reference external resources.
 - **T** — **T**racking: the provenance of all components is recorded.
@@ -36,7 +39,7 @@ A scientific workflow follows **STAMP** guidelines when it adheres to the follow
 - **M** — **M**odularity: all components are independent and composable.
 - **P** — **P**ortability: Procedures can be executed on different host environments, given documented system requirements.
 
-A scientific workflow is fully **STAMPED** if it additionally meets the following ideal criteria:
+A scientific Research Object is fully **STAMPED** if it additionally meets the following ideal criteria:
 
 - **E** — **E**phemerality: is able to perform all computation within a throwaway environment.
 - **D** — **D**istributability: all components are shareable in a persistent state.
@@ -52,9 +55,9 @@ Actionability is the most challenging definition to elucidate and so deserves a 
   - Actionability can be thought of as the "doability" of a research object — it means that the procedures and instructions contained within are not just documented, but can actually be carried out by someone else (or by an automated system) to reproduce the results.
   - This could range from having clear, step-by-step instructions for manual execution to having fully automated scripts that can be run with a single command.
 
-Note before we proceed there is a critical difference between simply sharing a workflow and Distributing it in our sense:
-- Sharing a workflow might involve making it available on a platform like GitHub, but that may not be in a state that can be easily reproducible by others due to loose dependencies.
-- Distributing a workflow, on the other hand, implies that it is packaged in such a way that it can be retrieved in the same or similar state as intended, such as for a particular container digest or bundled executable (respecting the previous Portability principle, of course).
+Note before we proceed there is a critical difference between simply sharing a Research Object and Distributing it in our sense:
+- Sharing a Research Object might involve making it available on a platform like GitHub, but that may not be in a state that can be easily reproducible by others due to loose dependencies.
+- Distributing a Research Object, on the other hand, implies that it is packaged in such a way that it can be retrieved in the same or similar state as intended, such as for a particular container digest or bundled executable (respecting the previous Portability principle, of course).
 
 
 
@@ -63,7 +66,7 @@ Note before we proceed there is a critical difference between simply sharing a w
 To help understand each principle in practice, let us examine some of the qualifiers of each.
 
 - To be **Self-contained**:
-  - all components needed to understand and execute the workflow are retrievable as a single unit.
+  - all components needed to understand and execute the Research Object are retrievable as a single unit.
   - external dependencies are explicitly documented with retrieval instructions.
   - there are no implicit references to undocumented external resources.
 
@@ -75,7 +78,7 @@ To help understand each principle in practice, let us examine some of the qualif
 - To be **Actionable**:
   - instructions for executing procedures are present and unambiguous.
   - execution paths can be followed manually or automated programmatically.
-  - the workflow transitions from documentation to operational capability.
+  - the Research Object transitions from documentation to operational capability.
 
 - To be **Modular**:
   - components can be independently modified.
@@ -84,7 +87,7 @@ To help understand each principle in practice, let us examine some of the qualif
 
 - To be **Portable**:
   - system requirements and dependencies are explicitly documented.
-  - the workflow is flexible enough to execute on different host environments without modification by the user.
+  - the Research Object is flexible enough to execute on different host environments without modification by the user.
   - environment specifications are machine-readable where possible.
 
 - To be **Ephemeral**:
@@ -95,7 +98,7 @@ To help understand each principle in practice, let us examine some of the qualif
 - To be **Distributable**:
   - all components can be shared in a persistent, retrievable state.
   - dependencies are frozen or pinned to specific versions across systems.
-  - the workflow can be obtained by others in the same state as intended.
+  - the Research Object can be obtained by others in the same state as intended.
 
 
 
@@ -161,7 +164,7 @@ Actionability across dimensions:
 - Real English word with professional tone
 - Connotation of **certification/approval** — "STAMPED-compliant" reads naturally
 - Evokes a relation to **timestamping** — a core VCS concept
-- Works as noun ("the STAMPED principles"), adjective ("a STAMPED dataset"), or verb ("we STAMPED this workflow")
+- Works as noun ("the STAMPED principles"), adjective ("a STAMPED dataset"), or verb ("we STAMPED this research")
 
 **As an acronym:**
 - 7 letters, 7 concepts, clean 1-to-1 mapping
@@ -170,7 +173,7 @@ Actionability across dimensions:
 **Practically:**
 - Sidesteps Star Wars trademark concerns raised in #7
 - More descriptive than VAMP
-- Enables natural compliance language: "Is your research object STAMPED?", "Let's STAMP your pipelines.", "Your workflow has received the STAMP of approval!"
+- Enables natural compliance language: "Is your research object STAMPED?", "Let's STAMP your pipelines.", "Your research workflow has received the STAMP of approval!"
 
 
 
