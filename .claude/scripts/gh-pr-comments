@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Fetch inline review comments from a GitHub PR (read-only).
+# Usage: gh-pr-comments <PR-URL>
+#        gh-pr-comments <owner/repo> <number>
+set -eu
+
+if [[ "${1:-}" =~ github\.com/([^/]+)/([^/]+)/pull[s]?/([0-9]+) ]]; then
+    owner="${BASH_REMATCH[1]}"
+    repo="${BASH_REMATCH[2]}"
+    number="${BASH_REMATCH[3]}"
+elif [[ $# -eq 2 ]]; then
+    IFS='/' read -r owner repo <<< "$1"
+    number="$2"
+else
+    echo "Usage: $0 <PR-URL> or $0 <owner/repo> <number>" >&2
+    exit 1
+fi
+
+gh api --paginate "repos/${owner}/${repo}/pulls/${number}/comments" \
+  --jq '.[] | "## \(.path):\(.line // .original_line)\n\(.user.login) (\(.created_at[:10]))\n\n\(.body)\n\n---"'
