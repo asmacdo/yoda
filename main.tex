@@ -85,21 +85,23 @@ The formalization presented here provides a foundation for interoperability and 
 \caption{STAMPED Properties}
 \begin{tabular}{l l p{10cm}}
 \hline
-\textbf{ID} & \textbf{Property} & \textbf{Principle} \\
+\textbf{ID} & \textbf{Property} & \textbf{Requirement} \\
 \hline
-S.1  & Self-contained & All assets essential to replicate computational execution MUST be contained within a single top-level research object \\
-T.1  & Tracked        & Version information MUST be tracked for all assets \\
-T.2  & Tracked        & All assets SHOULD be tracked using the same content-addressed version control system \\
+S.1  & Self-contained & All modules and components essential to replicate computational results MUST be contained within a single top-level research object \\
+T.1  & Tracked        & Version information MUST be recorded for all components \\
+T.2  & Tracked        & All components SHOULD be tracked using the same content-addressed version control system \\
+T.3  & Tracked        & Provenance of all modifications MUST be recorded \\
+T.4  & Tracked        & Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved \\
 A.1  & Actionable     & Research object MUST contain sufficient instructions to reproduce all computational results \\
-M.1  & Modular        & Assets SHOULD be organized in a modular structure \\
-M.2  & Modular        & Assets MAY be included directly or linked as subdatasets \\
-P.1  & Provenance     & Provenance of all modifications MUST be annotated \\
-P.2  & Provenance     & Code-driven provenance SHOULD be annotated programmatically, MUST include versions \\
-E.1  & Ephemeral      & Computational results SHOULD be computed in ephemeral environments \\
-D.1  & Distributable     & Computational environments MUST be explicitly specified \\
-D.2  & Distributable     & Environment specifications SHOULD support reproducible builds \\
-D.3  & Distributable     & Environment definitions MUST be version controlled \\
-D.4  & Distributable     & Environment assets SHOULD be self-contained within the dataset \\
+M.1  & Modular        & Components SHOULD be organized in a modular structure \\
+M.2  & Modular        & Components MAY be included directly or linked as subdatasets \\
+P.1  & Portable       & Procedures MUST NOT depend on undocumented host environment state \\
+P.2  & Portable       & Computational environments MUST be explicitly specified \\
+P.3  & Portable       & Environment definitions MUST be version controlled \\
+E.1  & Ephemeral      & Computational results SHOULD be produced in ephemeral environments \\
+% TODO: D rules need refinement — see #38 discussion
+D.1  & Distributable  & All referenced modules and components MUST be persistently retrievable by others \\
+D.2  & Distributable  & Environment specifications SHOULD support reproducible builds \\
 \hline
 \end{tabular}
 \end{table}
