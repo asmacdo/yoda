@@ -6,7 +6,7 @@
 **Module**: a separately distributable collection of components.
 - Examples: datasets, software packages, container images, analysis pipeline, submodule dependence...
 
-**Component**: A trackable atomic object, part a module.
+**Component**: A trackable element that is part of a module.
 - Examples: raw data file, directory, Zarr, code, documentation, logs, records...
 - Note that a module contains components, but not every component is a module.
 
