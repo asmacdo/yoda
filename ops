@@ -1,1 +1,1 @@
-{"version":2,"ops":[{"type":1,"author":{"id":"c896512a0e2e93b7e37e352ce3e58506d65f25f6"},"timestamp":1771380274,"title":"New sample issue from git-bug","message":"what I already saw that fetching of issues didn't fetch embedded images :-/","files":null}]}
+{"version":2,"ops":[{"type":8,"author":{"id":"c896512a0e2e93b7e37e352ce3e58506d65f25f6"},"timestamp":1771380367,"target":"ab30514eaf77926067206702684274af6a87a39211646180ad902b3fea4e7167","new_metadata":{"github-id":"I_kwDORKQ0ks7rxDem","github-url":"https://github.com/myyoda/principles-paper/issues/42"}}]}
