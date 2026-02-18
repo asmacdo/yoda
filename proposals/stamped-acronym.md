@@ -3,13 +3,12 @@
 ## Terms
 
 **Research Object**: a collection of data, code, and metadata that together represent a complete unit of research output.
-**Component**: a separable part of a research object, including both assets and other collections of components.
+**Module**: a separately distributable collection of components.
 - Examples: datasets, software packages, container images, analysis pipeline, submodule dependence...
 
-**Asset**: data-containing contents of a research object:
-- Examples: raw data, Zar store, code scripts, container definition files, documentation, logs, records...
-
-Note that a component contains assets, but not every asset is its own component.
+**Component**: A trackable atomic object, part a module.
+- Examples: raw data file, directory, Zarr, code, documentation, logs, records...
+- Note that a module contains components, but not every component is a module.
 
 **Workflow**: a sequence of computational steps that transform the data of the research object using code components to produce resultant output data.
 - Examples: a Jupyter notebook that processes raw data to produce figures, a Nextflow pipeline that orchestrates multiple scripts to analyze data, a containerized application that acts as a block box for input and output.
@@ -35,14 +34,14 @@ A scientific Research Object follows **STAMP** guidelines when it adheres to the
 
 - **S** — **S**elf-containment: a research object is a complete retrieval unit — it can be obtained and understood in its entirety without needing to reference external resources.
 - **T** — **T**racking: the provenance of all components is recorded.
-- **A** — **A**ctionability: Procedures within a research object can be carried out by following or executing its contents. This ranges from well-documented manual steps to fully automated workflows. 
-- **M** — **M**odularity: all components are independent and composable.
+- **A** — **A**ctionability: Procedures within a research object can be carried out by following or executing its contents. This ranges from well-documented manual steps to fully automated workflows.
+- **M** — **M**odularity: all modules are independent and composable.
 - **P** — **P**ortability: Procedures can be executed on different host environments, given documented system requirements.
 
 A scientific Research Object is fully **STAMPED** if it additionally meets the following ideal criteria:
 
 - **E** — **E**phemerality: is able to perform all computation within a throwaway environment.
-- **D** — **D**istributability: all components are shareable in a persistent state.
+- **D** — **D**istributability: all modules and components are shareable in a persistent state.
 
 These principles are ordered according to their importance:
 - Self-Containment is the foundation upon which all others apply.
@@ -66,13 +65,13 @@ Note before we proceed there is a critical difference between simply sharing a R
 To help understand each principle in practice, let us examine some of the qualifiers of each.
 
 - To be **Self-contained**:
-  - all components needed to understand and execute the Research Object are retrievable as a single unit.
+  - all modules and components needed to understand and execute the Research Object are retrievable as a single unit.
   - external dependencies are explicitly documented with retrieval instructions.
   - there are no implicit references to undocumented external resources.
 
 - To be **Tracked**:
-  - every asset has version information (commit hash, tag, or identifier).
-  - changes to assets are recorded with timestamps and authorship.
+  - every component has version information (commit hash, tag, or identifier).
+  - changes to components are recorded with timestamps and authorship.
   - provenance records capture the computational history, context, and transformations.
 
 - To be **Actionable**:
@@ -81,9 +80,9 @@ To help understand each principle in practice, let us examine some of the qualif
   - the Research Object transitions from documentation to operational capability.
 
 - To be **Modular**:
-  - components can be independently modified.
-  - assets are organized in logical, separable units.
-  - components can be composed together or used in isolation.
+  - modules can be independently modified.
+  - components are organized in logical, separable units.
+  - modules can be composed together or used in isolation.
 
 - To be **Portable**:
   - system requirements and dependencies are explicitly documented.
@@ -96,7 +95,7 @@ To help understand each principle in practice, let us examine some of the qualif
   - no reliance on external configurations or host system states (such as OS registry modifications).
 
 - To be **Distributable**:
-  - all components can be shared in a persistent, retrievable state.
+  - all modules and components can be shared in a persistent, retrievable state.
   - dependencies are frozen or pinned to specific versions across systems.
   - the Research Object can be obtained by others in the same state as intended.
 
@@ -108,15 +107,15 @@ The following statements express obligations and permissions of each principle.
 The terms "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the following text are to be interpreted as described in RFC 2119.
 
 - **Self-containment**
-  - S.1: All assets essential to replicate computational execution MUST be contained within a single top-level research object.
+  - S.1: All modules and components essential to replicate computational execution MUST be contained within a single top-level research object.
 - **Tracking**
-  - T.1: Version information MUST be tracked for all assets.
-  - T.2: All assets SHOULD be tracked using the same content-addressed version control system.
+  - T.1: Version information MUST be tracked for all components.
+  - T.2: All components SHOULD be tracked using the same content-addressed version control system.
 - **Actionability**
   - A.1: Research object MUST contain sufficient instructions to reproduce all computational results.
 - **Modularity**
-  - M.1: Assets SHOULD be organized in a modular structure.
-  - M.2: Assets MAY be included directly or linked as subdatasets.
+  - M.1: Components SHOULD be organized in a modular structure.
+  - M.2: Components MAY be included directly or linked as subdatasets.
 - **Portability**
   - P.1: Procedures MUST NOT depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations)
   - P.2: Computational environments MUST be explicitly specified
@@ -127,7 +126,7 @@ The terms "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOUL
   - D.1: Computational environments MUST be explicitly specified.
   - D.2: Environment specifications SHOULD support reproducible builds.
   - D.3: Environment definitions MUST be version controlled.
-  - D.4: Environment assets SHOULD be self-contained within the dataset.
+  - D.4: Environment components SHOULD be self-contained within the dataset.
 
 
   
