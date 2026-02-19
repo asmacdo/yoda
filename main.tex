@@ -52,7 +52,6 @@ A \textbf{component} is a trackable element that is part of a module (e.g., a da
 
 \section{Results}
 
-
 \begin{table}[ht]
 \centering
 \caption{The STAMPED Properties. Each property addresses a distinct dimension of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
@@ -91,6 +90,8 @@ At the ideal end, every reference is precise enough that retrieval is unambiguou
 
 Self-containment is the foundational property upon which the remaining STAMPED properties build.
 Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
+
+
 
 \subsection{Tracked}
 
@@ -140,6 +141,8 @@ This ensures completeness and enables re-execution: a researcher can not only se
 % It should make it "safe to make a cut", but also to "re-connect" the component if any detail or functionality of it is needed.
 % And that should lead into modularity + git modules as the way "to cauterize"
 
+
+
 \subsection{Actionable}
 
 \begin{itemize}
@@ -162,6 +165,8 @@ Actionability applies to every other STAMPED dimension: at the ideal end, each p
 \end{itemize}
 The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
 With advent of agentic AI systems, documentation alone often can provide actionable recipes, but nevertheless formalization in AI-specific formulations (e.g. \texttt{Claude Skills} [CITE]) can drastically improve actionability of such descriptions.
+
+
 
 \subsection{Modularity}
 
@@ -198,6 +203,8 @@ Self-containment (all independent modules required by the workflow ).
 It enhances Actionability by increasing the system reliability.
 Portability and Distributability are also easier to achieve since modules can themselves be ported and distributed separately from the integration in the whole.
 
+
+
 \subsection{Portability}
 
 \begin{itemize}
@@ -229,6 +236,8 @@ environments are explicitly specified, versioned, and available within the proje
 % TODO: randomness/seeds as a portability concern — see #34
 % TODO: provenance format targets (W3C PROV, BEP028, RO-Crate, BioComputeObject) — where do these go? Discussion?
 
+
+
 \subsection{Ephemeral}
 
 \begin{itemize}
@@ -251,6 +260,8 @@ Ephemerality is recommended: not every research object can achieve it, and it is
 At a minimum, a research object should be able to produce results from a fresh clone on a system that meets its stated requirements (P).
 At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
 
+
+
 \subsection{Distributable}
 
 \begin{itemize}
@@ -270,7 +281,6 @@ Distributability also has a circular relationship with the other STAMPED propert
 Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
 
 The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
-
 
 \begin{table}[ht]
 \centering
@@ -298,6 +308,7 @@ D.2  & Distributable  & Environment specifications SHOULD support reproducible b
 \hline
 \end{tabular}
 \end{table}
+
 
 
 \section{Discussion}
