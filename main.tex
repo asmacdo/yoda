@@ -111,6 +111,19 @@ D.2  & Distributable  & Environment specifications SHOULD support reproducible b
 \end{tabular}
 \end{table}
 
+\subsection{Self-contained}
+
+Reproducibility fails when a research object depends on resources that are not part of it---an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
+We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
+Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary.
+
+Self-containment is the foundational property upon which the remaining STAMPED properties build.
+Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
+
+Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
+Both approaches satisfy self-containment, provided the references are explicit and tracked within the research object.
+The stability and precision of those references---content hashes versus mutable URLs---is the concern of Tracking (T), and whether they remain retrievable by others over time is the concern of Distributability (D).
+
 \subsection{Version Control Everything}
 
 Outline:
