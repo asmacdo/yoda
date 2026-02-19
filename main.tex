@@ -216,34 +216,17 @@ Thus, a dataset version can be precisely described as the pairing of generated r
 % It requires metadata which would at least demarkate module boundary and potentially associate with specific version control mechanisms and distributions.
 % In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses. 
 
-\textbf{Formal Principles:}
+% TODO: formal principles removed — now in STAMPED table (M.1, M.2)
 
-\begin{itemize}
-  \item \textbf{P2.1} Assets \textbf{SHOULD} be organized in a modular structure.
-  \item \textbf{P2.2} All assets essential to replicate computational execution \textbf{MAY} be included directly in the dataset or linked as subdatasets.
-  \item \textbf{P2.3} Components \textbf{SHOULD} accommodate domain-specific standards where applicable.
-  % \item \textbf{P2.?} Module boundaries \textbf{SHOULD} be decided on the basis of their \emph{pragmatic idependent usefulness} unless driven by other factors demanding even further modularization.
-\end{itemize}
+\subsection{Portability}
 
-\subsection{Portable Computational Environments}
+A research object that is self-contained, tracked, and modular may still fail to reproduce if it depends on undocumented host environment state---hardcoded paths, implicitly available tools, or specific OS configurations.
+Portability requires that procedures can be executed on different host environments, given documented system requirements.
 
-Research reproducibility fundamentally depends not only on preserving code and data,
-but also on capturing the complete computational environment—the operating system,
-libraries, dependencies, and tool versions—that produced the results.
+Research reproducibility fundamentally depends not only on preserving code and data, but also on capturing the complete computational environment—the operating system, libraries, dependencies, and tool versions—that produced the results.
+Environmental drift, where software dependencies evolve or disappear over time, is a primary cause of computational irreproducibility. Even with identical code and data, differences in library versions, compiler settings, or system configurations can produce divergent results or outright failures.
 
-Environmental drift, where software dependencies evolve or disappear over time,
-is a primary cause of computational irreproducibility. Even with identical code and
-data, differences in library versions, compiler settings, or system configurations
-can produce divergent results or outright failures.
-
-YODA addresses this through explicit environment specification and versioning.
-Computational environments should be:
-\begin{itemize}
-  \item Explicitly defined (not implicitly assumed)
-  \item Machine-reproducible (via containers, Nix/Guix, or language-specific managers)
-  \item Version controlled alongside code and data
-  \item Self-contained within the project boundary
-\end{itemize}
+Computational environments should be explicitly defined (not implicitly assumed), machine-reproducible, version controlled alongside code and data, and self-contained within the project boundary.
 
 Two primary approaches exist for environment portability:
 \begin{enumerate}
@@ -251,77 +234,13 @@ Two primary approaches exist for environment portability:
   \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management
 \end{enumerate}
 
-YODA principles are environment-mechanism-agnostic; what matters is that
+STAMPED is environment-mechanism-agnostic; what matters is that
 environments are explicitly specified, versioned, and available within the project.
 
-\textbf{Formal Principles:}
-
-\begin{itemize}
-    \item \textbf{P4.1} Computational environments \textbf{MUST} be explicitly specified
-    \item \textbf{P4.2} Environment specifications \textbf{SHOULD} be machine-reproducible
-    \item \textbf{P4.3} Environment definitions \textbf{MUST} be version controlled
-    \item \textbf{P4.4} Environments \textbf{SHOULD} be self-contained within the dataset
-\end{itemize}
-
-\subsection{Incorporating Provenance into VCS History}
-
-% TODO : cite Tek Raj paper, and paper I found on various provenance formats/approaches.
-Provenance—the detailed record of actions taken to produce research outputs—is essential for reproducibility, transparency, and trust in scientific workflows.
-Typically, provenance collection occurs separately from version control, leading to fragmentation of essential metadata and difficulties reconstructing workflows accurately or automatically.
-
-YODA advocates embedding provenance directly into version control histories by encoding precise descriptions of computational actions into commit records.
-Provenance of all modifications to assets need to be explicitly annotated within these version control histories.
-Provenance-rich commit histories enable exact repetition of computational steps or targeted remixing of workflows by selectively modifying certain components.
-For modifications driven by code, provenance should be annotated programmatically, and this automated capture requires explicit version information for all components used.
-
-This methodology provides immediate practical utility even before comprehensive workflow automation is achievable, facilitating reproducible research and iterative experimentation.
-Furthermore, integrating automated provenance capture into the commit process ensures transparency and reduces human error or oversight, creating inherently detailed, auditable records of the research process.
-Collectively, implementing a structured, idiomatic version control strategy using YODA enhances the self-containment and completeness of research workflows, ensures clear, repeatable provenance, and facilitates collaborative, modular, and portable science.
-
-\textbf{Formal Principles:}
-
-\begin{itemize}
-    \item \textbf{P3.1} Provenance of all modifications to the assets \textbf{MUST} be annotated.
-    \item \textbf{P3.2} Provenance of code-driven modifications to assets \textbf{SHOULD} be annotated programmatically, and \textbf{MUST} include the versions of all components used.
-\end{itemize}
-
-\subsubsection{Provenance Format Targets}
-
-While YODA advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
-
-\textbf{W3C PROV}: Foundation for many domain-specific formats, provides the Activity/Entity/Agent model.
-
-\textbf{BEP028 (BIDS Provenance)}: BIDS Extension Proposal using W3C PROV for neuroimaging workflows. Captures Activities (what ran), Entities (inputs/outputs), and Agents (tools) in JSON-LD format.
-
-\textbf{RO-Crate}: Lightweight packaging with Schema.org and JSON-LD metadata. A practical implementation of the FAIR Digital Object Framework, used across bioinformatics, digital humanities, and regulatory sciences.
-
-\textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
-
-Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
-
-\subsection{Principle Priorities}
-
-\textbf{Essential (MUST for basic reproducibility)}:
-\begin{itemize}
-    \item P1.1: All assets included
-    \item P3.1: Provenance annotated
-    \item P4.1: Environments specified
-\end{itemize}
-These are minimum requirements; omitting any fundamentally compromises reproducibility.
-
-\textbf{Strong recommendations (SHOULD for reusability)}:
-\begin{itemize}
-    \item P1.2: Same VCS for all assets
-    \item P2.1: Modular structure
-    \item P4.2: Machine-reproducible environments
-\end{itemize}
-Deviation is possible but reduces portability and reuse potential.
-
-\textbf{Optional (MAY for convenience)}:
-\begin{itemize}
-    \item P2.2: Subdatasets vs direct inclusion (both valid)
-    \item P2.3: Domain-specific standards (nice-to-have, not always applicable)
-\end{itemize}
+% TODO: spectrum — minimum (documented system requirements, no hardcoded paths) vs ideal (machine-reproducible environment specs, containers)
+% TODO: the code/ vs code/local/ pattern for non-portable config — see #34
+% TODO: randomness/seeds as a portability concern — see #34
+% TODO: provenance format targets (W3C PROV, BEP028, RO-Crate, BioComputeObject) — where do these go? Discussion?
 
 \section{Discussion}
 
