@@ -1,8 +1,17 @@
-# Research Materials for YODA Formalization Manuscript
+# Research Materials for STAMPED Manuscript
 
-This directory contains supporting research and analysis for the YODA formalization manuscript.
+This directory contains supporting research and analysis for the STAMPED manuscript.
+
+Target venue: **Nature Scientific Data** (Article format).
 
 ## Contents
+
+### Venue Research
+
+- `SDATA-ARTICLE-REQUIREMENTS.md` — Nature Scientific Data Article format requirements (current target)
+- `sdata-style-patterns.md` — Style notes and differences from Nature Methods
+- `NMETH-ARTICLE-REQUIREMENTS.md` — Nature Methods requirements (prior target, retained for reference)
+- `nmeth-style-patterns.md` — Nature Methods style patterns (prior target, retained for reference)
 
 ### `related-organizational-principles.md`
 
