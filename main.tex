@@ -167,15 +167,21 @@ This ensures completeness and enables re-execution: a researcher can not only se
 
 \subsection{Actionable}
 
-% - Elevates a research object from static metadata to operational capability
-% - Ranges from documented manual steps to fully automated workflows
-% - Cross-cutting: applies across all dimensions (declarative vs actionable)
-% - Landing zone: documentation that is genuinely followable is the MUST; programmatic execution is the SHOULD
-% - Declarative vs Actionable table:
-%   | Version Control | "this is version X"     | git checkout, datalad get — retrieve any version |
-%   | Provenance      | W3C PROV record exists   | datalad rerun — re-execute the recorded command |
-%   | Modularity      | subdirectories exist     | git submodule init, datalad install — compose/decompose |
-%   | Portability     | Dockerfile present       | singularity run — move and execute across environments |
+Actionability is the quality that elevates a research object from a static collection of metadata to an operational unit.
+A research object is actionable when the procedures it describes can be carried out by following or executing its contents---not merely read about.
+This ranges from well-documented manual steps that a human can follow to fully automated workflows that execute with a single command.
+
+Actionability is cross-cutting: it applies to every other STAMPED dimension, distinguishing declarative metadata from operational capability.
+A version-controlled dataset is more actionable when any version can be retrieved programmatically (e.g., \texttt{git checkout}, \texttt{datalad get}), not just identified by a label.
+Provenance is more actionable when recorded commands can be re-executed (e.g., \texttt{datalad rerun}), not just inspected.
+Modularity is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
+Portability is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
+
+At a minimum, a research object must contain sufficient instructions to reproduce all computational results.
+Stronger forms of actionability replace documentation with executable specifications, reducing ambiguity and human error.
+For example, a version control system can record not only that a file changed, but the exact command that produced the change, its inputs, and its outputs---making the commit itself re-executable.
+Tools such as DataLad's \texttt{run} command demonstrate this pattern: the commit message becomes a machine-readable provenance record that can be replayed to regenerate results.
+The principle is tool-agnostic: any system that captures executable provenance alongside version history moves the research object further along the actionability spectrum.
 
 \subsection{Modularity}
 
