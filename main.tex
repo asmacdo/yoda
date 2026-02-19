@@ -135,21 +135,20 @@ This ensures completeness and enables re-execution: a researcher can not only se
 
 \subsection{Actionable}
 
-Actionability is the quality that elevates a research object from a static collection of metadata to an operational unit.
-A research object is actionable when the procedures it describes can be carried out by following or executing its contents---not merely read about.
-This ranges from well-documented manual steps that a human can follow to fully automated workflows that execute with a single command.
+A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is not suﬀicient without a recipe that can be followed.
+Actionability (A.1, Table~1) is what makes a research object operationally useful---the bridge between having the components and being able to use them.
 
-Actionability is cross-cutting: it applies to every other STAMPED dimension, distinguishing declarative metadata from operational capability.
-A version-controlled dataset is more actionable when any version can be retrieved programmatically (e.g., \texttt{git checkout}, \texttt{datalad get}), not just identified by a label.
-Provenance is more actionable when recorded commands can be re-executed (e.g., \texttt{datalad rerun}), not just inspected.
-Modularity is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
-Portability is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
-
-At a minimum, a research object must contain sufficient instructions to reproduce all computational results.
-Stronger forms of actionability replace documentation with executable specifications, reducing ambiguity and human error.
-For example, a version control system can record not only that a file changed, but the exact command that produced the change, its inputs, and its outputs---making the commit itself re-executable.
-Tools such as DataLad's \texttt{run} command demonstrate this pattern: the commit message becomes a machine-readable provenance record that can be replayed to regenerate results.
-The principle is tool-agnostic: any system that captures executable provenance alongside version history moves the research object further along the actionability spectrum.
+At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
+Actionability applies to every other STAMPED dimension: at the ideal end, each property is enacted not through documentation alone but through executable specifications (A.2):
+\begin{itemize}
+  \item \textbf{Self-containment} is more actionable when retrieval of all components is specified and executable (e.g., \texttt{git clone}, \texttt{datalad install}), not just listed in a manifest.
+  \item \textbf{Tracking} is more actionable when provenance records are re-executable (e.g., \texttt{datalad rerun}), not just inspectable.
+  \item \textbf{Modularity} is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
+  \item \textbf{Portability} is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
+  \item \textbf{Ephemerality} is more actionable when computation can be orchestrated in disposable environments (e.g., \texttt{docker compose}, Slurm), not just instructed to ``run in a clean environment.''
+  \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
+\end{itemize}
+The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
 
 \subsection{Modularity}
 
