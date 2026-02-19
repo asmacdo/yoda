@@ -1,24 +1,51 @@
-# VAMP Paper
+# STAMPED Paper
 
-A manuscript formalizing the VAMP principles — Version control, Actionable provenance, Modularity, and Portable environments — for idiomatic dataset version control.
+A manuscript formalizing the STAMPED properties — Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable — for reproducible research objects. Originating from the YODA Principles.
 
 ## Venue & Format
 
-Target: Nature Methods Article. All structural constraints are in [NMETH-ARTICLE-REQUIREMENTS.md](NMETH-ARTICLE-REQUIREMENTS.md).
+Target: Nature Methods Article.
+- Format requirements: [research/NMETH-ARTICLE-REQUIREMENTS.md](research/NMETH-ARTICLE-REQUIREMENTS.md)
+- Style guide: [research/nmeth-style-patterns.md](research/nmeth-style-patterns.md)
 
 ## Key Files
 
-- `outline.md` — current paper outline and section TODOs
 - `main.tex` — manuscript source
+- `proposals/stamped-acronym.md` — the STAMPED proposal (term definitions, acronym, normative properties, RFC 2119 rules)
 - `REFERENCES-TODO.md` — references to incorporate
-- `NMETH-ARTICLE-REQUIREMENTS.md` — venue format constraints
-- `research/` — background research and analysis
-- `local-notes/` is gitignored and available for non-committed scratch notes. 
+- `research/` — background research, format requirements, and style guide
+- `local-notes/` is gitignored and available for non-committed scratch notes
 - AI agents should load local-notes/CLAUDE.md into context immediately if available
+
+## Term Hierarchy
+
+- **Research Object** > **Module** > **Component**
+- A research object is composed of modules (separately distributable collections of components)
+- A component is a trackable element that is part of a module
+- **Workflow**: defined by WCI-FW, cited not self-defined
+- **Provenance**: recorded history of how components were produced or modified
+
+## Key Decisions
+
+- P = Portable (not Provenance). Provenance folds into Tracked (T).
+- Actionability (A) is cross-cutting — applies to every other dimension
+- Hierarchy: S = foundation, A = cross-cutting, T/M/P = core pillars, E/D = ideals
+- STAMPED is tool-agnostic — avoid "STAMPED-compliant tools", prefer "tools complementary to STAMPED"
+- Each property is a spectrum from practical minimums to aspirational ideals
+
+## Section Pattern for Results
+
+Each Results subsection should loosely follow this structure:
+1. **Motivation**: Why this property matters. What goes wrong without it.
+2. **Definition**: Reference the formal requirements in Table 1. Brief prose restating the core idea.
+3. **Spectrum** (minimum → ideal): Practical floor → aspirational ceiling. Foreshadow later properties rather than detail them.
+4. **Cross-references**: How this property interacts with others (brief).
 
 ## Writing Conventions
 
 - Principles use RFC 2119 keywords (MUST, SHOULD, MAY)
+- Refer to other properties by name with letter: e.g., "Tracking (T)", "Distributability (D)"
+- Keep tool examples tool-agnostic in definitions, tool-specific in spectrum examples
 
 ## Workflow
 
