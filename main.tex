@@ -255,6 +255,7 @@ Two primary approaches exist for environment portability:
 STAMPED is environment-mechanism-agnostic; what matters is that
 environments are explicitly specified, versioned, and available within the project.
 
+% TODO: containers need more coverage here — containerization is a key portability mechanism that E and D both depend on
 % TODO: spectrum — minimum (documented system requirements, no hardcoded paths) vs ideal (machine-reproducible environment specs, containers)
 % TODO: the code/ vs code/local/ pattern for non-portable config — see #34
 % TODO: randomness/seeds as a portability concern — see #34
@@ -262,14 +263,20 @@ environments are explicitly specified, versioned, and available within the proje
 
 \subsection{Ephemeral}
 
-% - Computation in temporary disposable environments — "make it a habit to destroy the environment" (mih)
-% - A form of validation: if it works in a disposable env, your other properties provably hold
-% - Guarantees: inputs exhaustively specified, outputs deposited correctly, no "don't look up" violations
-% - Caveat: does not guarantee everything — e.g., system-specific tools may still be implicitly used. Be brief but clear about limits.
-% - SHOULD not MUST — aspirational, but powerful when achieved
-% - Enables scaling: one job per subject, FAIRly big workflow pattern
-% - Examples include CodeOcean capsules — each is an ephemeral work unit
-% - Spectrum: minimum (can run in a fresh clone) vs ideal (CI/containerized throwaway per run)
+If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
+Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
+Ephemerality is a form of validation: ``make it a habit to destroy the environment.''
+
+Ephemeral computation does not validate everything---for instance, it does not catch reliance on system-specific tools present in the disposable environment itself.
+Nevertheless, it substantially raises confidence that the research object is self-contained and portable.
+
+Beyond validation, ephemeral environments enable scaling.
+When each computational job runs in an independent, disposable instance, work can be parallelized across subjects, parameters, or datasets---the pattern demonstrated by the FAIRly big workflow approach.
+Platforms such as Code Ocean operationalize this by treating each capsule as an ephemeral work unit.
+
+Ephemerality is recommended: not every research object can achieve it, and it is not required for STAMPED compliance.
+At a minimum, a research object should be able to produce results from a fresh clone on a system that meets its stated requirements (P).
+At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
 
 \section{Discussion}
 
