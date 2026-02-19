@@ -124,17 +124,7 @@ Components may be included literally (e.g., files committed directly) or by refe
 Both approaches satisfy self-containment, provided the references are explicit and tracked within the research object.
 The stability and precision of those references---content hashes versus mutable URLs---is the concern of Tracking (T), and whether they remain retrievable by others over time is the concern of Distributability (D).
 
-\subsection{Version Control Everything}
-
-Outline:
-  - problems with non-version controlled data
-  - how version control addresses the problems
-    ie, version control tools associate a unique identifier and basic provenance with each revision, and thus enable the identification of precise version states of digital files or collections of files.
-  - how traditional version control (git) can be extended to large datasets
-  - other benefits
-    - collaboration
-    - reversion of changes
-    - time travel
+\subsection{Tracked}
 
 Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
 Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
@@ -156,12 +146,19 @@ Critically, approaching full reproducibility requires that version control encom
 These components typically include raw and derived datasets, preprocessing and analysis scripts, parameter and configuration files, computational environment definitions (such as Docker or Singularity containers), and accompanying documentation describing workflow execution details.
 Omitting even one component can severely compromise reproducibility, making comprehensive version control across these assets a fundamental necessity.
 
-\textbf{Formal Principles:}
-\begin{itemize}
-    \item \textbf{P1.1} All assets essential to replicate computational execution \textbf{MUST} be \emph{included}
-    \item \textbf{P1.2} All assets essential to replicate computational execution \textbf{SHOULD} be version controlled using the same version control system
-\end{itemize}
+% TODO: formal principles removed — now in STAMPED table (S.1, T.1, T.2)
+% TODO: strip S-redundant content (lines 155-157 overlap with S section)
 
+Tracking encompasses not only version history but also provenance---the record of what actions produced or modified each component.
+Provenance collection typically occurs separately from version control, leading to fragmentation: the data is versioned in one system while the record of how it was produced lives in another (or nowhere).
+Embedding provenance directly into version control history---for example, by encoding descriptions of computational actions into commit records---unifies these concerns.
+A provenance-rich commit history records not just that a file changed, but what command was executed, what inputs it consumed, and what versions of code and environment were involved.
+
+For code-driven modifications, provenance should be captured programmatically rather than by manual annotation.
+This ensures completeness and enables re-execution: a researcher can not only see what was done but repeat it.
+% TODO: cite Tek Raj paper, provenance format approaches
+% TODO: mention W3C PROV, RO-Crate, BEP028 as interoperable export targets
+% TODO: spectrum — minimum (manual commit messages describing what was done) vs ideal (programmatic provenance capture with full dependency graphs, re-executable)
 % that's where might be worth already to talk about ability of the used VCS/platform to "replicate" the outside components within it.
 % e.g. if containers are used, it must provide storage for those containers as part of the resource, and not to rely on external links which might disappear.
 % To a degree - VCS should provide ways to "cauterize the wound" (or find a better analogie).
