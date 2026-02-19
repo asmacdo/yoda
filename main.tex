@@ -298,42 +298,42 @@ The spectrum of distributability ranges from publicly accessible components with
 
 \subsubsection{DVC (Data Version Control)}
 Shares ``Git for data'' philosophy but differs in architecture:
-DVC uses external .dvc files with remote storage configuration, while YODA with git-annex integrates directly into the git repository structure.
-DVC focuses on Python and ML workflows within a single project, whereas YODA is language-agnostic and supports federated multi-project composition.
+DVC uses external .dvc files with remote storage configuration, while tools complementary to STAMPED such as DataLad with git-annex integrate directly into the git repository structure.
+DVC focuses on Python and ML workflows within a single project, whereas STAMPED is language-agnostic and supports federated multi-project composition.
 Both are valid; choice depends on team familiarity (DVC easier for ML engineers), infrastructure (DVC integrates easily with cloud ML platforms), and scale requirements (git-annex more flexible for federated datasets).
 
 \subsubsection{Pachyderm}
 Enterprise ``Git for data'' with Kubernetes-native architecture.
-Pachyderm requires a centralized cluster and cloud infrastructure, while YODA is local-first, works offline, and supports federation.
-Pachyderm provides automatic pipeline triggering, whereas YODA uses explicit execution (e.g., \texttt{datalad run}).
+Pachyderm requires a centralized cluster and cloud infrastructure, while a STAMPED approach is local-first, works offline, and supports federation.
+Pachyderm provides automatic pipeline triggering, whereas STAMPED emphasizes explicit, provenance-tracked execution (e.g., \texttt{datalad run}).
 Pachyderm excels for production ML pipelines, team collaboration with shared compute resources, and automatic scaling.
-YODA excels for research workflows, offline work, and heterogeneous datasets across institutions.
+STAMPED excels for research workflows, offline work, and heterogeneous datasets across institutions.
 
 \subsubsection{Kedro}
 Python data engineering framework with modular pipelines.
-Kedro provides within-project modularity through Python pipeline components, while YODA provides across-project modularity through subdatasets as git submodules.
-Kedro includes built-in visualization (Kedro-Viz), whereas YODA is CLI-focused with integration to external tools.
-These approaches are complementary: a Kedro pipeline inside a YODA dataset combines both strengths.
+Kedro provides within-project modularity through Python pipeline components, while STAMPED provides across-project modularity through subdatasets as git submodules.
+Kedro includes built-in visualization (Kedro-Viz), whereas STAMPED is CLI-focused with integration to external tools.
+These approaches are complementary: a Kedro pipeline inside a STAMPED research object combines both strengths.
 
 \subsubsection{Cloud Platforms (Code Ocean, brainlife.io, Flywheel)}
 Turnkey reproducibility services with proprietary interfaces.
-Platforms offer zero local setup and institutional partnerships; YODA offers local control with no vendor lock-in.
-Platforms provide web GUIs with point-and-click interaction; YODA provides CLI/API with scriptable automation.
-Platforms are centralized (single capsule or project); YODA is federated (compose across repositories).
-YODA principles could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
+Platforms offer zero local setup and institutional partnerships; STAMPED offers local control with no vendor lock-in.
+Platforms provide web GUIs with point-and-click interaction; STAMPED provides CLI/API with scriptable automation.
+Platforms are centralized (single capsule or project); STAMPED is federated (compose across repositories).
+STAMPED research objects could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
 
 \subsection{Trade-offs and Limitations}
 
 \subsubsection{git-annex Complexity vs Git LFS Simplicity}
-YODA uses git-annex for maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
+Achieving STAMPED compliance with git-annex offers maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
 This comes at a cost: a steeper learning curve.
 Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
 The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
-``YODA-lite'' implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+Lightweight STAMPED implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
 
-\subsubsection{When YODA Is vs Is Not Appropriate}
+\subsubsection{When STAMPED Is vs Is Not Appropriate}
 
-\textbf{YODA excels when}:
+\textbf{STAMPED excels when}:
 \begin{itemize}
     \item Multi-institutional collaboration requires federated datasets
     \item Long-term reproducibility spans decades or requires offline archives
@@ -342,7 +342,7 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
     \item Complex dependency graphs involve subdatasets from diverse sources
 \end{itemize}
 
-\textbf{YODA may be more than needed for}:
+\textbf{STAMPED may be more than needed for}:
 \begin{itemize}
     \item Single-script analyses where version control alone suffices
     \item Ephemeral exploratory work such as Jupyter notebooks
@@ -352,28 +352,28 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
 
 \subsection{Integration Opportunities}
 
-YODA principles are complementary, not competitive, with existing standards:
+STAMPED properties are complementary, not competitive, with existing standards:
 \begin{itemize}
-    \item \textbf{YODA + BIDS}: Domain standard within YODA structure
-    \item \textbf{YODA + RO-Crate}: Organization during research, packaging for publication
-    \item \textbf{YODA + FAIR}: Structure projects, then share via FAIR
-    \item \textbf{YODA + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
-    \item \textbf{YODA + platforms}: Download, version, and compose locally
+    \item \textbf{STAMPED + BIDS}: Domain standard within STAMPED structure
+    \item \textbf{STAMPED + RO-Crate}: Organization during research, packaging for publication
+    \item \textbf{STAMPED + FAIR}: Structure projects, then share via FAIR
+    \item \textbf{STAMPED + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
+    \item \textbf{STAMPED + platforms}: Download, version, and compose locally
 \end{itemize}
 
 \subsection{Future Directions}
 
 \subsubsection{Provenance Standards Convergence}
-Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve YODA interoperability with domain-specific tools.
+Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve STAMPED interoperability with domain-specific tools.
 
 \subsubsection{Tool Certification}
-Formal YODA principles enable ``YODA-compliant'' tool certification, similar to BIDS validation.
+Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, similar to BIDS validation.
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
 
-\subsubsection{Existing YODA Adoption}
-Several research projects have already adopted and documented YODA principles, demonstrating practical utility across domains.
+\subsubsection{Existing Adoption}
+Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
 Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
@@ -393,17 +393,16 @@ This architectural shift influenced major neuroimaging tools:
     \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
 \end{itemize}
 
-These adoptions demonstrate that YODA principles solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
+These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
 
 \section{Methods}
 \section{Data Availability}
 \section{Code Availability}
 \section{References}
 
-Might be worth relating to some of the principles among "Ten simple rules for principled simulation modelling"
-https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917 e.g.
-"Rule 5: Be kind to your future self (and your readers), and minimise opportunities for errors" since sticking to
-YODA would assist in accessing all necessary components and history/reasoning for changes for the "future self".
+% TODO: Might be worth relating to "Ten simple rules for principled simulation modelling"
+% https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917
+% "Rule 5: Be kind to your future self" — STAMPED assists in accessing all necessary components and history.
 
 \section{Author Contributions}
 \section{Competing Interests}
