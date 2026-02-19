@@ -135,7 +135,7 @@ This ensures completeness and enables re-execution: a researcher can not only se
 
 \subsection{Actionable}
 
-A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is not suﬀicient without a recipe that can be followed.
+A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insuﬀicient without a recipe that can be followed.
 Actionability (A.1, Table~1) is what makes a research object operationally useful---the bridge between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
@@ -149,6 +149,7 @@ Actionability applies to every other STAMPED dimension: at the ideal end, each p
   \item \textbf{Distributability} is more actionable when a frozen state can be produced and retrieved by others (e.g., containers, \texttt{npm ci}), not just described with pinning instructions.
 \end{itemize}
 The principle is tool-agnostic: any system that moves a property from documented to executable moves the research object further along the actionability spectrum.
+With advent of agentic AI systems, documentation alone often can provide actionable recipes, but nevertheless formalization in AI-specific formulations (e.g. \texttt{Claude Skills} [CITE]) can drastically improve actionability of such descriptions.
 
 \subsection{Modularity}
 
