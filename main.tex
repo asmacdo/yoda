@@ -20,30 +20,34 @@
 \section{Introduction}
 
 Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
-A workflow is the formal specification of data flow and execution control between components, which include executable code, configuration files, data (inputs and outputs), and provenance records.
-Executing a workflow with specific inputs and parameters generates a workflow run—a complete record of the execution process documenting the method, intermediate steps, and outputs.
-Currently, however, workflow components—data, code, provenance, and computational environments—are frequently managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
-While version control is a standard practice for code and containers, data versioning and integrated provenance tracking remain frequently overlooked.
-
 The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS guidelines for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
-Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
+Here we adopt the term \textbf{research object} to be a collection of data, code, and metadata that together represent a complete unit of research output.
+Reproducibility of a research object's results requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
+Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
 
-Several terms central to this work---research object, component, module, workflow, provenance---are used across many domains with varying meanings. We define our usage as follows:
-A \textbf{research object} is a collection of data, code, and metadata that together represent a complete unit of research output.
-A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
-A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
-A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
-\textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025
+WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems. % TODO: cite FAIR4RS
+However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
+FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
 
 Building on this foundation, we present the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable) which characterize a well-formed reproducible research object.
-Originating from the YODA Principles, STAMPED provides a framework for evaluating and improving the reproducibility of research objects.
-Full reproducibility is an asymptotic goal;
-STAMPED takes a pragmatic approach in which each property can be satisfied at varying levels of rigor, from practical minimums to aspirational ideals.
+Originating from the YODA Principles, STAMPED provides a framework for organizing, evaluating, and improving the reproducibility of research objects.
+Recognizing that full reproducibility is an asymptotic goal, STAMPED takes a pragmatic approach in which each property can be satisfied at varying levels of rigor, from practical minimums to aspirational ideals.
 STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
+
+\subsection{Recycle Bin}
+Removed text that may yet be useful! 
+
+TODO These should be worked in where they are needed.
+A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
+A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
+A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
+\textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
+
 
 
 \subsection{Related Work: Organizational Principles Across Domains}
+
 
 The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
 Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
@@ -85,6 +89,8 @@ This convergent evolution validates that STAMPED properties are not arbitrary ch
 The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \section{Results}
+
+
 
 \begin{table}[ht]
 \centering
