@@ -225,14 +225,14 @@ This intentional organization clarifies how components interact and supports dom
 It enables researchers to compose and recombine modules flexibly to produce varied outcomes.
 
 % It is crucial to note that in such idiomatic YODA dataset, all necessary components (such as inputs/ and envs/) necessary to produce results MUST be available within this dataset.
-% Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness. 
+% Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness.
 % DO NOT LOOK UP YODA!
 
 Thus, a dataset version can be precisely described as the pairing of generated results with composition of specific module versions, each independently managed.
 
 % A folder by itself is insufficient to be a "module".
 % It requires metadata which would at least demarkate module boundary and potentially associate with specific version control mechanisms and distributions.
-% In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses. 
+% In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses.
 
 % TODO: formal principles removed — now in STAMPED table (M.1, M.2)
 
@@ -277,6 +277,18 @@ Platforms such as Code Ocean operationalize this by treating each capsule as an 
 Ephemerality is recommended: not every research object can achieve it, and it is not required for STAMPED compliance.
 At a minimum, a research object should be able to produce results from a fresh clone on a system that meets its stated requirements (P).
 At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
+
+\subsection{Distributable}
+
+% - A research object and its components can be shared, retrieved, and used by others
+% - Introduce and connect the concept of a software "distribution"
+% - More than "dumping scripts on Zenodo" — must be in a state consistent with reuse (#38)
+% - S promises everything is within the boundary; D promises those references actually deliver
+% - Yarik's STAMPED circle: someone else's D feeds your S (downloading containers, fetching data)
+% - "Persistent" means future-proofed method of sharing (Zenodo, PyPI, conda-forge, DANDI) (Cody)
+ % - Spectrum: minimum (publicly accessible with retrieval instructions) vs middle (all modules on persistent infrastructure, frozen versions, content-addressed) vs ideal (all external data mirrored, or zippep example RO Crate
+% - Sharing vs Distributing distinction: sharing on GitHub with loose deps is not distributing. Distributing means packaged so it can be retrieved in the same state as intended.
+% - The dev vs production analogy: P = pip install -e .; D = pip freeze / PyInstaller
 
 \section{Discussion}
 
