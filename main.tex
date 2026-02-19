@@ -260,6 +260,17 @@ environments are explicitly specified, versioned, and available within the proje
 % TODO: randomness/seeds as a portability concern — see #34
 % TODO: provenance format targets (W3C PROV, BEP028, RO-Crate, BioComputeObject) — where do these go? Discussion?
 
+\subsection{Ephemeral}
+
+% - Computation in temporary disposable environments — "make it a habit to destroy the environment" (mih)
+% - A form of validation: if it works in a disposable env, your other properties provably hold
+% - Guarantees: inputs exhaustively specified, outputs deposited correctly, no "don't look up" violations
+% - Caveat: does not guarantee everything — e.g., system-specific tools may still be implicitly used. Be brief but clear about limits.
+% - SHOULD not MUST — aspirational, but powerful when achieved
+% - Enables scaling: one job per subject, FAIRly big workflow pattern
+% - Examples include CodeOcean capsules — each is an ephemeral work unit
+% - Spectrum: minimum (can run in a fresh clone) vs ideal (CI/containerized throwaway per run)
+
 \section{Discussion}
 
 \subsection{Comparison to Related Approaches}
