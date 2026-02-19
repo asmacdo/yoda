@@ -165,6 +165,18 @@ This ensures completeness and enables re-execution: a researcher can not only se
 % It should make it "safe to make a cut", but also to "re-connect" the component if any detail or functionality of it is needed.
 % And that should lead into modularity + git modules as the way "to cauterize"
 
+\subsection{Actionable}
+
+% - Elevates a research object from static metadata to operational capability
+% - Ranges from documented manual steps to fully automated workflows
+% - Cross-cutting: applies across all dimensions (declarative vs actionable)
+% - Landing zone: documentation that is genuinely followable is the MUST; programmatic execution is the SHOULD
+% - Declarative vs Actionable table:
+%   | Version Control | "this is version X"     | git checkout, datalad get — retrieve any version |
+%   | Provenance      | W3C PROV record exists   | datalad rerun — re-execute the recorded command |
+%   | Modularity      | subdirectories exist     | git submodule init, datalad install — compose/decompose |
+%   | Portability     | Dockerfile present       | singularity run — move and execute across environments |
+
 \subsection{Modularity}
 
 % TODO: give a different flow into this. Rather accent that research project encompases multiple stages from conception, to raw data collection, analytics, ... publication.
