@@ -45,7 +45,7 @@ STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-
 
 \subsection{Related Work: Organizational Principles Across Domains}
 
-The challenges YODA addresses are not unique to neuroscience or even scientific computing broadly.
+The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
 Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
 
 Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
@@ -71,7 +71,8 @@ Despite independent origins, these frameworks converged on core patterns:
     \item \textbf{Provenance tracking}: Recording how outputs were generated
 \end{itemize}
 
-YODA's unique contributions within this landscape:
+% TODO: this block is tool-specific (git-annex, DataLad) not STAMPED-general. Reframe or move to Discussion.
+STAMPED's unique contributions within this landscape:
 \begin{itemize}
     \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
     \item \textbf{Interface agnosticism}: Works with any container/pipeline system
@@ -80,7 +81,7 @@ YODA's unique contributions within this landscape:
     \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
 \end{itemize}
 
-This convergent evolution validates that YODA principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+This convergent evolution validates that STAMPED properties are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
 The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \section{Results}
@@ -205,12 +206,12 @@ The lack of granularity often results in inefficient storage and processing, as 
 % And humans, researchers included, **already** modularize their stuff - They use folders!
 % But they often lack guidance on such folders organization and logistics to facilitate efficient project management and collaboration!
 
-Adopting a modular organization, as advocated by YODA, directly addresses these challenges through explicit separation of concerns.
-Rather than managing the dataset as one indivisible whole, YODA promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Adopting a modular organization, as advocated by STAMPED, directly addresses these challenges through explicit separation of concerns.
+Rather than managing the dataset as one indivisible whole, STAMPED promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
 Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
 
 The layout of these components plays a crucial role in enabling effective modularity.
-An idiomatic YODA dataset clearly delineates elements into structured directories, such as:
+An idiomatic STAMPED research object clearly delineates elements into structured directories, such as:
 
 \begin{itemize}
   \item \textbf{code/}: containing analysis scripts and tests
