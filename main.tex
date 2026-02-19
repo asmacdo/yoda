@@ -270,6 +270,7 @@ environments are explicitly specified, versioned, and available within the proje
 
 \subsection{Ephemeral}
 
+% TODO: Actionability cross-cut — E is more actionable when there is tooling that can orchestrate the entire process ephemerally (docker compose, AWS, Slurm), not just a documented instruction to "run in a clean environment"
 If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
 Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
 Ephemerality is a form of validation: ``make it a habit to destroy the environment.''
@@ -287,6 +288,7 @@ At the ideal end, every computation runs in a disposable environment that is cre
 
 \subsection{Distributable}
 
+% TODO: Actionability cross-cut — D is more actionable when there is tooling that can distribute a frozen state (containers, PyInstaller, npm ci), not just instructions to "pin your dependencies"
 Self-containment (S) establishes that everything needed is within the research object's boundary, possibly by reference.
 Distributability promises that those references actually deliver---that the research object and its components can be shared, retrieved, and used by others in a state consistent with reuse.
 
