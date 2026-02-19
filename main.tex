@@ -280,15 +280,17 @@ At the ideal end, every computation runs in a disposable environment that is cre
 
 \subsection{Distributable}
 
-% - A research object and its components can be shared, retrieved, and used by others
-% - Introduce and connect the concept of a software "distribution"
-% - More than "dumping scripts on Zenodo" — must be in a state consistent with reuse (#38)
-% - S promises everything is within the boundary; D promises those references actually deliver
-% - Yarik's STAMPED circle: someone else's D feeds your S (downloading containers, fetching data)
-% - "Persistent" means future-proofed method of sharing (Zenodo, PyPI, conda-forge, DANDI) (Cody)
- % - Spectrum: minimum (publicly accessible with retrieval instructions) vs middle (all modules on persistent infrastructure, frozen versions, content-addressed) vs ideal (all external data mirrored, or zippep example RO Crate
-% - Sharing vs Distributing distinction: sharing on GitHub with loose deps is not distributing. Distributing means packaged so it can be retrieved in the same state as intended.
-% - The dev vs production analogy: P = pip install -e .; D = pip freeze / PyInstaller
+Self-containment (S) establishes that everything needed is within the research object's boundary, possibly by reference.
+Distributability promises that those references actually deliver---that the research object and its components can be shared, retrieved, and used by others in a state consistent with reuse.
+
+The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
+Simply sharing a research object---uploading scripts to a repository with loose dependencies, or posting files on a website with no version guarantees---does not constitute distribution in this sense.
+A distributable research object is packaged so that it can be retrieved in the same state as intended
+
+Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
+Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
+
+The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
 
 \section{Discussion}
 
