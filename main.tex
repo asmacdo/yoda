@@ -20,12 +20,12 @@
 \section{Introduction}
 
 Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
-The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS guidelines for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
+The FAIR (Findable, Accessible, Interoperable, Reusable) principles [cite] and FAIR4RS guidelines [cite] for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
 Here we adopt the term \textbf{research object} to be a collection of data, code, and metadata that together represent a complete unit of research output.
 Reproducibility of a research object's results requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
-Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
+Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, and reliability.
 
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) [cite] defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025
 WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems. % TODO: cite FAIR4RS
 However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
 FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
