@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 
-\title{YODA et al (YODA, VAMP): Four pillars of idiomatic version control}
-\author{Austin Macdonald}
+\title{STAMPED: Properties of a Reproducible Research Object}
+\author{Austin Macdonald, Cody C. Baker, Yaroslav Halchenko}
 \date{March 2025}
 
 \begin{document}
@@ -20,32 +20,36 @@
 \section{Introduction}
 
 Managing data in modern scientific research presents unprecedented challenges due to rapidly expanding dataset scale, complexity, and interdependency.
-A workflow is the formal specification of data flow and execution control between components, which include executable code, configuration files, data (inputs and outputs), and provenance records.
-Executing a workflow with specific inputs and parameters generates a workflow run—a complete record of the execution process documenting the method, intermediate steps, and outputs.
-Currently, however, workflow components—data, code, provenance, and computational environments—are frequently managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
-While version control is a standard practice for code and containers, data versioning and integrated provenance tracking remain frequently overlooked.
-
 The FAIR (Findable, Accessible, Interoperable, Reusable) principles and FAIR4RS guidelines for research software provide structured guidance to ensure that digital objects are managed in ways that support reuse and reproducibility.
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) explicitly chose not to define new principles specifically tailored for workflows.
-Instead, recognizing workflows as hybrid objects that share characteristics of both data and software, they focus on applying established FAIR guidelines directly.
+Here we adopt the term \textbf{research object} to be a collection of data, code, and metadata that together represent a complete unit of research output.
+Reproducibility of a research object's results requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
+Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, and rigor.
 
-Building on this foundation, YODA offers a set of best practices for structuring the full research objects in a FAIR-aligned manner which would reduce cognitive load in identifying all relevant for a research object components and facilitate reproducibility.
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025
+WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems. % TODO: cite FAIR4RS
+However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
+FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
 
-% In this manuscript we will not aim to achieve the ultimate reproducibility of the results, **but** rather provide methodology following which reproducibility could be drastically improved or in many cases indeed lead to full reproducibility even on relatively complex usage scenarios.
+Building on this foundation, we present the STAMPED properties (Self-contained, Tracked, Actionable, Modular, Portable, Ephemeral, and Distributable) which characterize a well-formed reproducible research object.
+Originating from the YODA Principles, STAMPED provides a framework for organizing, evaluating, and improving the reproducibility of research objects.
+Recognizing that full reproducibility is an asymptotic goal, STAMPED takes a pragmatic approach in which each property can be satisfied at varying levels of rigor, from practical minimums to aspirational ideals.
+STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
-By promoting idiomatic version control and modular project organization, YODA Principles helps researchers treat analysis specifications and outputs as composable, structured digital objects.
-This approach complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
+\subsection{Recycle Bin}
+Removed text that may yet be useful! 
 
-% Composition remains "an issue"
-% Often relates to "provenance"
-% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
-% Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
+TODO These should be worked in where they are needed.
+A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
+A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
+A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
+\textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
 
-% Special accent should be pointed to "pragmatism" -- there could be "migrations" between pragmatic and "standardized" (e.g. DataLad run records -> PROV)
+
 
 \subsection{Related Work: Organizational Principles Across Domains}
 
-The challenges YODA addresses are not unique to neuroscience or even scientific computing broadly.
+
+The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
 Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
 
 Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
@@ -71,7 +75,8 @@ Despite independent origins, these frameworks converged on core patterns:
     \item \textbf{Provenance tracking}: Recording how outputs were generated
 \end{itemize}
 
-YODA's unique contributions within this landscape:
+% TODO: this block is tool-specific (git-annex, DataLad) not STAMPED-general. Reframe or move to Discussion.
+STAMPED's unique contributions within this landscape:
 \begin{itemize}
     \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
     \item \textbf{Interface agnosticism}: Works with any container/pipeline system
@@ -80,45 +85,54 @@ YODA's unique contributions within this landscape:
     \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
 \end{itemize}
 
-This convergent evolution validates that YODA principles are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+This convergent evolution validates that STAMPED properties are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
 The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \section{Results}
 
+
+
 \begin{table}[ht]
 \centering
-\caption{VAMP Principles}
-\begin{tabular}{l l l p{8cm}}
+\caption{STAMPED Properties}
+\begin{tabular}{l l p{10cm}}
 \hline
-\textbf{ID} & \textbf{Pillar} & \textbf{Level} & \textbf{Principle} \\
+\textbf{ID} & \textbf{Property} & \textbf{Requirement} \\
 \hline
-P0   & Self-containment   & MUST       & All assets essential to replicate computational execution must be contained within a single top-level research object \\
-P1.1 & Version Control    & MUST       & All assets must be version controlled \\
-P1.2 & Version Control    & SHOULD     & All assets should be version controlled using the same VCS \\
-P2.1 & Modularity         & SHOULD     & Assets should be organized in a modular structure \\
-P2.2 & Modularity         & MAY        & Assets may be included directly or linked as subdatasets \\
-P2.3 & Modularity         & SHOULD     & Components should accommodate domain-specific standards \\
-P3.1 & Provenance         & MUST       & Provenance of all modifications must be annotated \\
-P3.2 & Provenance         & SHOULD/MUST & Code-driven provenance should be annotated programmatically, must include versions \\
-P4.1 & Environments       & MUST       & Computational environments must be explicitly specified \\
-P4.2 & Environments       & SHOULD     & Environment specifications should be machine-reproducible \\
-P4.3 & Environments       & MUST       & Environment definitions must be version controlled \\
-P4.4 & Environments       & SHOULD     & Environments should be self-contained within the dataset \\
+S.1  & Self-contained & All modules and components essential to replicate computational execution MUST be contained within a single top-level research object \\
+T.1  & Tracked        & Version information MUST be recorded for all components \\
+T.2  & Tracked        & All components SHOULD be tracked using the same content-addressed version control system \\
+T.3  & Tracked        & Provenance of all modifications MUST be recorded \\
+T.4  & Tracked        & Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved \\
+A.1  & Actionable     & Research object MUST contain sufficient instructions to reproduce all computational results \\
+A.2  & Actionable     & Procedures SHOULD be specified as executable specifications \\
+M.1  & Modular        & Components SHOULD be organized in a modular structure \\
+M.2  & Modular        & Components MAY be included directly or linked as subdatasets \\
+P.1  & Portable       & Procedures MUST NOT depend on undocumented host environment state \\
+P.2  & Portable       & Computational environments MUST be explicitly specified \\
+P.3  & Portable       & Environment definitions MUST be version controlled \\
+E.1  & Ephemeral      & Computational results SHOULD be produced in ephemeral environments \\
+% TODO: D rules need refinement — see #38 discussion
+D.1  & Distributable  & All referenced modules and components MUST be persistently retrievable by others \\
+D.2  & Distributable  & Environment specifications SHOULD support reproducible builds \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Version Control Everything}
+\subsection{Self-contained}
 
-Outline:
-  - problems with non-version controlled data
-  - how version control addresses the problems
-    ie, version control tools associate a unique identifier and basic provenance with each revision, and thus enable the identification of precise version states of digital files or collections of files.
-  - how traditional version control (git) can be extended to large datasets
-  - other benefits
-    - collaboration
-    - reversion of changes
-    - time travel
+Reproducibility fails when a research object depends on resources that are not part of it---an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
+We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
+Instead, it must be a complete retrieval unit, where all modules and components essential to reproduce its results are contained within a single top-level boundary.
+
+Self-containment is the foundational property upon which the remaining STAMPED properties build.
+Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
+
+Components may be included literally (e.g., files committed directly) or by reference (e.g., as subdatasets, registered data URLs).
+Both approaches satisfy self-containment, provided the references are explicit and tracked within the research object.
+The stability and precision of those references---content hashes versus mutable URLs---is the concern of Tracking (T), and whether they remain retrievable by others over time is the concern of Distributability (D).
+
+\subsection{Tracked}
 
 Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
 Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
@@ -140,17 +154,42 @@ Critically, approaching full reproducibility requires that version control encom
 These components typically include raw and derived datasets, preprocessing and analysis scripts, parameter and configuration files, computational environment definitions (such as Docker or Singularity containers), and accompanying documentation describing workflow execution details.
 Omitting even one component can severely compromise reproducibility, making comprehensive version control across these assets a fundamental necessity.
 
-\textbf{Formal Principles:}
-\begin{itemize}
-    \item \textbf{P1.1} All assets essential to replicate computational execution \textbf{MUST} be \emph{included}
-    \item \textbf{P1.2} All assets essential to replicate computational execution \textbf{SHOULD} be version controlled using the same version control system
-\end{itemize}
+% TODO: formal principles removed — now in STAMPED table (S.1, T.1, T.2)
+% TODO: strip S-redundant content (lines 155-157 overlap with S section)
 
+Tracking encompasses not only version history but also provenance---the record of what actions produced or modified each component.
+Provenance collection typically occurs separately from version control, leading to fragmentation: the data is versioned in one system while the record of how it was produced lives in another (or nowhere).
+Embedding provenance directly into version control history---for example, by encoding descriptions of computational actions into commit records---unifies these concerns.
+A provenance-rich commit history records not just that a file changed, but what command was executed, what inputs it consumed, and what versions of code and environment were involved.
+
+For code-driven modifications, provenance should be captured programmatically rather than by manual annotation.
+This ensures completeness and enables re-execution: a researcher can not only see what was done but repeat it.
+% TODO: cite Tek Raj paper, provenance format approaches
+% TODO: mention W3C PROV, RO-Crate, BEP028 as interoperable export targets
+% TODO: spectrum — minimum (manual commit messages describing what was done) vs ideal (programmatic provenance capture with full dependency graphs, re-executable)
 % that's where might be worth already to talk about ability of the used VCS/platform to "replicate" the outside components within it.
 % e.g. if containers are used, it must provide storage for those containers as part of the resource, and not to rely on external links which might disappear.
 % To a degree - VCS should provide ways to "cauterize the wound" (or find a better analogie).
 % It should make it "safe to make a cut", but also to "re-connect" the component if any detail or functionality of it is needed.
 % And that should lead into modularity + git modules as the way "to cauterize"
+
+\subsection{Actionable}
+
+Actionability is the quality that elevates a research object from a static collection of metadata to an operational unit.
+A research object is actionable when the procedures it describes can be carried out by following or executing its contents---not merely read about.
+This ranges from well-documented manual steps that a human can follow to fully automated workflows that execute with a single command.
+
+Actionability is cross-cutting: it applies to every other STAMPED dimension, distinguishing declarative metadata from operational capability.
+A version-controlled dataset is more actionable when any version can be retrieved programmatically (e.g., \texttt{git checkout}, \texttt{datalad get}), not just identified by a label.
+Provenance is more actionable when recorded commands can be re-executed (e.g., \texttt{datalad rerun}), not just inspected.
+Modularity is more actionable when components can be composed and decomposed via tooling (e.g., \texttt{git submodule}), not just organized into directories.
+Portability is more actionable when environments can be instantiated from a specification (e.g., \texttt{singularity run}), not just documented in a README.
+
+At a minimum, a research object must contain sufficient instructions to reproduce all computational results.
+Stronger forms of actionability replace documentation with executable specifications, reducing ambiguity and human error.
+For example, a version control system can record not only that a file changed, but the exact command that produced the change, its inputs, and its outputs---making the commit itself re-executable.
+Tools such as DataLad's \texttt{run} command demonstrate this pattern: the commit message becomes a machine-readable provenance record that can be replayed to regenerate results.
+The principle is tool-agnostic: any system that captures executable provenance alongside version history moves the research object further along the actionability spectrum.
 
 \subsection{Modularity}
 
@@ -161,6 +200,12 @@ Omitting even one component can severely compromise reproducibility, making comp
 % Another factor is that reused components, better exist in single reusable copy to ease fixing/maintenance/reduce size, so in software we e.g. have dynamic libraries.
 % So, the boundaries between "modules" are pragmatically driven by establishing "sensibly useful independently module", often, most frequently - derived products adding their unique aspects on top of their "sources".
 % Moreover, dealing with such different levels of data processing and modularization facilitates "handoffs" between team members (SciOps).
+
+% Composition remains "an issue"
+% Often relates to "provenance"
+% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
+% Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
+
 Monolithic structures present significant barriers to effective development, maintenance, and reuse.
 Managing datasets as single, large units complicates incremental updates, obscures dependencies, inhibits flexible reuse or remixing of individual components, and can be notably time-consuming.
 The lack of granularity often results in inefficient storage and processing, as small changes may necessitate duplicating or regenerating large portions of data.
@@ -168,12 +213,12 @@ The lack of granularity often results in inefficient storage and processing, as 
 % And humans, researchers included, **already** modularize their stuff - They use folders!
 % But they often lack guidance on such folders organization and logistics to facilitate efficient project management and collaboration!
 
-Adopting a modular organization, as advocated by YODA, directly addresses these challenges through explicit separation of concerns.
-Rather than managing the dataset as one indivisible whole, YODA promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Adopting a modular organization, as advocated by STAMPED, directly addresses these challenges through explicit separation of concerns.
+Rather than managing the dataset as one indivisible whole, STAMPED promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
 Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
 
 The layout of these components plays a crucial role in enabling effective modularity.
-An idiomatic YODA dataset clearly delineates elements into structured directories, such as:
+An idiomatic STAMPED research object clearly delineates elements into structured directories, such as:
 
 \begin{itemize}
   \item \textbf{code/}: containing analysis scripts and tests
@@ -188,43 +233,26 @@ This intentional organization clarifies how components interact and supports dom
 It enables researchers to compose and recombine modules flexibly to produce varied outcomes.
 
 % It is crucial to note that in such idiomatic YODA dataset, all necessary components (such as inputs/ and envs/) necessary to produce results MUST be available within this dataset.
-% Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness. 
+% Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness.
 % DO NOT LOOK UP YODA!
 
 Thus, a dataset version can be precisely described as the pairing of generated results with composition of specific module versions, each independently managed.
 
 % A folder by itself is insufficient to be a "module".
 % It requires metadata which would at least demarkate module boundary and potentially associate with specific version control mechanisms and distributions.
-% In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses. 
+% In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses.
 
-\textbf{Formal Principles:}
+% TODO: formal principles removed — now in STAMPED table (M.1, M.2)
 
-\begin{itemize}
-  \item \textbf{P2.1} Assets \textbf{SHOULD} be organized in a modular structure.
-  \item \textbf{P2.2} All assets essential to replicate computational execution \textbf{MAY} be included directly in the dataset or linked as subdatasets.
-  \item \textbf{P2.3} Components \textbf{SHOULD} accommodate domain-specific standards where applicable.
-  % \item \textbf{P2.?} Module boundaries \textbf{SHOULD} be decided on the basis of their \emph{pragmatic idependent usefulness} unless driven by other factors demanding even further modularization.
-\end{itemize}
+\subsection{Portability}
 
-\subsection{Portable Computational Environments}
+A research object that is self-contained, tracked, and modular may still fail to reproduce if it depends on undocumented host environment state---hardcoded paths, implicitly available tools, or specific OS configurations.
+Portability requires that procedures can be executed on different host environments, given documented system requirements.
 
-Research reproducibility fundamentally depends not only on preserving code and data,
-but also on capturing the complete computational environment—the operating system,
-libraries, dependencies, and tool versions—that produced the results.
+Research reproducibility fundamentally depends not only on preserving code and data, but also on capturing the complete computational environment—the operating system, libraries, dependencies, and tool versions—that produced the results.
+Environmental drift, where software dependencies evolve or disappear over time, is a primary cause of computational irreproducibility. Even with identical code and data, differences in library versions, compiler settings, or system configurations can produce divergent results or outright failures.
 
-Environmental drift, where software dependencies evolve or disappear over time,
-is a primary cause of computational irreproducibility. Even with identical code and
-data, differences in library versions, compiler settings, or system configurations
-can produce divergent results or outright failures.
-
-YODA addresses this through explicit environment specification and versioning.
-Computational environments should be:
-\begin{itemize}
-  \item Explicitly defined (not implicitly assumed)
-  \item Machine-reproducible (via containers, Nix/Guix, or language-specific managers)
-  \item Version controlled alongside code and data
-  \item Self-contained within the project boundary
-\end{itemize}
+Computational environments should be explicitly defined (not implicitly assumed), machine-reproducible, version controlled alongside code and data, and self-contained within the project boundary.
 
 Two primary approaches exist for environment portability:
 \begin{enumerate}
@@ -232,77 +260,47 @@ Two primary approaches exist for environment portability:
   \item \textbf{Package-based}: Nix, Guix provide declarative, reproducible package management
 \end{enumerate}
 
-YODA principles are environment-mechanism-agnostic; what matters is that
+STAMPED is environment-mechanism-agnostic; what matters is that
 environments are explicitly specified, versioned, and available within the project.
 
-\textbf{Formal Principles:}
+% TODO: containers need more coverage here — containerization is a key portability mechanism that E and D both depend on
+% TODO: spectrum — minimum (documented system requirements, no hardcoded paths) vs ideal (machine-reproducible environment specs, containers)
+% TODO: the code/ vs code/local/ pattern for non-portable config — see #34
+% TODO: randomness/seeds as a portability concern — see #34
+% TODO: provenance format targets (W3C PROV, BEP028, RO-Crate, BioComputeObject) — where do these go? Discussion?
 
-\begin{itemize}
-    \item \textbf{P4.1} Computational environments \textbf{MUST} be explicitly specified
-    \item \textbf{P4.2} Environment specifications \textbf{SHOULD} be machine-reproducible
-    \item \textbf{P4.3} Environment definitions \textbf{MUST} be version controlled
-    \item \textbf{P4.4} Environments \textbf{SHOULD} be self-contained within the dataset
-\end{itemize}
+\subsection{Ephemeral}
 
-\subsection{Incorporating Provenance into VCS History}
+% TODO: Actionability cross-cut — E is more actionable when there is tooling that can orchestrate the entire process ephemerally (docker compose, AWS, Slurm), not just a documented instruction to "run in a clean environment"
+If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
+Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
+Ephemerality is a form of validation: ``make it a habit to destroy the environment.''
 
-% TODO : cite Tek Raj paper, and paper I found on various provenance formats/approaches.
-Provenance—the detailed record of actions taken to produce research outputs—is essential for reproducibility, transparency, and trust in scientific workflows.
-Typically, provenance collection occurs separately from version control, leading to fragmentation of essential metadata and difficulties reconstructing workflows accurately or automatically.
+Ephemeral computation does not validate everything---for instance, it does not catch reliance on system-specific tools present in the disposable environment itself.
+Nevertheless, it substantially raises confidence that the research object is self-contained and portable.
 
-YODA advocates embedding provenance directly into version control histories by encoding precise descriptions of computational actions into commit records.
-Provenance of all modifications to assets need to be explicitly annotated within these version control histories.
-Provenance-rich commit histories enable exact repetition of computational steps or targeted remixing of workflows by selectively modifying certain components.
-For modifications driven by code, provenance should be annotated programmatically, and this automated capture requires explicit version information for all components used.
+Beyond validation, ephemeral environments enable scaling.
+When each computational job runs in an independent, disposable instance, work can be parallelized across subjects, parameters, or datasets---the pattern demonstrated by the FAIRly big workflow approach.
+Platforms such as Code Ocean operationalize this by treating each capsule as an ephemeral work unit.
 
-This methodology provides immediate practical utility even before comprehensive workflow automation is achievable, facilitating reproducible research and iterative experimentation.
-Furthermore, integrating automated provenance capture into the commit process ensures transparency and reduces human error or oversight, creating inherently detailed, auditable records of the research process.
-Collectively, implementing a structured, idiomatic version control strategy using YODA enhances the self-containment and completeness of research workflows, ensures clear, repeatable provenance, and facilitates collaborative, modular, and portable science.
+Ephemerality is recommended: not every research object can achieve it, and it is not required for STAMPED compliance.
+At a minimum, a research object should be able to produce results from a fresh clone on a system that meets its stated requirements (P).
+At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
 
-\textbf{Formal Principles:}
+\subsection{Distributable}
 
-\begin{itemize}
-    \item \textbf{P3.1} Provenance of all modifications to the assets \textbf{MUST} be annotated.
-    \item \textbf{P3.2} Provenance of code-driven modifications to assets \textbf{SHOULD} be annotated programmatically, and \textbf{MUST} include the versions of all components used.
-\end{itemize}
+% TODO: Actionability cross-cut — D is more actionable when there is tooling that can distribute a frozen state (containers, PyInstaller, npm ci), not just instructions to "pin your dependencies"
+Self-containment (S) establishes that everything needed is within the research object's boundary, possibly by reference.
+Distributability promises that those references actually deliver---that the research object and its components can be shared, retrieved, and used by others in a state consistent with reuse.
 
-\subsubsection{Provenance Format Targets}
+The distinction mirrors the concept of a software distribution: a curated, versioned bundle in which all components are resolved to specific versions and packaged for consumption.
+Simply sharing a research object---uploading scripts to a repository with loose dependencies, or posting files on a website with no version guarantees---does not constitute distribution in this sense.
+A distributable research object is packaged so that it can be retrieved in the same state as intended
 
-While YODA advocates embedding provenance in version control histories, interoperability with standardized provenance formats is essential for broader adoption and integration.
+Distributability also has a circular relationship with the other STAMPED properties: someone else's distribution effort often serves as the starting point for a new research object's self-containment.
+Researchers routinely begin by downloading containers, fetching published datasets, and installing released software---modularly composing the distributions of others to assemble their own self-contained research objects.
 
-\textbf{W3C PROV}: Foundation for many domain-specific formats, provides the Activity/Entity/Agent model.
-
-\textbf{BEP028 (BIDS Provenance)}: BIDS Extension Proposal using W3C PROV for neuroimaging workflows. Captures Activities (what ran), Entities (inputs/outputs), and Agents (tools) in JSON-LD format.
-
-\textbf{RO-Crate}: Lightweight packaging with Schema.org and JSON-LD metadata. A practical implementation of the FAIR Digital Object Framework, used across bioinformatics, digital humanities, and regulatory sciences.
-
-\textbf{BioComputeObject}: IEEE 2791-2020 standard for bioinformatics provenance, emphasizing regulatory compliance and auditability.
-
-Pragmatic migration paths exist: DataLad run records (internal format) can be exported to any of these standards, enabling YODA-structured projects to integrate with diverse tool ecosystems while maintaining internal consistency.
-
-\subsection{Principle Priorities}
-
-\textbf{Essential (MUST for basic reproducibility)}:
-\begin{itemize}
-    \item P1.1: All assets included
-    \item P3.1: Provenance annotated
-    \item P4.1: Environments specified
-\end{itemize}
-These are minimum requirements; omitting any fundamentally compromises reproducibility.
-
-\textbf{Strong recommendations (SHOULD for reusability)}:
-\begin{itemize}
-    \item P1.2: Same VCS for all assets
-    \item P2.1: Modular structure
-    \item P4.2: Machine-reproducible environments
-\end{itemize}
-Deviation is possible but reduces portability and reuse potential.
-
-\textbf{Optional (MAY for convenience)}:
-\begin{itemize}
-    \item P2.2: Subdatasets vs direct inclusion (both valid)
-    \item P2.3: Domain-specific standards (nice-to-have, not always applicable)
-\end{itemize}
+The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
 
 \section{Discussion}
 
@@ -310,42 +308,42 @@ Deviation is possible but reduces portability and reuse potential.
 
 \subsubsection{DVC (Data Version Control)}
 Shares ``Git for data'' philosophy but differs in architecture:
-DVC uses external .dvc files with remote storage configuration, while YODA with git-annex integrates directly into the git repository structure.
-DVC focuses on Python and ML workflows within a single project, whereas YODA is language-agnostic and supports federated multi-project composition.
+DVC uses external .dvc files with remote storage configuration, while tools complementary to STAMPED such as DataLad with git-annex integrate directly into the git repository structure.
+DVC focuses on Python and ML workflows within a single project, whereas STAMPED is language-agnostic and supports federated multi-project composition.
 Both are valid; choice depends on team familiarity (DVC easier for ML engineers), infrastructure (DVC integrates easily with cloud ML platforms), and scale requirements (git-annex more flexible for federated datasets).
 
 \subsubsection{Pachyderm}
 Enterprise ``Git for data'' with Kubernetes-native architecture.
-Pachyderm requires a centralized cluster and cloud infrastructure, while YODA is local-first, works offline, and supports federation.
-Pachyderm provides automatic pipeline triggering, whereas YODA uses explicit execution (e.g., \texttt{datalad run}).
+Pachyderm requires a centralized cluster and cloud infrastructure, while a STAMPED approach is local-first, works offline, and supports federation.
+Pachyderm provides automatic pipeline triggering, whereas STAMPED emphasizes explicit, provenance-tracked execution (e.g., \texttt{datalad run}).
 Pachyderm excels for production ML pipelines, team collaboration with shared compute resources, and automatic scaling.
-YODA excels for research workflows, offline work, and heterogeneous datasets across institutions.
+STAMPED excels for research workflows, offline work, and heterogeneous datasets across institutions.
 
 \subsubsection{Kedro}
 Python data engineering framework with modular pipelines.
-Kedro provides within-project modularity through Python pipeline components, while YODA provides across-project modularity through subdatasets as git submodules.
-Kedro includes built-in visualization (Kedro-Viz), whereas YODA is CLI-focused with integration to external tools.
-These approaches are complementary: a Kedro pipeline inside a YODA dataset combines both strengths.
+Kedro provides within-project modularity through Python pipeline components, while STAMPED provides across-project modularity through subdatasets as git submodules.
+Kedro includes built-in visualization (Kedro-Viz), whereas STAMPED is CLI-focused with integration to external tools.
+These approaches are complementary: a Kedro pipeline inside a STAMPED research object combines both strengths.
 
 \subsubsection{Cloud Platforms (Code Ocean, brainlife.io, Flywheel)}
 Turnkey reproducibility services with proprietary interfaces.
-Platforms offer zero local setup and institutional partnerships; YODA offers local control with no vendor lock-in.
-Platforms provide web GUIs with point-and-click interaction; YODA provides CLI/API with scriptable automation.
-Platforms are centralized (single capsule or project); YODA is federated (compose across repositories).
-YODA principles could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
+Platforms offer zero local setup and institutional partnerships; STAMPED offers local control with no vendor lock-in.
+Platforms provide web GUIs with point-and-click interaction; STAMPED provides CLI/API with scriptable automation.
+Platforms are centralized (single capsule or project); STAMPED is federated (compose across repositories).
+STAMPED research objects could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
 
 \subsection{Trade-offs and Limitations}
 
 \subsubsection{git-annex Complexity vs Git LFS Simplicity}
-YODA uses git-annex for maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
+Achieving STAMPED compliance with git-annex offers maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
 This comes at a cost: a steeper learning curve.
 Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
 The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
-``YODA-lite'' implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+Lightweight STAMPED implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
 
-\subsubsection{When YODA Is vs Is Not Appropriate}
+\subsubsection{When STAMPED Is vs Is Not Appropriate}
 
-\textbf{YODA excels when}:
+\textbf{STAMPED excels when}:
 \begin{itemize}
     \item Multi-institutional collaboration requires federated datasets
     \item Long-term reproducibility spans decades or requires offline archives
@@ -354,7 +352,7 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
     \item Complex dependency graphs involve subdatasets from diverse sources
 \end{itemize}
 
-\textbf{YODA may be more than needed for}:
+\textbf{STAMPED may be more than needed for}:
 \begin{itemize}
     \item Single-script analyses where version control alone suffices
     \item Ephemeral exploratory work such as Jupyter notebooks
@@ -364,28 +362,28 @@ The trade-off: Git LFS is centralized (requires an LFS server), lacks offline ca
 
 \subsection{Integration Opportunities}
 
-YODA principles are complementary, not competitive, with existing standards:
+STAMPED properties are complementary, not competitive, with existing standards:
 \begin{itemize}
-    \item \textbf{YODA + BIDS}: Domain standard within YODA structure
-    \item \textbf{YODA + RO-Crate}: Organization during research, packaging for publication
-    \item \textbf{YODA + FAIR}: Structure projects, then share via FAIR
-    \item \textbf{YODA + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
-    \item \textbf{YODA + platforms}: Download, version, and compose locally
+    \item \textbf{STAMPED + BIDS}: Domain standard within STAMPED structure
+    \item \textbf{STAMPED + RO-Crate}: Organization during research, packaging for publication
+    \item \textbf{STAMPED + FAIR}: Structure projects, then share via FAIR
+    \item \textbf{STAMPED + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
+    \item \textbf{STAMPED + platforms}: Download, version, and compose locally
 \end{itemize}
 
 \subsection{Future Directions}
 
 \subsubsection{Provenance Standards Convergence}
-Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve YODA interoperability with domain-specific tools.
+Ongoing work toward unified provenance representation, including BEP028 and RO-Crate convergence, will improve STAMPED interoperability with domain-specific tools.
 
 \subsubsection{Tool Certification}
-Formal YODA principles enable ``YODA-compliant'' tool certification, similar to BIDS validation.
+Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, similar to BIDS validation.
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
 
-\subsubsection{Existing YODA Adoption}
-Several research projects have already adopted and documented YODA principles, demonstrating practical utility across domains.
+\subsubsection{Existing Adoption}
+Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
 
 \textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
 Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
@@ -405,17 +403,16 @@ This architectural shift influenced major neuroimaging tools:
     \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
 \end{itemize}
 
-These adoptions demonstrate that YODA principles solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
+These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
 
 \section{Methods}
 \section{Data Availability}
 \section{Code Availability}
 \section{References}
 
-Might be worth relating to some of the principles among "Ten simple rules for principled simulation modelling"
-https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917 e.g.
-"Rule 5: Be kind to your future self (and your readers), and minimise opportunities for errors" since sticking to
-YODA would assist in accessing all necessary components and history/reasoning for changes for the "future self".
+% TODO: Might be worth relating to "Ten simple rules for principled simulation modelling"
+% https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009917
+% "Rule 5: Be kind to your future self" — STAMPED assists in accessing all necessary components and history.
 
 \section{Author Contributions}
 \section{Competing Interests}
