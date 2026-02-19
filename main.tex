@@ -46,47 +46,6 @@ A \textbf{component} is a trackable element that is part of a module (e.g., a da
 
 
 
-\subsection{Related Work: Organizational Principles Across Domains}
-
-
-The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
-Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
-
-Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
-
-% TODO: add references to all!
-\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
-
-\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
-
-\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
-
-\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
-
-% Should remove BEP028- too niche etc, but might be worth refer to the PROV itself! and potentially BIDS itself since provides poor man versioning (CHANGES) + structure + linking to SourceDatasets
-\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), PROV (TODO), BIDS (2016) address packaging and provenance standardization.
-
-Despite independent origins, these frameworks converged on core patterns:
-\begin{itemize}
-    \item \textbf{Separation of concerns}: Data, code, environment, and results managed distinctly
-    \item \textbf{Immutability}: Raw data never modified in-place
-    \item \textbf{Hierarchical organization}: Nested, modular structures
-    \item \textbf{Version control}: Applying Git concepts beyond just code
-    \item \textbf{Provenance tracking}: Recording how outputs were generated
-\end{itemize}
-
-% TODO: this block is tool-specific (git-annex, DataLad) not STAMPED-general. Reframe or move to Discussion.
-STAMPED's unique contributions within this landscape:
-\begin{itemize}
-    \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
-    \item \textbf{Interface agnosticism}: Works with any container/pipeline system
-    \item \textbf{Local-first design}: Works offline, no cloud platform dependency
-    \item \textbf{git-annex flexibility}: Many remote types vs single-server models
-    \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
-\end{itemize}
-
-This convergent evolution validates that STAMPED properties are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
-The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \section{Results}
 
@@ -302,9 +261,53 @@ Researchers routinely begin by downloading containers, fetching published datase
 
 The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
 
+
+
 \section{Discussion}
 
 \subsection{Comparison to Related Approaches}
+
+\subsection{Related Work: Organizational Principles Across Domains}
+
+
+The challenges STAMPED addresses are not unique to neuroscience or even scientific computing broadly.
+Multiple communities independently developed organizational frameworks exhibiting remarkable convergent evolution toward similar core patterns.
+
+Between 2003 and 2025, at least 19 distinct initiatives emerged addressing research data organization, version control, and reproducibility:
+
+% TODO: add references to all!
+\textbf{Foundational principles}: Noble's 2009 guidelines for computational biology organization, FAIR principles (2016) for data sharing, Software Carpentry's ``Good Enough Practices'' (2017).
+
+\textbf{Version control extensions}: git-annex (2010), Git LFS (2015), DVC (2017), Pachyderm (2014), Quilt (2020s) all independently arrived at ``Git for data'' concepts, applying proven version control semantics to large datasets.
+
+\textbf{Cloud platforms}: Code Ocean (2017), brainlife.io (2017), Flywheel (2018), Galaxy (2005) provide turnkey reproducibility services, all implementing code/environment/data trinity separation.
+
+\textbf{Framework tooling}: Kedro (2019), nipoppy (2023), Cookiecutter Data Science (2016) provide opinionated structures for data engineering and neuroimaging workflows.
+
+% Should remove BEP028- too niche etc, but might be worth refer to the PROV itself! and potentially BIDS itself since provides poor man versioning (CHANGES) + structure + linking to SourceDatasets
+\textbf{Metadata standards}: RO-Crate (2019), BioComputeObject (IEEE 2791-2020), PROV (TODO), BIDS (2016) address packaging and provenance standardization.
+
+Despite independent origins, these frameworks converged on core patterns:
+\begin{itemize}
+    \item \textbf{Separation of concerns}: Data, code, environment, and results managed distinctly
+    \item \textbf{Immutability}: Raw data never modified in-place
+    \item \textbf{Hierarchical organization}: Nested, modular structures
+    \item \textbf{Version control}: Applying Git concepts beyond just code
+    \item \textbf{Provenance tracking}: Recording how outputs were generated
+\end{itemize}
+
+% TODO: this block is tool-specific (git-annex, DataLad) not STAMPED-general. Reframe or move to Discussion.
+STAMPED's unique contributions within this landscape:
+\begin{itemize}
+    \item \textbf{Federated composition}: Subdatasets can live anywhere (not centralized)
+    \item \textbf{Interface agnosticism}: Works with any container/pipeline system
+    \item \textbf{Local-first design}: Works offline, no cloud platform dependency
+    \item \textbf{git-annex flexibility}: Many remote types vs single-server models
+    \item \textbf{Scale via modularity}: Proven from single files to 8000+ subdatasets (datasets.datalad.org)
+\end{itemize}
+
+This convergent evolution validates that STAMPED properties are not arbitrary choices but responses to fundamental challenges in computational research reproducibility.
+The formalization presented here provides a foundation for interoperability and comparison across this evolving ecosystem of tools and standards.
 
 \subsubsection{DVC (Data Version Control)}
 Shares ``Git for data'' philosophy but differs in architecture:
