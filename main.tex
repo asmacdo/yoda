@@ -49,38 +49,34 @@ A \textbf{component} is a trackable element that is part of a module (e.g., a da
 
 
 
-\section{Results}
 
+\section{Results}
 
 
 \begin{table}[ht]
 \centering
-\caption{STAMPED Properties}
-\begin{tabular}{l l p{10cm}}
+\caption{The STAMPED Properties. Each property addresses a distinct dimension of research object organization that contributes to reproducibility. Together, they provide a framework for evaluating and improving the reproducibility of computational research.}
+\label{tab:stamped}
+\begin{tabular}{c l p{10cm}}
 \hline
-\textbf{ID} & \textbf{Property} & \textbf{Requirement} \\
+\textbf{Letter} & \textbf{Principle} & \textbf{Description} \\
 \hline
-S.1  & Self-contained & All modules and components essential to replicate computational execution MUST be contained within a single top-level research object \\
-T.1  & Tracked        & Version information MUST be recorded for all components \\
-T.2  & Tracked        & All components SHOULD be tracked using the same content-addressed version control system \\
-T.3  & Tracked        & Provenance of all modifications MUST be recorded \\
-T.4  & Tracked        & Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved \\
-A.1  & Actionable     & Research object MUST contain sufficient instructions to reproduce all computational results \\
-A.2  & Actionable     & Procedures SHOULD be specified as executable specifications \\
-M.1  & Modular        & Components SHOULD be organized in a modular structure \\
-M.2  & Modular        & Components MAY be included directly or linked as subdatasets \\
-P.1  & Portable       & Procedures MUST NOT depend on undocumented host environment state \\
-P.2  & Portable       & Computational environments MUST be explicitly specified \\
-P.3  & Portable       & Environment definitions MUST be version controlled \\
-E.1  & Ephemeral      & Computational results SHOULD be produced in ephemeral environments \\
-% TODO: D rules need refinement — see #38 discussion
-D.1  & Distributable  & All referenced modules and components MUST be persistently retrievable by others \\
-D.2  & Distributable  & Environment specifications SHOULD support reproducible builds \\
+S & Self-containment & A research object is a complete retrieval unit---it can be obtained and understood in its entirety without needing to reference external resources. \\
+T & Tracking & The provenance of all components is recorded. \\
+A & Actionability & Procedures within a research object can be carried out by following or executing its contents. This ranges from well-documented manual steps to fully automated workflows. \\
+M & Modularity & All modules are independent and composable. \\
+P & Portability & Procedures can be executed on different host environments, given documented system requirements. \\
 \hline
 \end{tabular}
 \end{table}
 
+
+
 \subsection{Self-contained}
+
+\begin{itemize}
+    \item \textbf{S.1}: All modules and components essential to replicate computational execution MUST be contained within a single top-level research object
+\end{itemize}
 
 Reproducibility fails when a research object depends on resources that are not part of it---an undocumented library, a dataset referenced by a broken URL, a script that assumes tools are installed on the host system.
 We call this the ``don't look up'' rule: a research object must never rely on implicit external state.
@@ -95,6 +91,13 @@ Self-containment is the foundational property upon which the remaining STAMPED p
 Tracking, Modularity, Portability, and Distributability each address a different aspect of how that boundary is organized, versioned, and shared---but none are meaningful without first establishing what is inside it.
 
 \subsection{Tracked}
+
+\begin{itemize}
+    \item \textbf{T.1}: Version information MUST be recorded for all components
+    \item \textbf{T.2}: All components SHOULD be tracked using the same content-addressed version control system
+    \item \textbf{T.3}: Provenance of all modifications MUST be recorded
+    \item \textbf{T.4}: Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved
+\end{itemize}
 
 Research data frequently exists outside the scope of established version control practices, leading to a multitude of reproducibility issues.
 Non-version-controlled data creates ambiguity, as precise identification of dataset states is challenging, and historical changes are difficult to reconstruct or verify.
@@ -137,8 +140,13 @@ This ensures completeness and enables re-execution: a researcher can not only se
 
 \subsection{Actionable}
 
-A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insuﬀicient without a recipe that can be followed.
-Actionability (A.1, Table~1) is what makes a research object operationally useful---the bridge between having the components and being able to use them.
+\begin{itemize}
+    \item \textbf{A.1}: Research object MUST contain sufficient instructions to reproduce all computational results
+    \item \textbf{A.2}: Procedures SHOULD be specified as executable specifications
+\end{itemize}
+
+A research object may be self-contained and fully tracked, yet having all ingredients and a record of what was done is insufficient without a recipe that can be followed.
+Requirement A.1 is what makes a research object operationally useful---the bridge between having the components and being able to use them.
 
 At a minimum, a research object must contain documentation thorough enough for another researcher to follow every step to reproduce results.
 Actionability applies to every other STAMPED dimension: at the ideal end, each property is enacted not through documentation alone but through executable specifications (A.2):
@@ -190,6 +198,12 @@ Portability and Distributability are also easier to achieve since modules can th
 
 \subsection{Portability}
 
+\begin{itemize}
+    \item \textbf{P.1}: Procedures MUST NOT depend on undocumented host environment state
+    \item \textbf{P.2}: Computational environments MUST be explicitly specified
+    \item \textbf{P.3}: Environment definitions MUST be version controlled
+\end{itemize}
+
 A research object that is self-contained, tracked, and modular may still fail to reproduce if it depends on undocumented host environment state---hardcoded paths, implicitly available tools, or specific OS configurations.
 Portability requires that procedures can be executed on different host environments, given documented system requirements.
 
@@ -215,6 +229,10 @@ environments are explicitly specified, versioned, and available within the proje
 
 \subsection{Ephemeral}
 
+\begin{itemize}
+    \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments
+\end{itemize}
+
 % TODO: Actionability cross-cut — E is more actionable when there is tooling that can orchestrate the entire process ephemerally (docker compose, AWS, Slurm), not just a documented instruction to "run in a clean environment"
 If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
 Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
@@ -232,6 +250,11 @@ At a minimum, a research object should be able to produce results from a fresh c
 At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
 
 \subsection{Distributable}
+
+\begin{itemize}
+    \item \textbf{D.1}: All referenced modules and components MUST be persistently retrievable by others
+    \item \textbf{D.2}: Environment specifications SHOULD support reproducible builds
+\end{itemize}
 
 % TODO: Actionability cross-cut — D is more actionable when there is tooling that can distribute a frozen state (containers, PyInstaller, npm ci), not just instructions to "pin your dependencies"
 Self-containment (S) establishes that everything needed is within the research object's boundary, possibly by reference.
