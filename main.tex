@@ -152,56 +152,65 @@ The principle is tool-agnostic: any system that captures executable provenance a
 
 \subsection{Modularity}
 
-% TODO: give a different flow into this. Rather accent that research project encompases multiple stages from conception, to raw data collection, analytics, ... publication.
-% For reproducibility sake we need to be able to link all of them, but all of them are also useful on their own.
-% So similarly to software development where we build a product, which might need compilation from sources - we provide compiled version while not shipping sources + compiler + environment along since they are not needed to use that product.
-% Establishing reliable and reproducible builds important and thus done also in software distributions, e.g. see https://wiki.debian.org/ReproducibleBuilds .
-% Another factor is that reused components, better exist in single reusable copy to ease fixing/maintenance/reduce size, so in software we e.g. have dynamic libraries.
-% So, the boundaries between "modules" are pragmatically driven by establishing "sensibly useful independently module", often, most frequently - derived products adding their unique aspects on top of their "sources".
-% Moreover, dealing with such different levels of data processing and modularization facilitates "handoffs" between team members (SciOps).
+\subsubsection{Motivation}
 
-% Composition remains "an issue"
-% Often relates to "provenance"
-% **Introduce existing compositional patterns (references/urls), frictionless data, BIDS (bids uri, SourceDatasets, code/), other approaches to describe; Actionability: PROV **
-% Introduce YODA (and VAMP) as attempt to formalize principles on HOW components should be organized using version control system
+Research projects naturally encompass multiple stages---from study conception and raw data collection through analytics to publication.
+Each stage produces artifacts that serve dual purposes: they are valuable independently for reuse in future work, yet must remain linked for full reproducibility of published results.
+
+This mirrors good software development practices [cite software philosophy books].
+When building software, developers maintain source code, build systems, and compilation environments separately from distributable binaries.
+End users receive the compiled product, while developers retain the complete build toolchain.
+Reliable and reproducible builds are essential in software distributions such as Debian's Reproducible Builds initiative~\cite{TODO}, ensuring that identical source code produces identical binaries across different build environments.
+Similarly, reused components in software---such as dynamic libraries---exist as single, independently maintained copies to ease fixing, reduce duplication, and minimize storage requirements.
+
+Module boundaries are pragmatically driven by what constitutes a ``sensibly useful independent unit.''
+Most frequently, these boundaries align with derived products that add unique processing or analysis on top of their sources.
+For instance, a processed neuroimaging dataset builds upon raw scanner data; a statistical analysis builds upon processed data; a publication builds upon analysis results.
+Each layer can serve as a standalone module while preserving its connection to upstream dependencies.
+
+Modularization also facilitates team collaboration in what has been termed ``SciOps''---the operational coordination of scientific workflows across team members.
+Different researchers may contribute to data collection, preprocessing, statistical analysis, and visualization.
+Clear module boundaries enable these handoffs: one researcher can complete preprocessing and version that module, while another begins downstream analysis without waiting for the entire project to stabilize.
+
+Without modularity, monolithic structures present significant barriers to effective development, maintenance, and reuse.
+Managing datasets as single, large units complicates incremental updates, obscures dependencies, inhibits flexible reuse or remixing of individual components, and is notably time-consuming.
+The lack of granularity often results in inefficient storage and processing, as small changes may necessitate duplicating or regenerating large portions of data.
+Researchers naturally modularize their work using folders, but often lack formal guidance on organization and logistics to facilitate efficient project management and collaboration.
+
+\subsubsection{Definition}
+
+\begin{itemize}
+    \item \textbf{M.1}: Components SHOULD be organized in a modular structure
+    \item \textbf{M.2}: Components MAY be included directly or linked as subdatasets
+\end{itemize}
 
 Monolithic structures present significant barriers to effective development, maintenance, and reuse.
-Managing datasets as single, large units complicates incremental updates, obscures dependencies, inhibits flexible reuse or remixing of individual components, and can be notably time-consuming.
-The lack of granularity often results in inefficient storage and processing, as small changes may necessitate duplicating or regenerating large portions of data.
-
-% And humans, researchers included, **already** modularize their stuff - They use folders!
-% But they often lack guidance on such folders organization and logistics to facilitate efficient project management and collaboration!
-
-Adopting a modular organization, as advocated by STAMPED, directly addresses these challenges through explicit separation of concerns.
-Rather than managing the dataset as one indivisible whole, STAMPED promotes a compositional approach, structuring projects as assemblies of independently versioned and well-defined components.
+Managing such research objects as single, large units complicates incremental updates, obscures dependencies, remixing of components, and can be notably time-consuming.
+So rather than managing the research object as one indivisible whole, STAMPED promotes a compositional approach,structuring projects as assemblies of independently versioned and well-defined components.
+Defining a module as a separately distributable collection of components for our research object, **Modularity** is achieved when all modules of the research are independent and composable.
 Individual parts—such as input and reference datasets, processing scripts, and computational environments—can be updated or replaced independently, thus minimizing disruption and maximizing reusability.
 
-The layout of these components plays a crucial role in enabling effective modularity.
-An idiomatic STAMPED research object clearly delineates elements into structured directories, such as:
+The layout of these components plays a crucial role in enabling effective modularity:
 
 \begin{itemize}
   \item \textbf{code/}: containing analysis scripts and tests
   \item \textbf{inputs/}: encapsulating raw or intermediate datasets
-  \item \textbf{envs/}: defining computational environments (e.g., Singularity containers)
+  \item \textbf{envs/}: defining computational environments (e.g., Singularity images)
   \item \textbf{docs/}: for project documentation
   \item \textbf{results/}: explicitly identified outputs (e.g., figures, tables, derived datasets)
 \end{itemize}
 
-% The exact organization might vary depending on the field of investigation and existing conventions.
-This intentional organization clarifies how components interact and supports domain-specific standards (e.g., BIDS).
-It enables researchers to compose and recombine modules flexibly to produce varied outcomes.
+The intention of such organization clarifies how researchers to compose and recombine modules flexibly to produce varied outcomes.
 
-% It is crucial to note that in such idiomatic YODA dataset, all necessary components (such as inputs/ and envs/) necessary to produce results MUST be available within this dataset.
-% Referencing materials outside of the folder (e.g. from ../ parent folder, or from online docker hub) breaks the containment and makes module, if defined by the folder boundary, either not portable or loosing guarantees for completeness.
-% DO NOT LOOK UP YODA!
+The spectrum of modularity ranges from:
+At \textbf{minimum}, organize components into logical subdirectories---separate code from data, distinguish inputs from results, and document structure in a README.
+At a \textbf{middle} level, formalize module boundaries using version control repository boundaries, with major components as separate repositories referencing each other via submodules or documented URLs with version tags.
+At the \textbf{ideal} level, implement fully actionable composition with all dependencies as versioned submodules with automated module installation, allowing the entire workflow to be reassembled from a self-contained specification.
 
-Thus, a dataset version can be precisely described as the pairing of generated results with composition of specific module versions, each independently managed.
-
-% A folder by itself is insufficient to be a "module".
-% It requires metadata which would at least demarkate module boundary and potentially associate with specific version control mechanisms and distributions.
-% In case of use of git VCS, git repository boundary establishes a module which could be independently re-used while retaining unambigous versioning information across such reuses.
-
-% TODO: formal principles removed — now in STAMPED table (M.1, M.2)
+Modularity ought to rely heavily on Tracking (module boundaries require independent versioning) and
+Self-containment (all independent modules required by the workflow ).
+It enhances Actionability by increasing the system reliability.
+Portability and Distributability are also easier to achieve since modules can themselves be ported and distributed separately from the integration in the whole.
 
 \subsection{Portability}
 
