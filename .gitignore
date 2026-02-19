@@ -1,2 +1,12 @@
 local-notes/
 *.idea
+# build artifacts
+main.aux
+main.log
+main.pdf
+main.pdf.mk
+# some claude-ey stuff
+.claude/
+conversation-*.md
+
+
