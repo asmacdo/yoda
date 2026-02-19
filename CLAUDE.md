@@ -4,9 +4,10 @@ A manuscript formalizing the STAMPED properties — Self-contained, Tracked, Act
 
 ## Venue & Format
 
-Target: Nature Methods Article.
-- Format requirements: [research/NMETH-ARTICLE-REQUIREMENTS.md](research/NMETH-ARTICLE-REQUIREMENTS.md)
-- Style guide: [research/nmeth-style-patterns.md](research/nmeth-style-patterns.md)
+Target: Nature Scientific Data Article (not Data Descriptor).
+- Format requirements: [research/SDATA-ARTICLE-REQUIREMENTS.md](research/SDATA-ARTICLE-REQUIREMENTS.md)
+- Style guide: [research/sdata-style-patterns.md](research/sdata-style-patterns.md)
+- Prior venue research (Nature Methods, no longer target): [research/NMETH-ARTICLE-REQUIREMENTS.md](research/NMETH-ARTICLE-REQUIREMENTS.md), [research/nmeth-style-patterns.md](research/nmeth-style-patterns.md)
 
 ## Key Files
 
@@ -35,7 +36,8 @@ Target: Nature Methods Article.
 
 ## Section Pattern for Results
 
-Each Results subsection should loosely follow this structure:
+Scientific Data Articles allow flexible structure (IMRaD recommended, not mandated).
+The current Results subsection pattern remains appropriate:
 1. **Motivation**: Why this property matters. What goes wrong without it.
 2. **Definition**: Reference the formal requirements in Table 1. Brief prose restating the core idea.
 3. **Spectrum** (minimum → ideal): Practical floor → aspirational ceiling. Foreshadow later properties rather than detail them.
