@@ -9,6 +9,9 @@ Target: Nature Scientific Data Article (not Data Descriptor).
 - Style guide: [research/sdata-style-patterns.md](research/sdata-style-patterns.md)
 - Prior venue research (Nature Methods, no longer target): [research/NMETH-ARTICLE-REQUIREMENTS.md](research/NMETH-ARTICLE-REQUIREMENTS.md), [research/nmeth-style-patterns.md](research/nmeth-style-patterns.md)
 
+## Project Style Conventions
+- one sentence per line
+
 ## Key Files
 
 - `main.tex` — manuscript source
