@@ -241,18 +241,9 @@ environments are explicitly specified, versioned, and available within the proje
     \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments.
 \end{itemize}
 
-A research object may already have its computational environment documented and versioned,
-and a researcher may reproduce it by manually reinstalling the same operating system,
-software, dependencies, and configurations at the matching versions, among other
-steps---satisfying S, T, and P without Ephemerality.
-Such manual reconstitution is not only inconvenient, but may also be imprecise:
-environment specifications that cannot be easily tested for reconstitution in different
-host systems can be subtly incomplete---for instance, through hidden dependencies on the
-researcher's own system that are not apparent until someone else attempts to reproduce
-the work.
-Ephemerality (E.1, Table~1) addresses this by requiring the computational environment
-to be captured in a machine-readable specification from which an equivalent,
-host-independent environment can be automatically reconstituted on any compatible platform.
+A research object may already have its computational environment documented and versioned, and a researcher may reproduce it by manually reinstalling the same operating system, software, dependencies, and configurations at the matching versions, among other steps---satisfying S, T, and P without Ephemerality.
+Such manual reconstitution is not only inconvenient, but may also be imprecise: environment specifications that cannot be easily tested for reconstitution in different host systems can be subtly incomplete---for instance, through hidden dependencies on the researcher's own system that are not apparent until someone else attempts to reproduce the work.
+Ephemerality (E.1, Table~1) addresses this by requiring the computational environment to be captured in a machine-readable specification from which an equivalent, host-independent environment can be automatically reconstituted on any compatible platform.
 
 Ephemerality has a reinforcing relationship with the other STAMPED properties:
 \begin{itemize}
