@@ -47,10 +47,10 @@ if ! curl -sfL "$base_url" -o main-base.pdf; then
     exit 0
 fi
 
-# --- Generate visual diff PDF (needs virtual display for diff-pdf) ---
+# --- Generate visual diff PDF ---
 diff_view_url="${server}/${repo}/blob/${preview_branch}/diff.pdf"
 
-if xvfb-run diff-pdf --output-diff=diff.pdf --dpi=300 --channel-tolerance=0 -g \
+if diff-pdf --output-diff=diff.pdf --dpi=300 --channel-tolerance=0 -g \
      main-base.pdf "$pr_pdf"; then
     echo "" >> pr-comment.md
     echo "No visual differences from main." >> pr-comment.md
