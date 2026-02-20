@@ -33,7 +33,9 @@ jobs:
             texlive-latex-extra \
             texlive-fonts-recommended \
             latex-make \
-            poppler-utils
+            poppler-utils \
+            diff-pdf \
+            xvfb
 
       - name: Build PDF
         run: make
@@ -77,71 +79,88 @@ jobs:
             echo "" >> pr-comment.md
             echo "*No main PDF deployed yet — diff not available.*" >> pr-comment.md
           else
-            mkdir -p pages-base pages-pr diff-pages
+            # Generate visual diff PDF using diff-pdf (needs virtual display)
+            DIFF_VIEW_URL="${SERVER}/${REPO}/blob/${PREVIEW_BRANCH}/diff.pdf"
+            if xvfb-run diff-pdf --output-diff=diff.pdf --dpi=300 --channel-tolerance=0 -g \
+                 main-base.pdf main.pdf; then
+              echo "" >> pr-comment.md
+              echo "No visual differences from main." >> pr-comment.md
+            else
+              # diff-pdf exits non-zero when differences exist
+              # Convert diff PDF pages to PNGs for inline preview
+              mkdir -p diff-pages
+              pdftoppm -png -r 150 diff.pdf diff-pages/page
+              pdftoppm -png -r 150 main-base.pdf diff-pages/base
+              pdftoppm -png -r 150 main.pdf diff-pages/pr
 
-            pdftoppm -png -r 150 main-base.pdf pages-base/page
-            pdftoppm -png -r 150 main.pdf pages-pr/page
+              mapfile -t DIFF_PNGS < <(ls diff-pages/page-*.png 2>/dev/null | sort -V)
+              mapfile -t BASE_PNGS < <(ls diff-pages/base-*.png 2>/dev/null | sort -V)
+              mapfile -t PR_PNGS < <(ls diff-pages/pr-*.png 2>/dev/null | sort -V)
 
-            mapfile -t BASE_FILES < <(ls pages-base/*.png 2>/dev/null | sort -V)
-            mapfile -t PR_FILES < <(ls pages-pr/*.png 2>/dev/null | sort -V)
+              BASE_COUNT=${#BASE_PNGS[@]}
+              PR_COUNT=${#PR_PNGS[@]}
+              DIFF_COUNT=${#DIFF_PNGS[@]}
+              # diff-pdf output covers min(base,pr) pages
+              MAX_COUNT=$((BASE_COUNT > PR_COUNT ? BASE_COUNT : PR_COUNT))
 
-            BASE_COUNT=${#BASE_FILES[@]}
-            PR_COUNT=${#PR_FILES[@]}
-            MAX_COUNT=$((BASE_COUNT > PR_COUNT ? BASE_COUNT : PR_COUNT))
+              CHANGED=0
+              UNCHANGED=0
+              ADDED=0
+              REMOVED=0
+              PAGE_DETAILS=""
 
-            CHANGED=0
-            UNCHANGED=0
-            ADDED=0
-            REMOVED=0
-            PAGE_DETAILS=""
+              for ((i=0; i<MAX_COUNT; i++)); do
+                PAGE_NUM=$((i + 1))
+                PADDED=$(printf '%02d' "$PAGE_NUM")
 
-            for ((i=0; i<MAX_COUNT; i++)); do
-              PAGE_NUM=$((i + 1))
-              PADDED=$(printf '%02d' "$PAGE_NUM")
+                if [ "$i" -lt "$BASE_COUNT" ] && [ "$i" -lt "$PR_COUNT" ]; then
+                  # Check if this page actually differs by comparing the
+                  # rendered PNGs (diff-pdf marks changes in red on its output)
+                  if [ "$i" -lt "$DIFF_COUNT" ]; then
+                    # Compare base vs pr page to see if this specific page changed
+                    PIXELS=$(compare -metric AE -fuzz 2% \
+                      "${BASE_PNGS[$i]}" "${PR_PNGS[$i]}" /dev/null 2>&1 || true)
 
-              if [ "$i" -lt "$BASE_COUNT" ] && [ "$i" -lt "$PR_COUNT" ]; then
-                # Page exists in both — compare
-                DIFF_FILE="diff-pages/diff-page-${PADDED}.png"
-                PIXELS=$(compare -metric AE -fuzz 2% \
-                  "${BASE_FILES[$i]}" "${PR_FILES[$i]}" "$DIFF_FILE" 2>&1 || true)
-
-                # compare may output non-numeric on error
-                if [ "$PIXELS" = "0" ] || ! [[ "$PIXELS" =~ ^[0-9]+$ ]]; then
-                  UNCHANGED=$((UNCHANGED + 1))
-                  rm -f "$DIFF_FILE"
-                  PAGE_DETAILS+="- Page ${PAGE_NUM} — unchanged\n"
+                    if [ "$PIXELS" = "0" ] || ! [[ "$PIXELS" =~ ^[0-9]+$ ]]; then
+                      UNCHANGED=$((UNCHANGED + 1))
+                      PAGE_DETAILS+="- Page ${PAGE_NUM} — unchanged\n"
+                    else
+                      CHANGED=$((CHANGED + 1))
+                      # Rename diff page PNG for upload
+                      cp "${DIFF_PNGS[$i]}" "diff-page-${PADDED}.png"
+                      DIFF_IMG_URL="${RAW_BASE}/diff-page-${PADDED}.png"
+                      PAGE_DETAILS+="<details><summary>Page ${PAGE_NUM} — changed</summary>\n\n"
+                      PAGE_DETAILS+="![page ${PAGE_NUM} diff](${DIFF_IMG_URL})\n\n"
+                      PAGE_DETAILS+="</details>\n"
+                    fi
+                  fi
+                elif [ "$i" -lt "$PR_COUNT" ]; then
+                  ADDED=$((ADDED + 1))
+                  PAGE_DETAILS+="- Page ${PAGE_NUM} — **new**\n"
                 else
-                  CHANGED=$((CHANGED + 1))
-                  DIFF_URL="${RAW_BASE}/diff-page-${PADDED}.png"
-                  PAGE_DETAILS+="<details><summary>Page ${PAGE_NUM} — ${PIXELS} pixels differ</summary>\n\n"
-                  PAGE_DETAILS+="![page ${PAGE_NUM} diff](${DIFF_URL})\n\n"
-                  PAGE_DETAILS+="</details>\n"
+                  REMOVED=$((REMOVED + 1))
+                  PAGE_DETAILS+="- Page ${PAGE_NUM} — **removed**\n"
                 fi
-              elif [ "$i" -lt "$PR_COUNT" ]; then
-                ADDED=$((ADDED + 1))
-                PAGE_DETAILS+="- Page ${PAGE_NUM} — **new**\n"
-              else
-                REMOVED=$((REMOVED + 1))
-                PAGE_DETAILS+="- Page ${PAGE_NUM} — **removed**\n"
-              fi
-            done
+              done
 
-            # Build summary line
-            PARTS=()
-            [ "$CHANGED" -gt 0 ]   && PARTS+=("${CHANGED} changed")
-            [ "$UNCHANGED" -gt 0 ] && PARTS+=("${UNCHANGED} unchanged")
-            [ "$ADDED" -gt 0 ]     && PARTS+=("${ADDED} added")
-            [ "$REMOVED" -gt 0 ]   && PARTS+=("${REMOVED} removed")
-            SUMMARY="${PR_COUNT} pages total: $(IFS=', '; echo "${PARTS[*]}")"
-            [ "$BASE_COUNT" -ne "$PR_COUNT" ] && SUMMARY+=" (was ${BASE_COUNT})"
+              # Build summary line
+              PARTS=()
+              [ "$CHANGED" -gt 0 ]   && PARTS+=("${CHANGED} changed")
+              [ "$UNCHANGED" -gt 0 ] && PARTS+=("${UNCHANGED} unchanged")
+              [ "$ADDED" -gt 0 ]     && PARTS+=("${ADDED} added")
+              [ "$REMOVED" -gt 0 ]   && PARTS+=("${REMOVED} removed")
+              SUMMARY="${PR_COUNT} pages total: $(IFS=', '; echo "${PARTS[*]}")"
+              [ "$BASE_COUNT" -ne "$PR_COUNT" ] && SUMMARY+=" (was ${BASE_COUNT})"
 
-            {
-              echo ""
-              echo "#### Diff vs main"
-              echo "${SUMMARY}"
-              echo ""
-              printf '%b' "$PAGE_DETAILS"
-            } >> pr-comment.md
+              {
+                echo ""
+                echo "#### Diff vs main"
+                echo "${SUMMARY}"
+                echo "**[View full diff PDF](${DIFF_VIEW_URL})**"
+                echo ""
+                printf '%b' "$PAGE_DETAILS"
+              } >> pr-comment.md
+            fi
           fi
 
           # Set multiline output for the comment step
@@ -163,12 +182,10 @@ jobs:
           git checkout --orphan "$BRANCH"
           git rm -rf --cached .
           git add -f main.pdf
-          # Add diff images if any were generated
-          for f in diff-pages/diff-page-*.png; do
-            [ -f "$f" ] || continue
-            NAME=$(basename "$f")
-            mv "$f" "$NAME"
-            git add -f "$NAME"
+          # Add diff PDF and per-page diff images if generated
+          [ -f diff.pdf ] && git add -f diff.pdf
+          for f in diff-page-*.png; do
+            [ -f "$f" ] && git add -f "$f"
           done
           git commit -m "PDF preview for PR #${PR_NUMBER} (${HEAD_SHA:0:7})"
           git push -f origin "$BRANCH"
