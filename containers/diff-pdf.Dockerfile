@@ -5,6 +5,7 @@ RUN apt-get update \
       diff-pdf-wx \
       xvfb \
       xauth \
+      x11-utils \
       poppler-utils \
       imagemagick \
       curl \
