@@ -50,7 +50,7 @@ fi
 # --- Generate visual diff PDF ---
 diff_view_url="${server}/${repo}/blob/${preview_branch}/diff.pdf"
 
-if diff-pdf --output-diff=diff.pdf --dpi=300 --channel-tolerance=0 -g \
+if xvfb-run diff-pdf --output-diff=diff.pdf --dpi=300 --channel-tolerance=0 -g \
      main-base.pdf "$pr_pdf"; then
     echo "" >> pr-comment.md
     echo "No visual differences from main." >> pr-comment.md

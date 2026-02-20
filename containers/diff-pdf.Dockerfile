@@ -11,8 +11,8 @@ RUN apt-get update \
       ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-# diff-pdf needs a display; wrap it so callers don't have to remember xvfb-run
-COPY diff-pdf-wrapper.sh /usr/local/bin/diff-pdf
-RUN chmod +x /usr/local/bin/diff-pdf
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR /work
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
