@@ -13,9 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
   build:
@@ -48,12 +49,34 @@ jobs:
         with:
           path: _site
 
-      - name: Upload PDF as build artifact
+      - name: Push PDF to PR preview branch
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="gh-pages-pr-${PR_NUMBER}"
+          git checkout --orphan "$BRANCH"
+          git rm -rf --cached .
+          git add -f main.pdf
+          git commit -m "PDF preview for PR #${PR_NUMBER} ($(git rev-parse --short ${{ github.event.pull_request.head.sha }}))"
+          git push -f origin "$BRANCH"
+
+      - name: Comment on PR with PDF link
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         with:
-          name: paper-pdf
-          path: main.pdf
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body: |
+            <!-- pdf-preview -->
+            ### Paper PDF
+            Built from ${{ github.event.pull_request.head.sha }}.
+            **[View PDF](${{ github.server_url }}/${{ github.repository }}/blob/gh-pages-pr-${{ github.event.pull_request.number }}/main.pdf)** | **[Download](https://raw.githubusercontent.com/${{ github.repository }}/gh-pages-pr-${{ github.event.pull_request.number }}/main.pdf)**
+          edit-mode: replace
 
   deploy:
     if: github.ref == 'refs/heads/main'
