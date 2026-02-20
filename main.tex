@@ -377,45 +377,87 @@ The spectrum of distributability ranges from publicly accessible components with
 This checklist provides a practical guide for assessing a Research Object's compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
 
 \subsubsection*{Self-containment}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: All modules and components essential to replicate computational execution are contained within a single top-level research object (S.1).
+    \begin{itemize}[label=$\square$]
+        \item Are all files and directories nested under a common root?
+        \item Are datasets included, linked, or referenced adjacent to the code and environment specifications?
+        \item Is external software included in the environment or linked as submodules within the project boundary?
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Tracking}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: Version information is tracked for all components (T.1).
+    \begin{itemize}[label=$\square$]
+        \item Use Git for code and configuration files.
+        \item Use tools like git-annex or Git LFS for large binary data.
+    \end{itemize}
     \item \textbf{SHOULD}: All components are tracked using the same content-addressed version control system (T.2).
+    \begin{itemize}[label=$\square$]
+        \item Prefer Git-based versioning for everything to ensure cross-component consistency via commit hashes.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Actionability}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: The research object contains sufficient instructions to reproduce all computational results (A.1).
+    \begin{itemize}[label=$\square$]
+        \item Include a \texttt{README.md} or \texttt{Makefile} with the entry point for the pipeline.
+        \item Use workflow engines like Snakemake or Nextflow to automate execution steps.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Modularity}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{SHOULD}: Components are organized in a modular structure (M.1).
+    \begin{itemize}[label=$\square$]
+        \item Separate raw data, processed data, scripts, and environment definitions into distinct directories.
+    \end{itemize}
     \item \textbf{MAY}: Components are included directly or linked as subdatasets (M.2).
+    \begin{itemize}[label=$\square$]
+        \item Use \texttt{datalad create-sibling} or nested repositories to manage modular dependencies.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Portability}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST NOT}: Procedures depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations) (P.1).
+    \begin{itemize}[label=$\square$]
+        \item Use relative paths in scripts; avoid \texttt{C:\textbackslash Users\textbackslash ...} or \texttt{/home/user/...}.
+    \end{itemize}
     \item \textbf{MUST}: Computational environments are explicitly specified (P.2).
+    \begin{itemize}[label=$\square$]
+        \item Include a \texttt{conda} environment file (\texttt{environment.yml}) or a \texttt{Dockerfile}.
+    \end{itemize}
     \item \textbf{MUST}: Environment definitions are version controlled (P.3).
+    \begin{itemize}[label=$\square$]
+        \item Commit your \texttt{requirements.txt} or environment YAML file alongside the code.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Ephemerality}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{SHOULD}: Computational results are computed in ephemeral environments (E.1).
+    \begin{itemize}[label=$\square$]
+        \item Test your pipeline in a fresh container or a clean virtual machine.
+        \item Ensure scripts clean up temporary files and do not rely on pre-existing local state.
+    \end{itemize}
 \end{itemize}
 
 \subsubsection*{Distributability}
-\begin{itemize}[label=$\square$]
+\begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: Computational environments are explicitly specified (D.1).
     \item \textbf{MUST}: Environment definitions are version controlled (D.3).
     \item \textbf{SHOULD}: Environment specifications support reproducible builds (D.2).
+    \begin{itemize}[label=$\square$]
+        \item Use specific version pins (\texttt{package==1.2.3}) instead of loose ranges.
+        \item Provide a container image digest (\texttt{sha256:...}) for exact environmental matching.
+    \end{itemize}
     \item \textbf{SHOULD}: Environment components are self-contained within the dataset (D.4).
+    \begin{itemize}[label=$\square$]
+        \item Archive dependencies or container layers within the research object if possible (e.g., using Singularity SIF files).
+    \end{itemize}
 \end{itemize}
 
 
