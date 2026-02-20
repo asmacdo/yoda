@@ -101,12 +101,20 @@ for ((i = 0; i < max_count; i++)); do
                 compare -fuzz 2% -highlight-color '#FF000060' \
                     "${base_pngs[$i]}" "${pr_pngs[$i]}" \
                     -compose src "diff-pages/highlighted-${padded}.png" 2>/dev/null || true
-                montage \
-                    -label "main" "${base_pngs[$i]}" \
-                    -label "PR" "${pr_pngs[$i]}" \
-                    -label "changes" "diff-pages/highlighted-${padded}.png" \
-                    -tile 3x1 -geometry '+4+4' \
-                    "diff-page-${padded}.png"
+                # Build montage; use labels if a font is available, plain if not
+                montage_args=(-tile 3x1 -geometry '+4+4')
+                if fc-list 2>/dev/null | grep -q .; then
+                    montage \
+                        -label "main" "${base_pngs[$i]}" \
+                        -label "PR" "${pr_pngs[$i]}" \
+                        -label "changes" "diff-pages/highlighted-${padded}.png" \
+                        "${montage_args[@]}" "diff-page-${padded}.png"
+                else
+                    montage \
+                        "${base_pngs[$i]}" "${pr_pngs[$i]}" \
+                        "diff-pages/highlighted-${padded}.png" \
+                        "${montage_args[@]}" "diff-page-${padded}.png"
+                fi
                 diff_img_url="${raw_base}/diff-page-${padded}.png"
                 page_details+="<details><summary>Page ${page_num} — changed</summary>\n\n"
                 page_details+="![page ${page_num} diff](${diff_img_url})\n\n"
