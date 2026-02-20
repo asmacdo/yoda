@@ -4,6 +4,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
       diff-pdf-wx \
       xvfb \
+      xauth \
       poppler-utils \
       imagemagick \
       curl \
