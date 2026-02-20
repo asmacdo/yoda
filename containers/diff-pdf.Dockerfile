@@ -8,6 +8,7 @@ RUN apt-get update \
       x11-utils \
       poppler-utils \
       imagemagick \
+      fonts-dejavu-core \
       curl \
       ca-certificates \
  && rm -rf /var/lib/apt/lists/*
