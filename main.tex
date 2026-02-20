@@ -347,7 +347,7 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
     \item \textbf{Self-containment (S.1)}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
     \begin{itemize}[label=$\square$]
         \item Are all files and directories nested under a common root?
-        \item Are datasets included, linked, or referenced adjacent to the code and environment specifications?
+        \item Are datasets included, linked, or referenced reachable from the code and environment specifications without cross the boundary of a common root?
         \item Is external software included in the environment or linked as submodules within the project boundary?
     \end{itemize}
     \item \textbf{Tracking (T.1)+(T.3)}: Persistent content identification MUST be recorded for all components. Provenance of all modifications MUST be recordeed.
