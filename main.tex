@@ -374,7 +374,9 @@ The spectrum of distributability ranges from publicly accessible components with
 
 \subsection{Checklist for compliance to principles}
 
-This checklist provides a practical guide for assessing a Research Object's compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
+We hope that the preceding sections have provided a clear understanding of the STAMPED properties and their rationale.
+While this understanding is essential, researchers may also benefit from a practical checklist to assess their research objects against these principles.
+This checklist provides such a guide for assessing compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
 
 \subsubsection*{Self-containment}
 \begin{itemize}[label=$\rightarrow$]
@@ -390,12 +392,12 @@ This checklist provides a practical guide for assessing a Research Object's comp
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: Version information is tracked for all components (T.1).
     \begin{itemize}[label=$\square$]
-        \item Use Git for code and configuration files.
-        \item Use tools like git-annex or Git LFS for large binary data.
+        \item Is Git used for code, text, documentation, and configuration files?
+        \item Are tools like git-annex, DataLad, or Git LFS used for large binary data?
     \end{itemize}
     \item \textbf{SHOULD}: All components are tracked using the same content-addressed version control system (T.2).
     \begin{itemize}[label=$\square$]
-        \item Prefer Git-based versioning for everything to ensure cross-component consistency via commit hashes.
+        \item Is only one of Git, DVC, git-annex or DataLad used across all components?
     \end{itemize}
 \end{itemize}
 
@@ -403,8 +405,9 @@ This checklist provides a practical guide for assessing a Research Object's comp
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: The research object contains sufficient instructions to reproduce all computational results (A.1).
     \begin{itemize}[label=$\square$]
-        \item Include a \texttt{README.md} or \texttt{Makefile} with the entry point for the pipeline.
-        \item Use workflow engines like Snakemake or Nextflow to automate execution steps.
+        \item Is a \texttt{README.md} or \texttt{Makefile} included with instructions for installation and usage?
+        \item Is there a clear entry point for users to start reproducing results (e.g., a main script, a workflow definition, or a container image)?
+        \item Is the workflow tested regularly to ensure instructions remain accurate?
     \end{itemize}
 \end{itemize}
 
@@ -412,11 +415,15 @@ This checklist provides a practical guide for assessing a Research Object's comp
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{SHOULD}: Components are organized in a modular structure (M.1).
     \begin{itemize}[label=$\square$]
-        \item Separate raw data, processed data, scripts, and environment definitions into distinct directories.
+        \item Are raw data, processed data, code, and environment definitions separated into distinct modules?
     \end{itemize}
     \item \textbf{MAY}: Components are included directly or linked as subdatasets (M.2).
     \begin{itemize}[label=$\square$]
-        \item Use \texttt{datalad create-sibling} or nested repositories to manage modular dependencies.
+        \item Are external datasets or software dependencies included as submodules or linked as submodules?
+        \item Is the modular structure documented to clarify how components relate and can be recombined?
+        \item Are modular boundaries defined in a way that allows independent updates without breaking the overall workflow?
+        \item Is there a clear mechanism for composing modules together (e.g., git submodules, or container orchestration)?
+        \item Is there documentation or tooling to support users in understanding and navigating the modular structure?
     \end{itemize}
 \end{itemize}
 
@@ -424,15 +431,20 @@ This checklist provides a practical guide for assessing a Research Object's comp
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST NOT}: Procedures depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations) (P.1).
     \begin{itemize}[label=$\square$]
-        \item Use relative paths in scripts; avoid \texttt{C:\textbackslash Users\textbackslash ...} or \texttt{/home/user/...}.
+        \item Are relative paths used in scripts, avoiding hardcoded or system-specific paths like\texttt{C:\textbackslash Users\textbackslash ...} or \texttt{/home/user/...}?
+        \item Are all software dependencies included in the environment specification, rather than relying on pre-installed tools?
+        \item Are there any assumptions about the host system's configuration that are not documented (e.g., specific OS versions, required system libraries, or environment variables)?
     \end{itemize}
     \item \textbf{MUST}: Computational environments are explicitly specified (P.2).
     \begin{itemize}[label=$\square$]
-        \item Include a \texttt{conda} environment file (\texttt{environment.yml}) or a \texttt{Dockerfile}.
+        \item Is there a clear list of system requirements and dependencies documented in the README or environment specifications?
+        \item Are there tests to verify that the workflow can run on a clean system that meets the stated requirements?
     \end{itemize}
     \item \textbf{MUST}: Environment definitions are version controlled (P.3).
     \begin{itemize}[label=$\square$]
-        \item Commit your \texttt{requirements.txt} or environment YAML file alongside the code.
+        \item Are environment specifications (e.g., Dockerfiles, Singularity definitions, Nix expressions) included in the version control system alongside code and data?
+        \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
+        \item Are environment specifications tested to ensure they can be reconstituted as intended?
     \end{itemize}
 \end{itemize}
 
@@ -440,23 +452,33 @@ This checklist provides a practical guide for assessing a Research Object's comp
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{SHOULD}: Computational results are computed in ephemeral environments (E.1).
     \begin{itemize}[label=$\square$]
-        \item Test your pipeline in a fresh container or a clean virtual machine.
-        \item Ensure scripts clean up temporary files and do not rely on pre-existing local state.
+        \item Is the pipeline tested in a fresh container, batch job, clean virtual machine, or cloud-based instance?
+        \item Do scripts clean up temporary files and avoid reliance on pre-existing local state?
     \end{itemize}
 \end{itemize}
 
 \subsubsection*{Distributability}
 \begin{itemize}[label=$\rightarrow$]
     \item \textbf{MUST}: Computational environments are explicitly specified (D.1).
-    \item \textbf{MUST}: Environment definitions are version controlled (D.3).
+    \begin{itemize}[label=$\square$]
+        \item Are exact environment specifications (e.g., container digests, frozen package manifests) included to ensure others can attempt to replicate the specific environment?
+        \item Are environment specifications shared in a way that others can access and use them (e.g., published container images, archived environment files)?
+        \item Is there documentation on how to obtain and use the environment specifications for reproduction?
+    \end{itemize}
+    \item \item \textbf{MUST}: Environment definitions are version controlled (D.3).
+    \begin{itemize}[label=$\square$]
+        \item Are the exact environment specifications used to generate a specific set of results included in the version control system alongside code and data?
+        \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
+    \end{itemize}
     \item \textbf{SHOULD}: Environment specifications support reproducible builds (D.2).
     \begin{itemize}[label=$\square$]
-        \item Use specific version pins (\texttt{package==1.2.3}) instead of loose ranges.
-        \item Provide a container image digest (\texttt{sha256:...}) for exact environmental matching.
+        \item Are the exact environment specifications used to generate a specific set of results regularly tested to ensure they can be reconstituted as intended?
+        \item Are the exact environment specifications used to generate a specific set of results included in the provenance records to link computational actions to specific environments?
     \end{itemize}
     \item \textbf{SHOULD}: Environment components are self-contained within the dataset (D.4).
     \begin{itemize}[label=$\square$]
-        \item Archive dependencies or container layers within the research object if possible (e.g., using Singularity SIF files).
+        \item Are dependencies or container layers archived within the research object where possible (e.g., using
+        Singularity SIF files, npm package-lock.json files)?
     \end{itemize}
 \end{itemize}
 
