@@ -1,6 +1,6 @@
-# YODA: The Four Pillars of Idiomatic Dataset Version Control
+# STAMPED properties for reproducible research objects
 
-> Must follow requirements in [NMETH-ARTICLE-REQUIREMENTS.md](NMETH-ARTICLE-REQUIREMENTS.md)
+> Must follow requirements in [SDATA-ARTICLE-REQUIREMENTS.md](research/SDATA-ARTICLE-REQUIREMENTS.md)
 
 ## Abstract
 
@@ -37,7 +37,7 @@ End with table of normative properties (imperative requirements stated in each s
 - Increases interoperability among tools
 - git-annex complexity vs Git LFS simplicity
 
-### Examples and Case Studies?
+### Examples and Case Studies
 
 Point to our living documentation, minimal examples/counter-examples
 - fairly big workflow, AIND, non-neuroscience???
@@ -61,6 +61,8 @@ Point to our living documentation, minimal examples/counter-examples
 - TODO: Zenodo DOI https://github.com/myyoda/principles-paper/issues/19
 - TODO: Examples repo https://github.com/myyoda/principles-paper/issues/20
 
+## Code Availability
+
 ## References
 
 ## Author Contributions
@@ -68,3 +70,5 @@ Point to our living documentation, minimal examples/counter-examples
 ## Competing Interests
 
 ## Acknowledgments
+
+## Funding
