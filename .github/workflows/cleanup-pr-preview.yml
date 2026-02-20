@@ -1,0 +1,19 @@
+name: Clean up PR preview branch
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete PR preview branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="gh-pages-pr-${{ github.event.pull_request.number }}"
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/${BRANCH}" 2>/dev/null || true
