@@ -245,6 +245,35 @@ environments are explicitly specified, versioned, and available within the proje
     \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments
 \end{itemize}
 
+A research object may already have its computational environment documented and versioned,
+and a researcher may reproduce it by manually reinstalling the same operating system,
+software, dependencies, and configurations at the matching versions, among other
+steps---satisfying S, T, and P without Ephemerality.
+Such manual reconstitution is not only inconvenient, but may also be imprecise:
+environment specifications that cannot be easily tested for reconstitution in different
+host systems can be subtly incomplete---for instance, through hidden dependencies on the
+researcher's own system that are not apparent until someone else attempts to reproduce
+the work.
+Ephemerality (E.1, Table~1) addresses this by requiring the computational environment
+to be captured in a machine-readable specification from which an equivalent,
+host-independent environment can be automatically reconstituted on any compatible platform.
+
+Ephemerality has a reinforcing relationship with the other STAMPED properties:
+\begin{itemize}
+  \item \textbf{Self-containment (S):} The ephemeral environment must be reconstituted from scratch
+    on every run---often by automated tooling---so all necessary specifications must reside
+    within the research object itself.
+  \item \textbf{Tracking (T):} The exact ephemeral computational context becomes a reproducible
+    record alongside code and data.
+  \item \textbf{Actionability (A):} The ephemeral computational environment can be easily
+    reconstituted.
+  \item \textbf{Portability (P):} An ephemeral computational environment often imposes a
+    minimum set of requirements on the host system.
+  \item \textbf{Distributability (D):} Ephemeral environment specifications---container
+    images, reproducible package manifests---are natural units of distribution, packaging
+    a frozen computational state that others can retrieve and run.
+\end{itemize}
+
 % TODO: Actionability cross-cut — E is more actionable when there is tooling that can orchestrate the entire process ephemerally (docker compose, AWS, Slurm), not just a documented instruction to "run in a clean environment"
 If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
 Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
