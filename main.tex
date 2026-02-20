@@ -344,85 +344,80 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
 
 \subsubsection*{MUST}
 \begin{itemize}[label=$\triangleright$]
-    \item \textbf{Self-containment (S.1)}: All modules and components essential to replicate computational execution are contained within a single top-level research object.
+    \item \textbf{Self-containment (S.1)}: All modules and components essential to replicate computational execution MUST be reachable within a single top-level research object.
     \begin{itemize}[label=$\square$]
         \item Are all files and directories nested under a common root?
         \item Are datasets included, linked, or referenced adjacent to the code and environment specifications?
         \item Is external software included in the environment or linked as submodules within the project boundary?
     \end{itemize}
-    \item \textbf{Tracking (T.1)}: Version information is tracked for all components.
+    \item \textbf{Tracking (T.1)+(T.3)}: Persistent content identification MUST be recorded for all components. Provenance of all modifications MUST be recordeed.
     \begin{itemize}[label=$\square$]
-        \item Are tools like Git used for code, text, documentation, and configuration files?
-        \item Are tools like git-annex, DataLad, or Git LFS used for large binary data?
+        \item Are version control systems such as \texttt{Git} used for code, text, documentation, and configuration files?
+        \item Are version control systems such as \texttt{git-annex}, DataLad, or \texttt{Git} LFS used for large binary data?
     \end{itemize}
-    \item \textbf{Actionability (A.1)}: The research object contains sufficient instructions to reproduce all computational results.
+    \item \textbf{Actionability (A.1)}: The research object MUST contain sufficient instructions to reproduce all computational results.
     \begin{itemize}[label=$\square$]
         \item Is a \texttt{README.md} or \texttt{Makefile} included with instructions for installation and usage?
         \item Is there a clear starting point for users to start reproducing results (e.g., a main script, a workflow definition, or a container image)?
     \end{itemize}
-    \item \textbf{Portability (P.1)}: Procedures MUST NOT depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations).
+    \item \textbf{Portability (P.1)}: Procedures MUST NOT depend on undocumented host environment state.
     \begin{itemize}[label=$\square$]
         \item Are relative paths used in scripts, avoiding hardcoded or system-specific paths like \texttt{C:\textbackslash Users\textbackslash ...} or \texttt{/home/user/...}?
         \item Are all software dependencies included in the environment specification, rather than relying on pre-installed tools?
-        \item Are there any assumptions about the host system's configuration that are not documented (e.g., specific OS versions, required system libraries, or environment variables)?
+        \item Have all assumptions about the host system's configuration been documented (e.g., specific OS versions, required system libraries, or environment variables)?
     \end{itemize}
-    \item \textbf{Portability (P.2)}: Computational environments are explicitly specified.
+    \item \textbf{Portability (P.2)}: Computational environments MUST be explicitly specified.
     \begin{itemize}[label=$\square$]
         \item Is there a clear list of system requirements and dependencies documented in the README or environment specifications?
-        \item Are there tests to verify that the workflow can run on a clean system that meets the stated requirements?
     \end{itemize}
-    \item \textbf{Portability (P.3)}: Environment definitions are version controlled.
+    \item \textbf{Portability (P.3)}: Environment definitions MUST be version controlled.
     \begin{itemize}[label=$\square$]
         \item Are environment specifications (e.g., Dockerfiles, Singularity definitions, Nix expressions) included in the version control system alongside code and data?
         \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
-        \item Are environment specifications tested to ensure they can be reconstituted as intended?
     \end{itemize}
-    \item \textbf{Distributability (D.1)}: Computational environments are explicitly specified.
+    \item \textbf{Distributability (D.1)}: Computational environments MUST be persistently retrievable by others.
     \begin{itemize}[label=$\square$]
-        \item Are exact environment specifications (e.g., container digests, frozen package manifests) included to ensure others can attempt to replicate the specific environment?
+        \item Are environment specifications (e.g., container digests, frozen package manifests) included to ensure others can attempt to exactly replicate the environment?
         \item Are environment specifications shared in a way that others can access and use them (e.g., published container images, archived environment files)?
         \item Is there documentation on how to obtain and use the environment specifications for reproduction?
-    \end{itemize}
-    \item \textbf{Distributability (D.3)}: Environment definitions are version controlled.
-    \begin{itemize}[label=$\square$]
-        \item Are the exact environment specifications used to generate a specific set of results included in the version control system alongside code and data?
-        \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
     \end{itemize}
 \end{itemize}
 
 \subsubsection*{SHOULD}
 \begin{itemize}[label=$\triangleright$]
-    \item \textbf{Tracking (T.2)}: All components are tracked using the same content-addressed version control system.
+    \item \textbf{Tracking (T.2)}: All components SHOULD be tracked using the same content-addressed version control system.
     \begin{itemize}[label=$\square$]
-        \item Is only one of Git, DVC, git-annex or DataLad used across all components?
+        \item Is only one version control system (e.g., Git, DVC, git-annex or DataLad) used across all components?
     \end{itemize}
-    \item \textbf{Actionability (A.1)}: The research object contains sufficient instructions to reproduce all computational results.
+    \item \textbf{Actionability (A.2)}: Procedures SHOULD be specified as executable specifications.
     \begin{itemize}[label=$\square$]
         \item Is the workflow tested regularly to ensure instructions remain accurate?
     \end{itemize}
-    \item \textbf{Modularity (M.1)}: Components are organized in a modular structure.
+    \item \textbf{Modularity (M.1)}: Components SHOULD be organized in a modular structure.
     \begin{itemize}[label=$\square$]
         \item Are raw data, processed data, code, and environment definitions separated into distinct modules?
     \end{itemize}
-    \item \textbf{Ephemerality (E.1)}: Computational results are computed in ephemeral environments.
+    \item \textbf{Portability (P.??)}: The specified computational environments SHOULD be regularly tested to ensure they can be reconstituted as intended.
+    \begin{itemize}[label=$\square$]
+        \item Are there tests to verify that the workflow can run on a clean system that meets the stated requirements?
+    \end{itemize}
+    \item \textbf{Ephemerality (E.1)}: Computational results SHOULD be produced in ephemeral environments.
     \begin{itemize}[label=$\square$]
         \item Is the pipeline tested in a fresh container, batch job, clean virtual machine, or cloud-based instance?
         \item Do scripts clean up temporary files and avoid reliance on pre-existing local state?
     \end{itemize}
-    \item \textbf{Distributability (D.2)}: Environment specifications support reproducible builds.
+    \item \textbf{Distributability (D.2)}: Environment specifications SHOULD support reproducible builds.
     \begin{itemize}[label=$\square$]
         \item Are the exact environment specifications used to generate a specific set of results regularly tested to ensure they can be reconstituted as intended?
         \item Are the exact environment specifications used to generate a specific set of results included in the provenance records to link computational actions to specific environments?
-    \end{itemize}
-    \item \textbf{Distributability (D.4)}: Environment components are self-contained within the dataset.
-    \begin{itemize}[label=$\square$]
         \item Are dependencies or container layers archived within the research object where possible (e.g., using Singularity SIF files, npm package-lock.json files)?
+        \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
     \end{itemize}
 \end{itemize}
 
 \subsubsection*{MAY}
 \begin{itemize}[label=$\triangleright$]
-    \item \textbf{Modularity (M.2)}: Components are included directly or linked as subdatasets.
+    \item \textbf{Modularity (M.2)}: Components MAY be included directly or linked as subdatasets.
     \begin{itemize}[label=$\square$]
         \item Are external datasets or software dependencies included as submodules or linked as submodules?
         \item Is the modular structure documented to clarify how components relate and can be recombined?
