@@ -241,34 +241,13 @@ environments are explicitly specified, versioned, and available within the proje
     \item \textbf{E.1}: Computational results SHOULD be produced in ephemeral environments.
 \end{itemize}
 
-A research object may already have its computational environment documented and versioned, and a researcher may reproduce it by manually reinstalling the same operating system, software, dependencies, and configurations at the matching versions, among other steps---satisfying S, T, and P without Ephemerality.
-Such manual reconstitution is not only inconvenient, but may also be imprecise: environment specifications that cannot be easily tested for reconstitution in different host systems can be subtly incomplete---for instance, through hidden dependencies on the researcher's own system that are not apparent until someone else attempts to reproduce the work.
-Ephemerality (E.1, Table~1) addresses this by requiring the computational environment to be captured in a machine-readable specification from which an equivalent, host-independent environment can be automatically reconstituted on any compatible platform.
+A research object may satisfy Self-containment, Tracking, and Portability while its computational environment has only ever been assembled once, incrementally, on the original researcher's machine.
+Such one-off setup is fragile: specifications that have never been tested by reconstitution can be subtly incomplete---for instance, through hidden dependencies on the researcher's own system that are not apparent until someone else attempts to reproduce the work.
+Ephemerality addresses this: when computing in a temporary, disposable environment built from tracked specifications, researchers validate and exercise Self-containment, Portability, and Actionability---all dependencies must be within the boundary, specifications must be sufficient to reconstitute the environment, and setup and computational procedures become machine-executable steps run end-to-end.
 
-Ephemerality has a reinforcing relationship with the other STAMPED properties:
-\begin{itemize}
-  \item \textbf{Self-containment (S):} The ephemeral environment must be reconstituted from scratch on every run---often by automated tooling---so all necessary specifications must reside within the research object itself.
-  \item \textbf{Tracking (T):} The exact ephemeral computational context becomes a reproducible record alongside code and data.
-  \item \textbf{Actionability (A):} The ephemeral computational environment can be easily reconstituted.
-  \item \textbf{Portability (P):} An ephemeral computational environment often imposes a minimum set of requirements on the host system.
-  \item \textbf{Distributability (D):} Ephemeral environment specifications---container images, reproducible package manifests---are natural units of distribution, packaging a frozen computational state that others can retrieve and run.
-\end{itemize}
-
-% TODO: Actionability cross-cut — E is more actionable when there is tooling that can orchestrate the entire process ephemerally (docker compose, AWS, Slurm), not just a documented instruction to "run in a clean environment"
-If a research object can produce its results in a temporary, disposable environment built solely from its own contents, this provides strong evidence that its other STAMPED properties hold in practice.
-Inputs must be exhaustively specified (S), outputs must be deposited correctly (T), and nothing outside the boundary can be relied upon.
-Ephemerality is a form of validation: ``make it a habit to destroy the environment.''
-
-Ephemeral computation does not validate everything---for instance, it does not catch reliance on system-specific tools present in the disposable environment itself.
-Nevertheless, it substantially raises confidence that the research object is self-contained and portable.
-
-Beyond validation, ephemeral environments enable scaling.
-When each computational job runs in an independent, disposable instance, work can be parallelized across subjects, parameters, or datasets---the pattern demonstrated by the FAIRly big workflow approach.
-Platforms such as Code Ocean operationalize this by treating each capsule as an ephemeral work unit.
-
-Ephemerality is recommended: not every research object can achieve it, and it is not required for STAMPED compliance.
-At a minimum, a research object should be able to produce results from a fresh clone on a system that meets its stated requirements (P).
-At the ideal end, every computation runs in a disposable environment that is created and destroyed per execution.
+Ephemeral computation does not validate everything---for instance, an ephemeral environment with network access may successfully fetch unpinned dependencies at build time, masking a self-containment gap that only surfaces when those resources move or disappear---but it substantially raises confidence that the research object is self-contained, portable, and actionable.
+The spectrum of Ephemerality ranges from producing results from a fresh clone on a system that meets stated requirements (P), to an ideal in which every computation runs in a disposable environment created and destroyed per execution.
+The FAIRly big workflow approach and platforms such as Code Ocean operationalize the ideal end of this spectrum, treating each computation as an ephemeral work unit---which also enables scaling, as independent disposable instances can be parallelized across subjects, parameters, or datasets.
 
 
 
