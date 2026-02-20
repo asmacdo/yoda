@@ -354,6 +354,7 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
     \begin{itemize}[label=$\square$]
         \item Are version control systems such as \texttt{Git} used for code, text, documentation, and configuration files?
         \item Are version control systems such as \texttt{git-annex}, DataLad, or \texttt{Git} LFS used for large binary data?
+        \item Are the exact environment specifications used to generate a set of results included in the provenance records to link computational actions to a particular environments?
     \end{itemize}
     \item \textbf{Actionability (A.1)}: The research object MUST contain sufficient instructions to reproduce all computational results.
     \begin{itemize}[label=$\square$]
@@ -387,7 +388,7 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
 \begin{itemize}[label=$\triangleright$]
     \item \textbf{Tracking (T.2)}: All components SHOULD be tracked using the same content-addressed version control system.
     \begin{itemize}[label=$\square$]
-        \item Is only one version control system (e.g., \texttt{Git}, DVC, \texttt{git-annex}, or DataLad) used across all components?
+        \item Is a common version control system (e.g., \texttt{Git}, DVC, \texttt{git-annex}, or DataLad) used across all components?
     \end{itemize}
     \item \textbf{Actionability (A.2)}: Procedures SHOULD be specified as executable specifications.
     \begin{itemize}[label=$\square$]
@@ -397,20 +398,15 @@ This checklist provides such a guide for assessing compliance with STAMPED princ
     \begin{itemize}[label=$\square$]
         \item Are raw data, processed data, code, and environment definitions separated into distinct modules?
     \end{itemize}
-    \item \textbf{Portability (P.??)}: The specified computational environments SHOULD be regularly tested to ensure they can be reconstituted as intended.
-    \begin{itemize}[label=$\square$]
-        \item Are there tests to verify that the workflow can run on a clean system that meets the stated requirements?
-    \end{itemize}
     \item \textbf{Ephemerality (E.1)}: Computational results SHOULD be produced in ephemeral environments.
     \begin{itemize}[label=$\square$]
         \item Is the pipeline tested in a fresh container, batch job, clean virtual machine, or cloud-based instance?
-        \item Do scripts clean up temporary files and avoid reliance on pre-existing local state?
+        \item Does the workflow spawn disposable environments for each execution, allowing for isolation of runs?
     \end{itemize}
     \item \textbf{Distributability (D.2)}: Environment specifications SHOULD support reproducible builds.
     \begin{itemize}[label=$\square$]
         \item Are the exact environment specifications used to generate a specific set of results regularly tested to ensure they can be reconstituted as intended?
-        \item Are the exact environment specifications used to generate a specific set of results included in the provenance records to link computational actions to specific environments?
-        \item Are dependencies or container layers archived within the research object where possible (e.g., using Singularity SIF files, Node \texttt{package-lock.json} files)?
+        \item Are environment artifacts archived within the research object where possible (e.g., executable binaries, container images)?
         \item Is there a process for updating environment specifications when dependencies change, and are these updates tracked in version control?
     \end{itemize}
 \end{itemize}
