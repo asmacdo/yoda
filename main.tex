@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{enumitem} % Required for itemize options in normative table
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED properties for reproducible research objects}
@@ -9,10 +10,6 @@
 \begin{document}
 
 \maketitle
-
-\section{Immediate TODOs}
-
-- do research on related compositional patterns across standards and fields
 
 \section{Abstract}
 
@@ -26,7 +23,7 @@ Here we adopt the term \textbf{research object} to be a collection of data, code
 Reproducibility of a research object's results requires specific versions of data, code, and computational environments, as well as detailed provenance of how they were used together.
 Currently it is most common for these aspects to be managed separately; this separation introduces complexity and undermines reproducibility, transparency, efficiency, and reliability.
 
-The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) [cite] defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025
+The Workflow Community Initiative’s FAIR Workflows Working Group (WCI-FW) [cite] defines a \textbf{workflow} as ``the formal specification of the data flow and execution control between executable components, the expected datasets, and parameter files.’’ % TODO: cite WCI-FW 2025 https://doi.org/10.1038/s41597-025-04451-9
 WCI-FW systematically mapped existing FAIR and FAIR4RS principles onto computational workflows, defining metrics for workflow FAIRness and recommendations for workflow developers and systems. % TODO: cite FAIR4RS
 However, they explicitly chose not to define new principles for workflows, instead treating them as hybrid data/software objects and applying established FAIR guidelines directly.
 FAIR addresses findability, accessibility, interoperability, and reuse of digital objects, but does not address the operational properties---self-containment, provenance tracking, portability---that make a research object’s results actually reproducible.
@@ -38,20 +35,16 @@ Here we identify and codify these practices as the STAMPED properties (Self-cont
 STAMPED takes a pragmatic approach toward these goals in which each property is a spectrum, from practical minimums---often what researchers are already doing---to aspirational ideals.
 STAMPED complements formal computational workflow guidelines (e.g., FAIR4RS, RO-Crate) and facilitates the transition toward comprehensive workflow automation.
 
-\subsection{Recycle Bin}
-Removed text that may yet be useful! 
-
-TODO These should be worked in where they are needed.
-A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
-A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
-A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
-\textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
+% TODO: work term definitions (workflow, module, component, provenance) into Introduction — see proposals/stamped-acronym.md
+% Recycled prose:
+% A \textbf{workflow} is a sequence of computational steps that transform data within the research object using code components to produce output data.
+% A research object is composed of \textbf{modules}---separately distributable collections of components (e.g., an input dataset, a container image, an analysis pipeline).
+% A \textbf{component} is a trackable element that is part of a module (e.g., a data file, a script, a configuration file, a metadata file); a module contains components, but not every component is itself a module.
+% \textbf{Provenance} is the recorded history of how components were produced or modified, including what actions were performed, what inputs were used, and the versions of everything involved.
 
 
 
-
-
-\section{Results}
+\section{Comments}
 
 \begin{table}[ht]
 \centering
@@ -370,11 +363,78 @@ The spectrum of distributability ranges from publicly accessible components with
 
 
 
-\section{Discussion}
+\subsection{Checklist for compliance to principles}
+% TODO: create checklist applying normative requirements from table above
+% TODO: ordered by importance according to RFC keywords (MUST > SHOULD > MAY)
+% TODO: will be applied to the examples in the Examples section
 
-\subsection{Comparison to Related Approaches}
+\subsection{Enabling tools}
+% TODO: tools before examples to provide more context/understanding
+% TODO: increases interoperability among tools
 
-\subsection{Related Work: Organizational Principles Across Domains}
+STAMPED properties are complementary, not competitive, with existing standards:
+\begin{itemize}
+    \item \textbf{STAMPED + BIDS}: Domain standard within STAMPED structure
+    \item \textbf{STAMPED + RO-Crate}: Organization during research, packaging for publication
+    \item \textbf{STAMPED + FAIR}: Structure projects, then share via FAIR
+    \item \textbf{STAMPED + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
+    \item \textbf{STAMPED + platforms}: Download, version, and compose locally
+\end{itemize}
+
+\subsubsection{git-annex Complexity vs Git LFS Simplicity}
+Achieving STAMPED compliance with git-annex offers maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
+This comes at a cost: a steeper learning curve.
+Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
+The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
+Lightweight STAMPED implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
+
+\subsubsection{When STAMPED Is vs Is Not Appropriate}
+
+\textbf{STAMPED excels when}:
+\begin{itemize}
+    \item Multi-institutional collaboration requires federated datasets
+    \item Long-term reproducibility spans decades or requires offline archives
+    \item Heterogeneous workflows are not tied to a specific platform
+    \item Data sovereignty requirements preclude mandatory cloud upload
+    \item Complex dependency graphs involve subdatasets from diverse sources
+\end{itemize}
+
+\textbf{STAMPED may be more than needed for}:
+\begin{itemize}
+    \item Single-script analyses where version control alone suffices
+    \item Ephemeral exploratory work such as Jupyter notebooks
+    \item Cloud-native ML production where Pachyderm or a platform may be a better fit
+    \item Small teams with simple workflows where DVC or Git LFS may suffice
+\end{itemize}
+
+\subsection{Examples and Case Studies}
+% TODO: point to living documentation, minimal examples/counter-examples
+% TODO: FAIRly big workflow, AIND, non-neuroscience examples?
+
+Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
+
+\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
+Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
+Following YODA principles, the BIDS community reversed this relationship: derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
+
+This architectural shift influenced major neuroimaging tools:
+\begin{itemize}
+    \item \textbf{fMRIPrep}: Switched default output layout to follow YODA structure
+    % TODO: add GitHub issue reference for "yoda" layout proposal
+    \item \textbf{OpenNeuroDerivatives}: Entire derivative dataset collection now follows YODA organization, separating processed outputs from raw data dependencies
+    \item \textbf{BIDS specification}: Updated to accommodate and recommend YODA-compliant layouts for derivative datasets
+\end{itemize}
+
+\textbf{Workflow Platforms}: Infrastructure projects implementing YODA at scale:
+\begin{itemize}
+    \item \textbf{BABS}: Platform implementing the ``FAIRly big workflow'' approach, demonstrating YODA principles for large-scale neuroimaging analyses with containerized pipelines and modular dataset composition
+    \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
+\end{itemize}
+
+These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
+
+\subsection{Lit Review}
+% TODO: restructure as comparison to related approaches, not tool-by-tool breakdown
 
 % TODO: tie in the idea of how lots of specific tools have inherently followed these principles, but how STAMPED  formalizes them and provides a framework for any workflow, not just specific tools, can gain the same benefits.
 
@@ -443,45 +503,6 @@ Platforms provide web GUIs with point-and-click interaction; STAMPED provides CL
 Platforms are centralized (single capsule or project); STAMPED is federated (compose across repositories).
 STAMPED research objects could wrap platform outputs: download results, organize locally with full versioning, and compose across platforms via subdatasets.
 
-\subsection{Trade-offs and Limitations}
-
-\subsubsection{git-annex Complexity vs Git LFS Simplicity}
-Achieving STAMPED compliance with git-annex offers maximum flexibility, supporting many remote types including SSH, S3, HTTP, local drives, and even offline USB drives.
-This comes at a cost: a steeper learning curve.
-Git LFS offers a simpler alternative that is transparent to users and has native GitHub/GitLab support with broad adoption.
-The trade-off: Git LFS is centralized (requires an LFS server), lacks offline capability, and has less flexible remote configurations.
-Lightweight STAMPED implementations using Git LFS are feasible for easier onboarding, sacrificing federation flexibility.
-
-\subsubsection{When STAMPED Is vs Is Not Appropriate}
-
-\textbf{STAMPED excels when}:
-\begin{itemize}
-    \item Multi-institutional collaboration requires federated datasets
-    \item Long-term reproducibility spans decades or requires offline archives
-    \item Heterogeneous workflows are not tied to a specific platform
-    \item Data sovereignty requirements preclude mandatory cloud upload
-    \item Complex dependency graphs involve subdatasets from diverse sources
-\end{itemize}
-
-\textbf{STAMPED may be more than needed for}:
-\begin{itemize}
-    \item Single-script analyses where version control alone suffices
-    \item Ephemeral exploratory work such as Jupyter notebooks
-    \item Cloud-native ML production where Pachyderm or a platform may be a better fit
-    \item Small teams with simple workflows where DVC or Git LFS may suffice
-\end{itemize}
-
-\subsection{Integration Opportunities}
-
-STAMPED properties are complementary, not competitive, with existing standards:
-\begin{itemize}
-    \item \textbf{STAMPED + BIDS}: Domain standard within STAMPED structure
-    \item \textbf{STAMPED + RO-Crate}: Organization during research, packaging for publication
-    \item \textbf{STAMPED + FAIR}: Structure projects, then share via FAIR
-    \item \textbf{STAMPED + workflow systems}: Organize, then execute (Nextflow, Snakemake, CWL)
-    \item \textbf{STAMPED + platforms}: Download, version, and compose locally
-\end{itemize}
-
 \subsection{Future Directions}
 
 \subsubsection{Provenance Standards Convergence}
@@ -492,31 +513,6 @@ Formal STAMPED properties enable ``STAMPED-compliant'' tool certification, simil
 
 \subsubsection{Teaching Materials}
 Operationalized principles provide a foundation for structured curriculum development beyond current tutorial-based approaches.
-
-\subsubsection{Existing Adoption}
-Several research projects have already adopted and documented YODA principles---the predecessor to STAMPED---demonstrating practical utility across domains.
-
-\textbf{BIDS Standard Evolution}: A significant validation of the ``do not look up'' principle occurred within the Brain Imaging Data Structure (BIDS) community.
-Originally, the BIDS specification nested derived data under \texttt{derivatives/} within the original raw dataset, creating upward dependencies that violated portability.
-Following YODA principles, the BIDS community reversed this relationship: derivative datasets now exist independently and reference raw data as subdatasets, not vice versa.
-
-This architectural shift influenced major neuroimaging tools:
-\begin{itemize}
-    \item \textbf{fMRIPrep}: Switched default output layout to follow YODA structure
-    % TODO: add GitHub issue reference for "yoda" layout proposal
-    \item \textbf{OpenNeuroDerivatives}: Entire derivative dataset collection now follows YODA organization, separating processed outputs from raw data dependencies
-    \item \textbf{BIDS specification}: Updated to accommodate and recommend YODA-compliant layouts for derivative datasets
-\end{itemize}
-
-\textbf{Workflow Platforms}: Infrastructure projects implementing YODA at scale:
-\begin{itemize}
-    \item \textbf{BABS}: Platform implementing the ``FAIRly big workflow'' approach, demonstrating YODA principles for large-scale neuroimaging analyses with containerized pipelines and modular dataset composition
-    \item \textbf{CRCNS.org}: Neuroscience data sharing platform providing YODA-structured templates and validation tools
-\end{itemize}
-
-These adoptions demonstrate that STAMPED properties solve practical organizational challenges across scales, from individual studies to community-wide infrastructure.
-
-\section{Methods}
 \section{Data Availability}
 \section{Code Availability}
 \section{References}
