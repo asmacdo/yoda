@@ -1,0 +1,34 @@
+name: Build diff-pdf container
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'containers/diff-pdf*'
+      - '.github/workflows/build-container.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: containers
+          file: containers/diff-pdf.Dockerfile
+          push: true
+          tags: ghcr.io/myyoda/diff-pdf:latest
