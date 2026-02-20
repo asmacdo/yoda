@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STAMPED Properties for Reproducible Research Objects</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f6f8fa;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background: #24292e;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    header h1 { font-size: 1rem; font-weight: 500; }
+    header a {
+      color: #79b8ff;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    header a:hover { text-decoration: underline; }
+    .viewer {
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+    }
+    .viewer object,
+    .viewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .fallback {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+    }
+    .fallback a {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      background: #2ea44f;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>STAMPED Paper &mdash; current build</h1>
+    <div>
+      <a href="main.pdf" download>Download PDF</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/myyoda/principles-paper">Repository</a>
+    </div>
+  </header>
+  <div class="viewer">
+    <iframe src="main.pdf" title="Paper PDF"></iframe>
+  </div>
+  <noscript>
+    <div class="fallback" style="display:block">
+      <p>Your browser cannot display the PDF inline.</p>
+      <a href="main.pdf">Download main.pdf</a>
+    </div>
+  </noscript>
+</body>
+</html>
