@@ -72,6 +72,8 @@ D & Distributability: all modules and components are shareable in a persistent s
 \end{tabular}
 \end{table}
 
+The items containing keywords “MUST”, “SHALL”, “SHOULD”, and “MAY” in are to be interpreted as described in RFC 2119. % TODO: cite RFC
+
 
 
 \subsection{Self-contained}
@@ -283,31 +285,66 @@ Researchers routinely begin by downloading containers, fetching published datase
 
 The spectrum of distributability ranges from publicly accessible components with retrieval instructions, through persistent hosting on archival infrastructure (Zenodo, PyPI, conda-forge, DANDI) with frozen versions and content-addressed identifiers---analogous to moving from a development checkout (\texttt{pip install -e .}) to a pinned release (\texttt{pip freeze})---to an ideal in which all external dependencies are mirrored or the entire research object is packaged as a self-contained archive (e.g., a built container or a zipped RO-Crate).
 
+
+
 \begin{table}[ht]
 \centering
-\caption{Imperative requirements for each STAMPED property. These requirements represent the minimum necessary conditions for a research object to be considered compliant with each property, while the descriptions in Table~1 provide a spectrum of best practices and ideals.}
-\begin{tabular}{l l p{10cm}}
+\begin{tabular}{|l|p{10cm}|}
 \hline
-\textbf{ID} & \textbf{Property} & \textbf{Requirement} \\
+\textbf{Principle} & \textbf{Requirements} \\
 \hline
-S.1  & Self-contained & All modules and components essential to replicate computational execution MUST be contained within a single top-level research object \\
-T.1  & Tracked        & Version information MUST be recorded for all components \\
-T.2  & Tracked        & All components SHOULD be tracked using the same content-addressed version control system \\
-T.3  & Tracked        & Provenance of all modifications MUST be recorded \\
-T.4  & Tracked        & Code-driven provenance SHOULD be recorded programmatically and MUST include the versions of all components involved \\
-A.1  & Actionable     & Research object MUST contain sufficient instructions to reproduce all computational results \\
-A.2  & Actionable     & Procedures SHOULD be specified as executable specifications \\
-M.1  & Modular        & Components SHOULD be organized in a modular structure \\
-M.2  & Modular        & Components MAY be included directly or linked as subdatasets \\
-P.1  & Portable       & Procedures MUST NOT depend on undocumented host environment state \\
-P.2  & Portable       & Computational environments MUST be explicitly specified \\
-P.3  & Portable       & Environment definitions MUST be version controlled \\
-E.1  & Ephemeral      & Computational results SHOULD be produced in ephemeral environments \\
-% TODO: D rules need refinement — see #38 discussion
-D.1  & Distributable  & All referenced modules and components MUST be persistently retrievable by others \\
-D.2  & Distributable  & Environment specifications SHOULD support reproducible builds \\
+\textbf{Self-contained} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item All modules and components needed to understand and execute the Research Object are retrievable as a single unit.
+  \item External dependencies are explicitly documented with retrieval instructions.
+  \item There are no implicit references to undocumented external resources.
+\end{itemize} \\
+\hline
+\textbf{Tracked} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item Every component has version information (commit hash, tag, or identifier).
+  \item Changes to components are recorded with timestamps and authorship.
+  \item Provenance records capture the computational history, context, and transformations.
+\end{itemize} \\
+\hline
+\textbf{Actionable} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item Instructions for executing procedures are present and unambiguous.
+  \item Execution paths can be followed manually or automated programmatically.
+  \item The Research Object transitions from documentation to operational capability.
+\end{itemize} \\
+\hline
+\textbf{Modular} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item Modules can be independently modified.
+  \item Components are organized in logical, separable units.
+  \item Modules can be composed together or used in isolation.
+\end{itemize} \\
+\hline
+\textbf{Portable} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item System requirements and dependencies are explicitly documented.
+  \item The Research Object is flexible enough to execute on different host environments without modification by the user.
+  \item Environment specifications are machine-readable where possible.
+\end{itemize} \\
+\hline
+\textbf{Ephemeral} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item Computation can occur in temporary, disposable environments.
+  \item Results are reproducible without knowledge of previous runs.
+  \item No reliance on external configurations or host system states (such as OS registry modifications).
+\end{itemize} \\
+\hline
+\textbf{Distributable} &
+\begin{itemize}[noitemsep,topsep=0pt,leftmargin=*]
+  \item All modules and components can be shared in a persistent, retrievable state.
+  \item Dependencies are frozen or pinned to specific versions across systems.
+  \item The Research Object can be obtained by others in the same state as intended.
+\end{itemize} \\
 \hline
 \end{tabular}
+\caption{Normative statements about STAMPED properties of research objects.}
+\label{tab:stamped-principles}
 \end{table}
 
 
