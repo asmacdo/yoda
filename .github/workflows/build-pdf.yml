@@ -16,6 +16,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
   build:
@@ -54,6 +55,19 @@ jobs:
         with:
           name: paper-pdf
           path: main.pdf
+
+      - name: Comment on PR with PDF link
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body: |
+            <!-- pdf-preview -->
+            ### Paper PDF
+            Built from ${{ github.event.pull_request.head.sha }}.
+            **[Download from workflow artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+          edit-mode: replace
 
   deploy:
     if: github.ref == 'refs/heads/main'
