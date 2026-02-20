@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{enumitem} % Required for itemize options in normative table
+\usepackage{amssymb} % Required for \square symbol
 
 % Scientific Data: max 110 chars, no colons or parentheses, capitalize only first word + proper nouns
 \title{STAMPED properties for reproducible research objects}
@@ -369,10 +370,57 @@ The spectrum of distributability ranges from publicly accessible components with
 
 
 
+
+
 \subsection{Checklist for compliance to principles}
-% TODO: create checklist applying normative requirements from table above
-% TODO: ordered by importance according to RFC keywords (MUST > SHOULD > MAY)
-% TODO: will be applied to the examples in the Examples section
+
+This checklist provides a practical guide for assessing a Research Object's compliance with STAMPED principles, ordered by the strength of the requirement (MUST, SHOULD, MAY).
+
+\subsubsection*{Self-containment}
+\begin{itemize}[label=$\square$]
+    \item \textbf{MUST}: All modules and components essential to replicate computational execution are contained within a single top-level research object (S.1).
+\end{itemize}
+
+\subsubsection*{Tracking}
+\begin{itemize}[label=$\square$]
+    \item \textbf{MUST}: Version information is tracked for all components (T.1).
+    \item \textbf{SHOULD}: All components are tracked using the same content-addressed version control system (T.2).
+\end{itemize}
+
+\subsubsection*{Actionability}
+\begin{itemize}[label=$\square$]
+    \item \textbf{MUST}: The research object contains sufficient instructions to reproduce all computational results (A.1).
+\end{itemize}
+
+\subsubsection*{Modularity}
+\begin{itemize}[label=$\square$]
+    \item \textbf{SHOULD}: Components are organized in a modular structure (M.1).
+    \item \textbf{MAY}: Components are included directly or linked as subdatasets (M.2).
+\end{itemize}
+
+\subsubsection*{Portability}
+\begin{itemize}[label=$\square$]
+    \item \textbf{MUST NOT}: Procedures depend on undocumented host environment state (hardcoded paths, implicitly available tools, specific OS configurations) (P.1).
+    \item \textbf{MUST}: Computational environments are explicitly specified (P.2).
+    \item \textbf{MUST}: Environment definitions are version controlled (P.3).
+\end{itemize}
+
+\subsubsection*{Ephemerality}
+\begin{itemize}[label=$\square$]
+    \item \textbf{SHOULD}: Computational results are computed in ephemeral environments (E.1).
+\end{itemize}
+
+\subsubsection*{Distributability}
+\begin{itemize}[label=$\square$]
+    \item \textbf{MUST}: Computational environments are explicitly specified (D.1).
+    \item \textbf{MUST}: Environment definitions are version controlled (D.3).
+    \item \textbf{SHOULD}: Environment specifications support reproducible builds (D.2).
+    \item \textbf{SHOULD}: Environment components are self-contained within the dataset (D.4).
+\end{itemize}
+
+
+
+
 
 \subsection{Enabling tools}
 % TODO: tools before examples to provide more context/understanding
